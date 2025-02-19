@@ -58,7 +58,8 @@ export default defineConfigWithVueTs(
       ],
 
       // 禁止未使用的变量
-      'no-unused-vars': 'error'
+      'no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn'
     }
   }
 )
