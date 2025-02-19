@@ -10,13 +10,18 @@ export default defineConfig(({ mode }) => {
 
   return {
     server: {
-      port: Number(vitEnv.VITE_APP_PORT),
+      port: Number(vitEnv.VITE_APP_PORT)
     },
     plugins: setupVitePlugins(vitEnv),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
-    },
+        cmp: fileURLToPath(new URL('./src/components', import.meta.url)),
+        views: fileURLToPath(new URL('./src/views', import.meta.url)),
+        utils: fileURLToPath(new URL('./src/utils', import.meta.url)),
+        assets: fileURLToPath(new URL('./src/assets', import.meta.url)),
+        api: fileURLToPath(new URL('./src/api', import.meta.url))
+      }
+    }
   }
 })

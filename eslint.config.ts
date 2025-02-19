@@ -7,11 +7,6 @@ import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescri
 // 导入 Prettier 的跳过格式化配置
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
-// 如果需要在 `.vue` 文件中使用更多的语言（不仅限于 `ts`），可以取消注释以下几行代码：
-// import { configureVueProject } from '@vue/eslint-config-typescript'
-// configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-// 更多信息请参考：https://github.com/vuejs/eslint-config-typescript/#advanced-setup
-
 // 使用 `defineConfigWithVueTs` 函数定义 ESLint 配置
 export default defineConfigWithVueTs(
   {
@@ -39,12 +34,14 @@ export default defineConfigWithVueTs(
   {
     name: 'custom-rules',
     rules: {
+      // 配置 .vue 文件中组件名称的单词数量
       'vue/multi-word-component-names': [
         'error',
         {
           ignores: ['index', 'App', 'Register', '[id]', '[url]']
         }
       ],
+      // 配置 .vue 文件中组件名称的大小写
       'vue/component-name-in-template-casing': [
         'error',
         'PascalCase',
