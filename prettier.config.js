@@ -1,5 +1,5 @@
 /** @type {import('prettier').Options} */
-const config = {
+export default {
   // 在语句末尾添加分号
   semi: false,
   // 使用单引号而不是双引号
@@ -22,5 +22,3 @@ const config = {
   // 每个缩进级别的空格数
   tabWidth: 2
 }
-
-module.exports = config

@@ -7,13 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { setupHtmlPlugin } from './html'
 import { setupUnocssPlugin } from './unocss'
 export function setupVitePlugins(viteEnv: ImportMetaEnv) {
-  const plugins: PluginOption[] = [
-    vue(),
-    vueJsx(),
-    vueDevTools(),
-    setupHtmlPlugin(viteEnv),
-    setupUnocssPlugin(),
-  ]
+  const plugins: PluginOption[] = [vue(), vueJsx(), vueDevTools(), setupHtmlPlugin(viteEnv), setupUnocssPlugin()]
 
   return plugins
 }

@@ -4,13 +4,19 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "pnpm lint",
+    "*.{json,md,css,scss}": "pnpm format"
   },
   "dependencies": {
     "pinia": "^3.0.1",
@@ -27,8 +33,11 @@
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.20.1",
     "eslint-plugin-vue": "^9.32.0",
+    "husky": "^8.0.3",
     "jiti": "^2.4.2",
+    "lint-staged": "^13.3.0",
     "npm-run-all2": "^7.0.2",
+    "only-allow": "^1.2.1",
     "prettier": "^3.5.1",
     "typescript": "~5.7.3",
     "unocss": "^66.0.0",

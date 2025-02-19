@@ -1,0 +1,6 @@
+# 忽略 .git 目录
+.git
+# 忽略 .svn 目录
+.svn
+# 忽略所有 .yaml 结尾的文件
+*.yaml

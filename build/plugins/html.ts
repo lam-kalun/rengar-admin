@@ -4,8 +4,8 @@ export function setupHtmlPlugin(viteEnv: ImportMetaEnv) {
   return htmlTemplate({
     inject: {
       data: {
-        title: viteEnv.VITE_APP_TITLE,
-      },
-    },
+        title: viteEnv.VITE_APP_TITLE
+      }
+    }
   })
 }
