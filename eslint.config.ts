@@ -1,24 +1,64 @@
+// 导入 Vue 的 ESLint 插件
 import pluginVue from 'eslint-plugin-vue'
+
+// 导入 Vue 和 TypeScript 的 ESLint 配置
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
+
+// 导入 Prettier 的跳过格式化配置
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
-// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
+// 如果需要在 `.vue` 文件中使用更多的语言（不仅限于 `ts`），可以取消注释以下几行代码：
 // import { configureVueProject } from '@vue/eslint-config-typescript'
 // configureVueProject({ scriptLangs: ['ts', 'tsx'] })
-// More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
+// 更多信息请参考：https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
+// 使用 `defineConfigWithVueTs` 函数定义 ESLint 配置
 export default defineConfigWithVueTs(
   {
+    // 配置名称
     name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
+    // 需要检查的文件类型
+    files: ['**/*.{ts,mts,tsx,vue}']
   },
 
   {
+    // 配置名称
     name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    // 需要忽略的文件或目录
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**']
   },
 
+  // 使用 Vue 的基本配置
   pluginVue.configs['flat/essential'],
+  // 使用 Vue 和 TypeScript 的推荐配置
   vueTsConfigs.recommended,
+  // 跳过 Prettier 的格式化配置
   skipFormatting,
+
+  // 自定义规则
+  {
+    name: 'custom-rules',
+    rules: {
+      'vue/multi-word-component-names': [
+        'error',
+        {
+          ignores: ['index', 'App', 'Register', '[id]', '[url]']
+        }
+      ],
+      'vue/component-name-in-template-casing': [
+        'error',
+        'PascalCase',
+        {
+          registeredComponentsOnly: false
+        }
+      ],
+      // 配置 .vue 文件中 <template>、<script> 和 <style> 标签的顺序
+      'vue/block-order': [
+        'error',
+        {
+          order: ['template', 'script', 'style']
+        }
+      ]
+    }
+  }
 )
