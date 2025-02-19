@@ -55,7 +55,10 @@ export default defineConfigWithVueTs(
         {
           order: ['template', 'script', 'style']
         }
-      ]
+      ],
+
+      // 禁止未使用的变量
+      'no-unused-vars': 'error'
     }
   }
 )
