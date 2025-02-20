@@ -25,7 +25,8 @@ const Configuration: UserConfig = {
         'perf', // 性能优化
         'ci', // CI 配置变更
         'build', // 构建系统或外部依赖变更
-        'wip' // 工作进行中
+        'wip', // 工作进行中,
+        'init' // 初始化
       ]
     ],
     'type-case': [RuleConfigSeverity.Disabled], // 关闭对 type 大小写的校验
