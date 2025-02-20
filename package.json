@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "pnpm lint"
+    "*.{js,jsx,ts,tsx,vue}": "pnpm lint"
   },
   "dependencies": {
     "@renger/axios": "workspace:^",
