@@ -15,8 +15,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": "pnpm lint",
-    "*.{json,md,css,scss}": "pnpm format"
+    "*.{js,ts,vue}": "pnpm lint"
   },
   "dependencies": {
     "@renger/axios": "workspace:^",
@@ -26,9 +25,6 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/config-conventional": "^19.7.1",
-    "@commitlint/types": "^19.5.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.13.4",
     "@vitejs/plugin-vue": "^5.2.1",
