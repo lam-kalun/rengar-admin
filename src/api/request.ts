@@ -50,7 +50,7 @@ class HttpClient extends BaseHttpClient {
     return this.instance.get<T>(url, config)
   }
 
-  public post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  public post<T>(url: string, data?: Recordable, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
     return this.instance.post<T>(url, data, config)
   }
 
