@@ -13,7 +13,7 @@ export default defineConfigWithVueTs(
     // 配置名称
     name: 'app/files-to-lint',
     // 需要检查的文件类型
-    files: ['**/*.{ts,mts,tsx,vue}']
+    files: ['**/*.{js,jsx,ts,mts,tsx,vue}']
   },
 
   {
