@@ -30,6 +30,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.7.1
         version: 19.7.1
+      '@commitlint/types':
+        specifier: ^19.5.0
+        version: 19.5.0
       '@tsconfig/node22':
         specifier: ^22.0.0
         version: 22.0.0
