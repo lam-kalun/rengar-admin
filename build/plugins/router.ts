@@ -10,34 +10,56 @@ export function setupRouter(): Plugin {
       const routesFile = path.resolve(__dirname, '../../src/router/routes.ts')
 
       const routes = await generateRoutes(viewsDir)
-      const routesContent = `export const routes = ${JSON.stringify(routes, null, 2)
-        .replace(/"(\w+)":/g, '$1:')
-        .replace(/"component": "(.*?)"/g, 'component: $1')}`
+      const routesContent = `export const routes = [
+  ${routes
+    .map(
+      (route) => `{
+    path: '${route.path}',
+    name: '${route.name}',
+    component: ${route.component},
+    meta: { title: '${route.meta.title}' }
+  }`
+    )
+    .join(',\n  ')}
+]`
 
       await fs.writeFile(routesFile, routesContent, 'utf-8')
     }
   }
 }
 
-async function generateRoutes(dir: string) {
+async function generateRoutes(dir: string, parentPath: string = '') {
   const entries = await fs.readdir(dir, { withFileTypes: true })
   const routes = []
 
   for (const entry of entries) {
     if (entry.isDirectory()) {
-      const indexFile = path.resolve(dir, entry.name, 'index.vue')
-      const dynamicFile = path.resolve(dir, entry.name, '[xxx].vue')
+      const currentPath = path.join(dir, entry.name)
+      const indexFile = path.resolve(currentPath, 'index.vue')
+      const dynamicFile = path.resolve(currentPath, '[xxx].vue')
+      const relativePath = path.relative(path.resolve(__dirname, '../../src/views'), currentPath)
+      const routePath = parentPath ? `${parentPath}/${entry.name}` : `/${entry.name}`
+
+      const route: any = {
+        path: routePath,
+        name: relativePath.replace(/\//g, '-'),
+        meta: { title: entry.name }
+      }
 
       if (await fileExists(indexFile)) {
-        routes.push({
-          path: `/${entry.name}`,
-          component: `() => import('@/views/${entry.name}/index.vue')`
-        })
+        route.component = `() => import('@/views/${relativePath}/index.vue')`
       } else if (await fileExists(dynamicFile)) {
-        routes.push({
-          path: `/${entry.name}/:xxx`,
-          component: `() => import('@/views/${entry.name}/[xxx].vue')`
-        })
+        route.path = `${routePath}/:xxx`
+        route.component = `() => import('@/views/${relativePath}/[xxx].vue')`
+      }
+
+      const children = await generateRoutes(currentPath, routePath)
+      if (children.length > 0) {
+        route.children = children
+      }
+
+      if (route.component || children.length > 0) {
+        routes.push(route)
       }
     }
   }
