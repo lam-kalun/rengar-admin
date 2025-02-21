@@ -6,9 +6,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "dev:prod": "vite --mode production",
+    "build": "vite build",
+    "build:test": "vite build --mode test",
     "preview": "vite preview",
-    "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
