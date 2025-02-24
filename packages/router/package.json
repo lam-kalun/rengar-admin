@@ -1,9 +1,8 @@
 {
-  "name": "@rengar/axios",
+  "name": "router",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
-  "private": true,
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

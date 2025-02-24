@@ -1,4 +1,4 @@
-import BaseHttpClient from '@renger/axios'
+import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 

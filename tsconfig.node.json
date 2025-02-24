@@ -3,6 +3,7 @@
   "include": [
     "typings/node/*.d.ts",
     "typings/common/*.d.ts",
+    "packages/**/*",
     "build/**/*",
     "vite.config.*",
     "vitest.config.*",
