@@ -172,7 +172,6 @@ type RouterKey =
 // 创建文件监听器
 export function createFileWatcher(
   viewsDir: string,
-  // eslint-disable-next-line no-unused-vars
   callback: (_eventType: fs.WatchEventType, _filename: string | null) => void
 ): fs.FSWatcher {
   const watcher = fs.watch(viewsDir, { recursive: true }, callback)
