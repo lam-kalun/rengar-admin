@@ -16,7 +16,7 @@ export function vitePluginRoutes(option: Option): Plugin {
       "// 此文件由vite-plugin-routes自动生成，手动修改componet、meta的值不会被覆盖，其他请勿手动修改\n\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
 
     // 读取现有的路由配置
-    const existingRoutes: Record<string, { component: string; meta: any }> = {}
+    const existingRoutes: Record<string, { component: string; meta: string }> = {}
     if (fs.existsSync(outputPath)) {
       const content = fs.readFileSync(outputPath, 'utf-8')
       const routeRegex =
