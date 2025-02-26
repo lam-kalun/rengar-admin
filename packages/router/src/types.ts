@@ -1,3 +1,4 @@
+import { RouteMeta } from 'vue-router'
 export interface Layout {
   base: string
   blank: string
@@ -9,11 +10,6 @@ export interface Option {
   output: string
   layout: Layout
 }
-
-interface RouteMeta {
-  title: string
-}
-// 定义树节点类型
 
 export interface TreeNode {
   name: string
