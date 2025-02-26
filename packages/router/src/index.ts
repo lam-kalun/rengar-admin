@@ -1,63 +1,92 @@
 import fs from 'fs'
 import path from 'path'
 import type { Plugin } from 'vite'
-import type { Option } from './types'
+import type { Layout, Option } from './types'
 
 export function vitePluginRoutes(option: Option): Plugin {
-  const { entry } = option
+  const { entry, layout } = option
   const root = process.cwd()
   const viewsDir = path.resolve(root, entry)
-  // const outputFile = path.resolve(root, output)
+  // const outputPath = path.resolve(root, output)
 
   return {
     name: 'vite-plugin-routes',
     buildStart() {
-      const fileList = readDirectory(viewsDir, viewsDir)
-      console.dir(buildTree(fileList), { depth: null })
+      console.dir(generateTree(viewsDir, viewsDir, 1, layout), { depth: null })
     }
   }
-}
 
-function readDirectory(dir: string, baseDir: string) {
-  const paths: string[] = []
-  const files = fs.readdirSync(dir)
-  for (const file of files) {
-    const filePath = path.join(dir, file)
-    const stat = fs.statSync(filePath)
-    if (stat.isDirectory() && !file.startsWith('_')) {
-      paths.push(...readDirectory(filePath, baseDir))
-    } else if (stat.isFile() && (file === 'index.vue' || /\[.*\]\.vue/.test(file))) {
-      paths.push(path.relative(baseDir, filePath).replace(/\\/g, '/'))
+  type TreeNode = {
+    name: string
+    path: string
+    level: number
+    component: string
+    children?: TreeNode[]
+    meta: {
+      title: string
     }
   }
-  return paths
-}
 
-type TreeNode = {
-  name: string
-  path: string
-  children: TreeNode[]
-}
+  function generateTree(dir: string, root: string, level: number, layout: Layout): TreeNode[] {
+    const result: TreeNode[] = []
+    const files = fs.readdirSync(dir)
 
-function buildTree(paths: string[]): TreeNode[] {
-  const root: TreeNode = { name: '', path: '', children: [] }
+    // 过滤掉以_开头的目录
+    const validFiles = files.filter((file) => !file.startsWith('_'))
 
-  paths.forEach((path) => {
-    const parts = path.split('/')
-    let currentNode = root
+    for (const file of validFiles) {
+      const fullPath = path.join(dir, file)
+      const stat = fs.statSync(fullPath)
 
-    parts.forEach((part, index) => {
-      const currentPath = parts.slice(0, index + 1).join('/')
-      let childNode = currentNode.children.find((child) => child.name === part)
+      if (stat.isDirectory()) {
+        // 检查目录下的合法文件数量
+        const vueFiles = fs.readdirSync(fullPath).filter((f) => f === 'index.vue' || /^\[.*\]\.vue$/.test(f))
+        if (vueFiles.length > 1) {
+          throw new Error(
+            `目录 ${fullPath} 下存在多个Vue文件：${vueFiles.join(', ')}。每个目录只允许存在一个合法的Vue文件。`
+          )
+        }
 
-      if (!childNode) {
-        childNode = { name: part, path: currentPath, children: [] }
-        currentNode.children.push(childNode)
+        // 检查目录下是否有合法文件
+        const hasValidFile = vueFiles.length === 1
+
+        // 获取相对路径部分用于生成name和path
+        const relativePath = path.relative(root, fullPath)
+        const pathSegments = relativePath.split(path.sep)
+        const name = pathSegments.join('-')
+
+        // 检查是否有动态路由文件
+        const dynamicFile = fs.readdirSync(fullPath).find((f) => /^\[(.*?)\]\.vue$/.test(f))
+
+        let routePath = '/' + relativePath.split(path.sep).join('/')
+        if (dynamicFile) {
+          const param = dynamicFile.match(/^\[(.*?)\]\.vue$/)?.[1]
+          routePath += `/:${param}`
+        }
+
+        const children = generateTree(fullPath, root, level + 1, layout)
+
+        // 如果目录下有合法文件或者有有效的子路由，则添加到结果中
+        if (hasValidFile || children.length > 0) {
+          const node: TreeNode = {
+            name,
+            path: routePath,
+            level,
+            component: hasValidFile
+              ? dynamicFile
+                ? `@/views${routePath.replace(/:[^/]+/g, '[id]')}.vue`
+                : `@/views${routePath.replace(/:[^/]+/g, '[id]')}/index.vue`
+              : layout.base,
+            meta: {
+              title: pathSegments.join('_')
+            },
+            ...(children.length > 0 ? { children } : {})
+          }
+          result.push(node)
+        }
       }
+    }
 
-      currentNode = childNode
-    })
-  })
-
-  return root.children
+    return result
+  }
 }
