@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <div>2222</div>
-    <RouterView />
-  </div>
+  <div></div>
 </template>
 
 <script setup lang="ts"></script>

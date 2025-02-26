@@ -8,7 +8,8 @@ export const routes: RouteRecordRaw[] = [
     path: '/b',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'b'
+      title: 'b',
+      auths: ['admin']
     },
     children: [
       {
