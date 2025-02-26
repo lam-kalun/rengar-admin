@@ -14,11 +14,12 @@ interface RouteMeta {
   title: string
 }
 // 定义树节点类型
+
 export interface TreeNode {
   name: string
   path: string
-  children?: TreeNode[]
-  parent: string
+  level: number
   component: string
+  children?: TreeNode[]
   meta: RouteMeta
 }

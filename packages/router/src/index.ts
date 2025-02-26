@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import type { Plugin } from 'vite'
-import type { Layout, Option } from './types'
+import type { Layout, Option, TreeNode } from './types'
 
 export function vitePluginRoutes(option: Option): Plugin {
   const { entry, layout } = option
@@ -13,17 +13,18 @@ export function vitePluginRoutes(option: Option): Plugin {
     name: 'vite-plugin-routes',
     buildStart() {
       console.dir(generateTree(viewsDir, viewsDir, 1, layout), { depth: null })
-    }
-  }
 
-  type TreeNode = {
-    name: string
-    path: string
-    level: number
-    component: string
-    children?: TreeNode[]
-    meta: {
-      title: string
+      // 监听views目录的文件变化
+      const watcher = fs.watch(viewsDir, { recursive: true }, (eventType, filename) => {
+        if (filename) {
+          console.log(`检测到文件变化: ${filename}, 事件类型: ${eventType}`)
+          console.dir(generateTree(viewsDir, viewsDir, 1, layout), { depth: null })
+        }
+      })
+
+      // 在插件关闭时停止监听
+      process.on('SIGTERM', () => watcher.close())
+      process.on('exit', () => watcher.close())
     }
   }
 
@@ -56,7 +57,7 @@ export function vitePluginRoutes(option: Option): Plugin {
         const name = pathSegments.join('-')
 
         // 检查是否有动态路由文件
-        const dynamicFile = fs.readdirSync(fullPath).find((f) => /^\[(.*?)\]\.vue$/.test(f))
+        const dynamicFile = fs.readdirSync(fullPath).find((f) => /^\[.*\]\.vue$/.test(f))
 
         let routePath = '/' + relativePath.split(path.sep).join('/')
         if (dynamicFile) {
