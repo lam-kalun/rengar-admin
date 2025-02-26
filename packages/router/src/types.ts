@@ -9,6 +9,7 @@ export interface Option {
   entry: string
   output: string
   layout: Layout
+  typeDir: string
 }
 
 export interface TreeNode {

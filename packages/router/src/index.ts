@@ -4,10 +4,11 @@ import type { Plugin } from 'vite'
 import type { Layout, Option, TreeNode } from './types'
 
 export function vitePluginRoutes(option: Option): Plugin {
-  const { entry, output, layout } = option
+  const { entry, output, layout, typeDir } = option
   const root = process.cwd()
   const viewsDir = path.resolve(root, entry)
   const outputPath = path.resolve(root, output)
+  const typesDir = path.resolve(root, typeDir)
 
   function generateRouteString(routes: TreeNode[]): string {
     const indent = '  '
@@ -72,6 +73,24 @@ export function vitePluginRoutes(option: Option): Plugin {
       const routes = generateTree(viewsDir, viewsDir, 1, layout)
       const routeString = generateRouteString(routes)
       fs.writeFileSync(outputPath, routeString, 'utf-8')
+
+      // 生成路由类型定义
+      const routeNames = new Set<string>()
+      function collectRouteNames(nodes: TreeNode[]) {
+        for (const node of nodes) {
+          routeNames.add(node.name)
+          if (node.children) {
+            collectRouteNames(node.children)
+          }
+        }
+      }
+      collectRouteNames(routes)
+
+      const typeContent = `// 此文件由vite-plugin-routes自动生成，请勿手动修改
+
+export type RouterKey =
+  | '${Array.from(routeNames).join("'\n  | '")}'`
+      fs.writeFileSync(typesDir, typeContent, 'utf-8')
 
       // 监听views目录的文件变化
       const watcher = fs.watch(viewsDir, { recursive: true }, (eventType, filename) => {
