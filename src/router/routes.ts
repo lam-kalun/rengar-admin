@@ -1,4 +1,4 @@
-// 此文件由vite-plugin-routes自动生成，请勿手动修改
+// 此文件由vite-plugin-routes自动生成，手动修改componet、meta的值不会被覆盖，其他请勿手动修改
 
 import type { RouteRecordRaw } from 'vue-router'
 
@@ -8,8 +8,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/b',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: '你好',
-      auths: ['admin', '2333']
+      title: 'b'
     },
     children: [
       {
@@ -18,7 +17,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/b/c/index.vue'),
         meta: {
           title: 'b_c'
-        }
+        },
       },
       {
         name: 'b-e',
@@ -26,7 +25,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/b/e/index.vue'),
         meta: {
           title: 'b_e'
-        }
+        },
       },
       {
         name: 'b-f',
@@ -34,7 +33,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/b/f/[id].vue'),
         meta: {
           title: 'b_f'
-        }
+        },
       }
     ]
   },
@@ -52,7 +51,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/c/index.vue'),
         meta: {
           title: 'c'
-        }
+        },
       }
     ]
   },
@@ -70,7 +69,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/d/[id].vue'),
         meta: {
           title: 'd'
-        }
+        },
       }
     ]
   },
@@ -88,7 +87,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/home/index.vue'),
         meta: {
           title: 'home'
-        }
+        },
       }
     ]
   },
@@ -106,7 +105,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/user/add/[id].vue'),
         meta: {
           title: 'user_add'
-        }
+        },
       },
       {
         name: 'user-list',
@@ -122,7 +121,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/user/list/edit/[id].vue'),
             meta: {
               title: 'user_list_edit'
-            }
+            },
           },
           {
             name: 'user-list-show',
@@ -130,7 +129,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/user/list/show/index.vue'),
             meta: {
               title: 'user_list_show'
-            }
+            },
           }
         ]
       }

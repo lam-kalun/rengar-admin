@@ -13,7 +13,7 @@ export function vitePluginRoutes(option: Option): Plugin {
   function generateRouteString(routes: TreeNode[]): string {
     const indent = '  '
     let result =
-      "// 此文件由vite-plugin-routes自动生成，请勿手动修改\n\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
+      "// 此文件由vite-plugin-routes自动生成，手动修改componet、meta的值不会被覆盖，其他请勿手动修改\n\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
 
     // 读取现有的路由配置
     const existingRoutes: Record<string, { component: string; meta: any }> = {}
@@ -88,7 +88,7 @@ export function vitePluginRoutes(option: Option): Plugin {
 
       const typeContent = `// 此文件由vite-plugin-routes自动生成，请勿手动修改
 
-export type RouterKey =
+type RouterKey =
   | '${Array.from(routeNames).join("'\n  | '")}'`
       fs.writeFileSync(typesDir, typeContent, 'utf-8')
 
