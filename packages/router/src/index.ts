@@ -4,21 +4,60 @@ import type { Plugin } from 'vite'
 import type { Layout, Option, TreeNode } from './types'
 
 export function vitePluginRoutes(option: Option): Plugin {
-  const { entry, layout } = option
+  const { entry, output, layout } = option
   const root = process.cwd()
   const viewsDir = path.resolve(root, entry)
-  // const outputPath = path.resolve(root, output)
+  const outputPath = path.resolve(root, output)
+
+  function generateRouteString(routes: TreeNode[]): string {
+    const indent = '  '
+    let result =
+      "// 此文件由vite-plugin-routes自动生成，请勿手动修改\n\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
+
+    function stringifyNode(node: TreeNode, level: number = 1): string {
+      const spaces = indent.repeat(level)
+      let str = spaces + '{\n'
+
+      // 基本属性
+      str += `${spaces}${indent}name: '${node.name}',\n`
+      str += `${spaces}${indent}path: '${node.path}',\n`
+      str += `${spaces}${indent}component: () => import('${node.component}'),\n`
+
+      // meta属性
+      str += `${spaces}${indent}meta: {\n`
+      str += `${spaces}${indent}${indent}title: '${node.meta.title}'\n`
+      str += `${spaces}${indent}},\n`
+
+      // children属性
+      if (node.children && node.children.length > 0) {
+        str += `${spaces}${indent}children: [\n`
+        str += node.children.map((child) => stringifyNode(child, level + 2)).join(',\n')
+        str += `\n${spaces}${indent}]\n`
+      }
+
+      str += `${spaces}}`
+      return str
+    }
+
+    result += routes.map((route) => stringifyNode(route)).join(',\n')
+    result += '\n]\n'
+    return result
+  }
 
   return {
     name: 'vite-plugin-routes',
     buildStart() {
-      console.dir(generateTree(viewsDir, viewsDir, 1, layout), { depth: null })
+      const routes = generateTree(viewsDir, viewsDir, 1, layout)
+      const routeString = generateRouteString(routes)
+      fs.writeFileSync(outputPath, routeString, 'utf-8')
 
       // 监听views目录的文件变化
       const watcher = fs.watch(viewsDir, { recursive: true }, (eventType, filename) => {
         if (filename) {
           console.log(`检测到文件变化: ${filename}, 事件类型: ${eventType}`)
-          console.dir(generateTree(viewsDir, viewsDir, 1, layout), { depth: null })
+          const updatedRoutes = generateTree(viewsDir, viewsDir, 1, layout)
+          const updatedRouteString = generateRouteString(updatedRoutes)
+          fs.writeFileSync(outputPath, updatedRouteString, 'utf-8')
         }
       })
 
@@ -59,10 +98,10 @@ export function vitePluginRoutes(option: Option): Plugin {
         // 检查是否有动态路由文件
         const dynamicFile = fs.readdirSync(fullPath).find((f) => /^\[.*\]\.vue$/.test(f))
 
-        let routePath = '/' + relativePath.split(path.sep).join('/')
+        let routePath = level === 1 ? '/' + file : file
         if (dynamicFile) {
           const param = dynamicFile.match(/^\[(.*?)\]\.vue$/)?.[1]
-          routePath += `/:${param}`
+          routePath = level === 1 ? `/${file}/:${param}` : `${file}/:${param}`
         }
 
         const children = generateTree(fullPath, root, level + 1, layout)
@@ -73,16 +112,40 @@ export function vitePluginRoutes(option: Option): Plugin {
             name,
             path: routePath,
             level,
-            component: hasValidFile
-              ? dynamicFile
-                ? `@/views${routePath.replace(/:[^/]+/g, '[id]')}.vue`
-                : `@/views${routePath.replace(/:[^/]+/g, '[id]')}/index.vue`
-              : layout.base,
+            component:
+              level === 1 && hasValidFile
+                ? layout.base
+                : hasValidFile
+                  ? dynamicFile
+                    ? `@/views/${relativePath.split(path.sep).join('/')}/${dynamicFile}`
+                    : `@/views/${relativePath.split(path.sep).join('/')}/index.vue`
+                  : layout.base,
             meta: {
               title: pathSegments.join('_')
             },
             ...(children.length > 0 ? { children } : {})
           }
+
+          // 如果是一级路由且有合法文件，将原组件移到children中
+          if (level === 1 && hasValidFile) {
+            const originalComponent = dynamicFile
+              ? `@/views/${relativePath.split(path.sep).join('/')}/${dynamicFile}`
+              : `@/views/${relativePath.split(path.sep).join('/')}/index.vue`
+
+            node.children = [
+              {
+                name: `${name}-index`,
+                path: '',
+                level: level + 1,
+                component: originalComponent,
+                meta: {
+                  title: pathSegments.join('_')
+                }
+              },
+              ...(node.children || [])
+            ]
+          }
+
           result.push(node)
         }
       }

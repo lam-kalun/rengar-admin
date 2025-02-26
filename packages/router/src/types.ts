@@ -18,8 +18,8 @@ interface RouteMeta {
 export interface TreeNode {
   name: string
   path: string
-  level: number
   component: string
   children?: TreeNode[]
   meta: RouteMeta
+  level: number
 }
