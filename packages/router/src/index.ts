@@ -25,7 +25,7 @@ export function vitePluginRoutes(option: Option): Plugin {
         const [, name, component, meta] = match
         existingRoutes[name] = {
           component,
-          meta: meta.replace(/\s+/g, '')
+          meta: meta
         }
       }
     }
