@@ -14,6 +14,22 @@ export function vitePluginRoutes(option: Option): Plugin {
     let result =
       "// 此文件由vite-plugin-routes自动生成，请勿手动修改\n\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
 
+    // 读取现有的路由配置
+    const existingRoutes: Record<string, { component: string; meta: any }> = {}
+    if (fs.existsSync(outputPath)) {
+      const content = fs.readFileSync(outputPath, 'utf-8')
+      const routeRegex =
+        /name:\s*'([^']+)'[\s\S]*?component:\s*\(\)\s*=>\s*import\('([^']+)'\)[\s\S]*?meta:\s*({[\s\S]*?})/g
+      let match
+      while ((match = routeRegex.exec(content)) !== null) {
+        const [, name, component, meta] = match
+        existingRoutes[name] = {
+          component,
+          meta: meta.replace(/\s+/g, '')
+        }
+      }
+    }
+
     function stringifyNode(node: TreeNode, level: number = 1): string {
       const spaces = indent.repeat(level)
       let str = spaces + '{\n'
@@ -21,12 +37,18 @@ export function vitePluginRoutes(option: Option): Plugin {
       // 基本属性
       str += `${spaces}${indent}name: '${node.name}',\n`
       str += `${spaces}${indent}path: '${node.path}',\n`
-      str += `${spaces}${indent}component: () => import('${node.component}'),\n`
 
-      // meta属性
-      str += `${spaces}${indent}meta: {\n`
-      str += `${spaces}${indent}${indent}title: '${node.meta.title}'\n`
-      str += `${spaces}${indent}},\n`
+      // 如果存在现有配置，使用现有的component和meta
+      const existing = existingRoutes[node.name]
+      if (existing) {
+        str += `${spaces}${indent}component: () => import('${existing.component}'),\n`
+        str += `${spaces}${indent}meta: ${existing.meta},\n`
+      } else {
+        str += `${spaces}${indent}component: () => import('${node.component}'),\n`
+        str += `${spaces}${indent}meta: {\n`
+        str += `${spaces}${indent}${indent}title: '${node.meta.title}'\n`
+        str += `${spaces}${indent}},\n`
+      }
 
       // children属性
       if (node.children && node.children.length > 0) {
