@@ -13,11 +13,7 @@ export function setupAutoImportPlugin(): Plugin[] {
           'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar']
         }
       ],
-      dts: path.resolve(process.cwd(), 'typings/app/auto-imports.d.ts'),
-      eslintrc: {
-        enabled: true,
-        filepath: path.resolve(process.cwd(), '.eslintrc-auto-import.json')
-      }
+      dts: path.resolve(process.cwd(), 'typings/app/auto-imports.d.ts')
     }),
     Components({
       resolvers: [NaiveUiResolver()],

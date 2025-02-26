@@ -6,17 +6,14 @@ import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescri
 
 // 导入 Prettier 的跳过格式化配置
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
-import autoImport from './.eslintrc-auto-import.json'
+// import autoImport from './.eslintrc-auto-import.json'
 // 使用 `defineConfigWithVueTs` 函数定义 ESLint 配置
 export default defineConfigWithVueTs(
   {
     // 配置名称
     name: 'app/files-to-lint',
     // 需要检查的文件类型
-    files: ['**/*.{js,jsx,ts,mts,tsx,vue}'],
-    languageOptions: {
-      globals: autoImport.globals
-    }
+    files: ['**/*.{js,jsx,ts,mts,tsx,vue}']
   },
 
   {
