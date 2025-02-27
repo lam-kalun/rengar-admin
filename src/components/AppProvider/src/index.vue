@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import App from '@/App.vue'
+import { createTextVNode } from 'vue'
 
 const InjectNaiveProvider = defineComponent({
   name: 'InjectNaiveProvider',
@@ -23,6 +24,7 @@ const InjectNaiveProvider = defineComponent({
     window.$dialog = useDialog()
     window.$message = useMessage()
     window.$notification = useNotification()
+    return () => createTextVNode()
   }
 })
 </script>

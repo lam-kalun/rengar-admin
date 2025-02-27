@@ -4,12 +4,17 @@ import './assets/styles/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import { AppProvider } from 'cmp/AppProvider'
+import { AppProvider, AppLoading } from '@/components'
 import router from './router'
 
-const app = createApp(AppProvider)
+function bootstrap() {
+  const appLoading = createApp(AppLoading)
+  appLoading.mount('#app-loading')
+  const app = createApp(AppProvider)
+  app.use(createPinia())
+  app.use(router)
+  appLoading.unmount()
+  app.mount('#app')
+}
 
-app.use(createPinia())
-app.use(router)
-
-app.mount('#app')
+bootstrap()

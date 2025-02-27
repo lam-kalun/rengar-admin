@@ -19,8 +19,10 @@ declare module 'vue' {
     NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+    NSkeleton: typeof import('naive-ui')['NSkeleton']
+    NSpin: typeof import('naive-ui')['NSpin']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Src: typeof import('./../../src/components/AppProvider/src/index.vue')['default']
+    Src: typeof import('./../../src/components/AppLoading/src/index.vue')['default']
   }
 }
