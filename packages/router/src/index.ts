@@ -27,7 +27,7 @@ export function vitePluginRoutes(option: Option): Plugin {
       // 监听views目录的文件变化
       createFileWatcher(viewsDir, (eventType, filename) => {
         if (filename) {
-          console.log(`检测到文件变化: ${filename}, 事件类型: ${eventType}`)
+          console.log(`检测到文件变化11222: ${filename}, 事件类型: ${eventType}`)
           const updatedRoutes = generateTree(viewsDir, viewsDir, 1, layout)
           const updatedRouteString = generateRouteString(updatedRoutes, outputPath)
           fs.writeFileSync(outputPath, updatedRouteString, 'utf-8')

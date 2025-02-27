@@ -196,7 +196,12 @@ export function createFileWatcher(
   viewsDir: string,
   callback: (_eventType: fs.WatchEventType, _filename: string | null) => void
 ): fs.FSWatcher {
-  const watcher = fs.watch(viewsDir, { recursive: true }, callback)
+  const watcher = fs.watch(viewsDir, { recursive: true }, (eventType, filename) => {
+    // 只在文件/目录的创建、删除、重命名时触发回调
+    if (eventType === 'rename') {
+      callback(eventType, filename)
+    }
+  })
   process.on('SIGTERM', () => watcher.close())
   process.on('exit', () => watcher.close())
   return watcher
