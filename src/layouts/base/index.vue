@@ -11,8 +11,9 @@
           :style="{
             height: numberToPx(config.headerHeight)
           }"
-          >233</NLayoutHeader
         >
+          <AppLogo />
+        </NLayoutHeader>
         <NLayoutContent
           :native-scrollbar="false"
           position="absolute"
@@ -64,6 +65,7 @@
 import { useLayoutStore } from '@/stores'
 import { numberToPx } from '@/utils'
 import AppFooter from '../components/AppFooter/index.vue'
+import AppLogo from '../components/AppLogo/index.vue'
 const layoutStore = useLayoutStore()
 const { config } = storeToRefs(layoutStore)
 </script>

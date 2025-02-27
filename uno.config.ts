@@ -12,7 +12,7 @@ export default defineConfig({
         'vertical-align': 'middle'
       },
       collections: {
-        local: FileSystemIconLoader(localIconPath, (svg) => svg.replace(/^<svg /, '<svg fill="currentColor" '))
+        local: FileSystemIconLoader(localIconPath)
       },
       warn: true
     })

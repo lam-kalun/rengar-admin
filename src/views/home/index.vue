@@ -4,14 +4,14 @@
       <div>2333444553333www</div>
       <div class="i-vscode-icons:file-type-light-pnpm" />
       <div class="i-local-logo"></div>
-      <Icon icon="i-mdi-light:home" />
+      <Icon icon="mdi-light:home" style="font-size: 40px" />
     </div>
     <div v-for="item in 100" :key="item">{{ item }}</div>
   </NCard>
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
+import { Icon } from '@/components'
 </script>
 
 <style scoped></style>
