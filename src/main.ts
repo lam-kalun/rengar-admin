@@ -4,10 +4,10 @@ import './assets/styles/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import App from './App.vue'
+import { AppProvider } from 'cmp/AppProvider'
 import router from './router'
 
-const app = createApp(App)
+const app = createApp(AppProvider)
 
 app.use(createPinia())
 app.use(router)
