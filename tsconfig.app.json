@@ -9,9 +9,7 @@
       "@/*": ["./src/*"],
       "cmp/*": ["./src/components/*"],
       "assets/*": ["./src/assets/*"],
-      "views/*": ["./src/views/*"],
-      "utils/*": ["./src/utils/*"],
-      "api/*": ["./src/api/modules/*"]
+      "views/*": ["./src/views/*"]
     }
   }
 }

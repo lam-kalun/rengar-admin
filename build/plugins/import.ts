@@ -9,6 +9,7 @@ export function setupAutoImportPlugin(): Plugin[] {
       imports: [
         'vue',
         'vue-router',
+        'pinia',
         {
           'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar']
         }
