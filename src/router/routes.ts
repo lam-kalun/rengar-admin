@@ -4,82 +4,12 @@ import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
   {
-    name: 'b',
-    path: '/b',
-    component: () => import('@/layouts/base/index.vue'),
-    meta: {
-      title: 'b',
-      auths: ['admin']
-    },
-    children: [
-      {
-        name: 'b-c',
-        path: 'c',
-        component: () => import('@/views/b/c/index.vue'),
-        meta: {
-          title: 'b_c'
-        },
-      },
-      {
-        name: 'b-e',
-        path: 'e',
-        component: () => import('@/views/b/e/index.vue'),
-        meta: {
-          title: 'b_e'
-        },
-      },
-      {
-        name: 'b-f',
-        path: 'f/:id',
-        component: () => import('@/views/b/f/[id].vue'),
-        meta: {
-          title: 'b_f'
-        },
-      }
-    ]
-  },
-  {
-    name: 'c',
-    path: '/c',
-    component: () => import('@/layouts/base/index.vue'),
-    meta: {
-      title: 'c'
-    },
-    children: [
-      {
-        name: 'c-index',
-        path: '',
-        component: () => import('@/views/c/index.vue'),
-        meta: {
-          title: 'c'
-        },
-      }
-    ]
-  },
-  {
-    name: 'd',
-    path: '/d/:id',
-    component: () => import('@/layouts/base/index.vue'),
-    meta: {
-      title: 'd'
-    },
-    children: [
-      {
-        name: 'd-index',
-        path: '',
-        component: () => import('@/views/d/[id].vue'),
-        meta: {
-          title: 'd'
-        },
-      }
-    ]
-  },
-  {
     name: 'home',
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'home'
+      title: 'home',
+      auths: ['admin']
     },
     children: [
       {

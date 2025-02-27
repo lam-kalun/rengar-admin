@@ -63,86 +63,108 @@ export function generateRouteString(routes: TreeNode[], outputPath: string): str
 // 生成路由树
 export function generateTree(dir: string, root: string, level: number, layout: Layout): TreeNode[] {
   const result: TreeNode[] = []
-  const files = fs.readdirSync(dir)
+  try {
+    const files = fs.readdirSync(dir)
 
-  // 过滤掉以_开头的目录
-  const validFiles = files.filter((file) => !file.startsWith('_'))
+    // 过滤掉以_开头的目录
+    const validFiles = files.filter((file) => !file.startsWith('_'))
 
-  for (const file of validFiles) {
-    const fullPath = path.join(dir, file)
-    const stat = fs.statSync(fullPath)
+    for (const file of validFiles) {
+      const fullPath = path.join(dir, file)
+      try {
+        const stat = fs.statSync(fullPath)
 
-    if (stat.isDirectory()) {
-      // 检查目录下的合法文件数量
-      const vueFiles = fs.readdirSync(fullPath).filter((f) => f === 'index.vue' || /^\[.*\]\.vue$/.test(f))
-      if (vueFiles.length > 1) {
-        throw new Error(
-          `目录 ${fullPath} 下存在多个Vue文件：${vueFiles.join(', ')}。每个目录只允许存在一个合法的Vue文件。`
-        )
-      }
+        if (stat.isDirectory()) {
+          // 检查目录下的合法文件数量
+          let vueFiles = []
+          try {
+            vueFiles = fs.readdirSync(fullPath).filter((f) => f === 'index.vue' || /^\[.*\]\.vue$/.test(f))
+          } catch (err: any) {
+            console.warn(`读取目录 ${fullPath} 失败：${err.message}`)
+            continue
+          }
 
-      // 检查目录下是否有合法文件
-      const hasValidFile = vueFiles.length === 1
+          if (vueFiles.length > 1) {
+            throw new Error(
+              `目录 ${fullPath} 下存在多个Vue文件：${vueFiles.join(', ')}。每个目录只允许存在一个合法的Vue文件。`
+            )
+          }
 
-      // 获取相对路径部分用于生成name和path
-      const relativePath = path.relative(root, fullPath)
-      const pathSegments = relativePath.split(path.sep)
-      const name = pathSegments.join('-')
+          // 检查目录下是否有合法文件
+          const hasValidFile = vueFiles.length === 1
 
-      // 检查是否有动态路由文件
-      const dynamicFile = fs.readdirSync(fullPath).find((f) => /^\[.*\]\.vue$/.test(f))
+          // 获取相对路径部分用于生成name和path
+          const relativePath = path.relative(root, fullPath)
+          const pathSegments = relativePath.split(path.sep)
+          const name = pathSegments.join('-')
 
-      let routePath = level === 1 ? '/' + file : file
-      if (dynamicFile) {
-        const param = dynamicFile.match(/^\[(.*?)\]\.vue$/)?.[1]
-        routePath = level === 1 ? `/${file}/:${param}` : `${file}/:${param}`
-      }
+          // 检查是否有动态路由文件
+          let dynamicFile
+          try {
+            dynamicFile = fs.readdirSync(fullPath).find((f) => /^\[.*\]\.vue$/.test(f))
+          } catch (err: any) {
+            console.warn(`读取目录 ${fullPath} 失败：${err.message}`)
+            continue
+          }
 
-      const children = generateTree(fullPath, root, level + 1, layout)
+          let routePath = level === 1 ? '/' + file : file
+          if (dynamicFile) {
+            const param = dynamicFile.match(/^\[(.*?)\]\.vue$/)?.[1]
+            routePath = level === 1 ? `/${file}/:${param}` : `${file}/:${param}`
+          }
 
-      // 如果目录下有合法文件或者有有效的子路由，则添加到结果中
-      if (hasValidFile || children.length > 0) {
-        const node: TreeNode = {
-          name,
-          path: routePath,
-          level,
-          component:
-            level === 1 && hasValidFile
-              ? layout.base
-              : hasValidFile
-                ? dynamicFile
-                  ? `@/views/${relativePath.split(path.sep).join('/')}/${dynamicFile}`
-                  : `@/views/${relativePath.split(path.sep).join('/')}/index.vue`
-                : layout.base,
-          meta: {
-            title: pathSegments.join('_')
-          },
-          ...(children.length > 0 ? { children } : {})
-        }
+          const children = generateTree(fullPath, root, level + 1, layout)
 
-        // 如果是一级路由且有合法文件，将原组件移到children中
-        if (level === 1 && hasValidFile) {
-          const originalComponent = dynamicFile
-            ? `@/views/${relativePath.split(path.sep).join('/')}/${dynamicFile}`
-            : `@/views/${relativePath.split(path.sep).join('/')}/index.vue`
-
-          node.children = [
-            {
-              name: `${name}-index`,
-              path: '',
-              level: level + 1,
-              component: originalComponent,
+          // 如果目录下有合法文件或者有有效的子路由，则添加到结果中
+          if (hasValidFile || children.length > 0) {
+            const node: TreeNode = {
+              name,
+              path: routePath,
+              level,
+              component:
+                level === 1 && hasValidFile
+                  ? layout.base
+                  : hasValidFile
+                    ? dynamicFile
+                      ? `@/views/${relativePath.split(path.sep).join('/')}/${dynamicFile}`
+                      : `@/views/${relativePath.split(path.sep).join('/')}/index.vue`
+                    : layout.base,
               meta: {
                 title: pathSegments.join('_')
-              }
-            },
-            ...(node.children || [])
-          ]
-        }
+              },
+              ...(children.length > 0 ? { children } : {})
+            }
 
-        result.push(node)
+            // 如果是一级路由且有合法文件，将原组件移到children中
+            if (level === 1 && hasValidFile) {
+              const originalComponent = dynamicFile
+                ? `@/views/${relativePath.split(path.sep).join('/')}/${dynamicFile}`
+                : `@/views/${relativePath.split(path.sep).join('/')}/index.vue`
+
+              node.children = [
+                {
+                  name: `${name}-index`,
+                  path: '',
+                  level: level + 1,
+                  component: originalComponent,
+                  meta: {
+                    title: pathSegments.join('_')
+                  }
+                },
+                ...(node.children || [])
+              ]
+            }
+
+            result.push(node)
+          }
+        }
+      } catch (err: any) {
+        console.warn(`处理文件 ${fullPath} 失败：${err.message}`)
+        continue
       }
     }
+  } catch (err: any) {
+    console.warn(`读取目录 ${dir} 失败：${err.message}`)
   }
 
   return result
