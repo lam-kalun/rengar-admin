@@ -25,7 +25,7 @@ export function setupAutoImportPlugin(viteEnv: ImportMetaEnv): Plugin[] {
         )
       },
       scale: 1,
-      defaultClass: 'inline-block'
+      defaultClass: 'inline-block align-middle'
     }),
     createSvgIconsPlugin({
       iconDirs: [localIconPath],
