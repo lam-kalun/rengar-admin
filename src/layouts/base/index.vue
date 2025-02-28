@@ -1,5 +1,5 @@
 <template>
-  <NLayout has-sider embedded style="height: 100vh">
+  <NLayout   embedded has-sider  style="height: 100vh">
     <NLayoutSider
       bordered
       :style="{
