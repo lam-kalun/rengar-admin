@@ -30,8 +30,18 @@ export function setupAutoImportPlugin(viteEnv: ImportMetaEnv): Plugin[] {
     createSvgIconsPlugin({
       iconDirs: [localIconPath],
       symbolId: `${VITE_ICON_LOCAL_PREFIX}-[dir]-[name]`,
-      inject: 'body-last',
       customDomId: '__SVG_ICON_LOCAL__'
+      // svgoOptions: {
+      //   full: true,
+      //   plugins: [
+      //     {
+      //       name: 'removeAttrs',
+      //       params: {
+      //         attrs: ['fill']
+      //       }
+      //     }
+      //   ]
+      // }
     }),
     AutoImport({
       imports: [
