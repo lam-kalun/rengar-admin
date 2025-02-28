@@ -1,22 +1,6 @@
-import path from 'node:path'
-import { defineConfig, presetIcons } from 'unocss'
-import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
+import { defineConfig } from 'unocss'
 
-const localIconPath = path.join(process.cwd(), 'src/assets/icons')
 export default defineConfig({
-  presets: [
-    presetIcons({
-      scale: 1,
-      extraProperties: {
-        display: 'inline-block',
-        'vertical-align': 'middle'
-      },
-      collections: {
-        local: FileSystemIconLoader(localIconPath)
-      },
-      warn: true
-    })
-  ],
   shortcuts: [
     {
       'flex-center': 'flex justify-center items-center',

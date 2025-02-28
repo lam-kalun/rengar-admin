@@ -8,6 +8,9 @@ import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescri
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 // import autoImport from './.eslintrc-auto-import.json'
 // 使用 `defineConfigWithVueTs` 函数定义 ESLint 配置
+
+import unocss from '@unocss/eslint-config/flat'
+
 export default defineConfigWithVueTs(
   {
     // 配置名称
@@ -29,7 +32,7 @@ export default defineConfigWithVueTs(
   vueTsConfigs.recommended,
   // 跳过 Prettier 的格式化配置
   skipFormatting,
-
+  unocss,
   // 自定义规则
   {
     name: 'custom-rules',
