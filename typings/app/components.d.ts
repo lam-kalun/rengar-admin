@@ -10,6 +10,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppLoading: typeof import('./../../src/components/AppLoading/index.vue')['default']
     AppProvider: typeof import('./../../src/components/AppProvider/index.vue')['default']
+    ILocalLogo: typeof import('~icons/local/logo')['default']
+    'IVscodeIcons:fileTypeLightPnpm': typeof import('~icons/vscode-icons/file-type-light-pnpm')['default']
     NCard: typeof import('naive-ui')['NCard']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
