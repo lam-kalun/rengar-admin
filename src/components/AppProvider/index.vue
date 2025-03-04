@@ -16,12 +16,16 @@
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from 'naive-ui'
 import App from '@/App.vue'
+import { colorConfig } from '@rengar/color'
 import { createTextVNode } from 'vue'
 
 const themeOverrides: GlobalThemeOverrides = {
   Layout: {
     colorEmbedded: 'rgb(247, 250, 252)',
     footerColor: 'rgb(247, 250, 252)'
+  },
+  common: {
+    primaryColor: colorConfig.primary.DEFAULT
   }
 }
 

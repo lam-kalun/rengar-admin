@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex items-center text-2xl text-blue">
+  <div class="h-full flex items-center text-2xl text-primary">
     <SvgIcon icon="i-local-logo"></SvgIcon>
     <div class="flex-1 text-center">{{ title }}</div>
   </div>
