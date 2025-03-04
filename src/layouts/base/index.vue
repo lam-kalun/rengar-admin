@@ -1,15 +1,15 @@
 <template>
-  <NLayout   embedded has-sider  style="height: 100vh">
+  <NLayout embedded has-sider style="height: 100vh">
     <NLayoutSider
-      bordered
       :style="{
-        width: numberToPx(config.asideWidth)
+        width: numberToPx(layoutConfig.asideWidth),
+        boxShadow: themeConfig.asideShadow
       }"
     >
       <NLayout position="absolute">
         <NLayoutHeader
           :style="{
-            height: numberToPx(config.headerHeight)
+            height: numberToPx(layoutConfig.headerHeight)
           }"
         >
           <AppLogo />
@@ -18,7 +18,7 @@
           :native-scrollbar="false"
           position="absolute"
           :style="{
-            top: numberToPx(config.headerHeight),
+            top: numberToPx(layoutConfig.headerHeight),
             bottom: 0
           }"
         >
@@ -30,29 +30,38 @@
       <NLayoutHeader
         bordered
         :style="{
-          height: numberToPx(config.headerHeight)
+          height: numberToPx(layoutConfig.headerHeight)
         }"
-        >颐和园路</NLayoutHeader
       >
+        <AppHeader />
+      </NLayoutHeader>
+      <NLayoutHeader
+        bordered
+        :style="{
+          height: numberToPx(layoutConfig.tabHeight)
+        }"
+      >
+        <AppTabs />
+      </NLayoutHeader>
       <NLayoutContent
         embedded
         :native-scrollbar="false"
         :content-style="{
-          padding: numberToPx(config.gap)
+          padding: numberToPx(layoutConfig.gap)
         }"
         position="absolute"
         :style="{
-          top: numberToPx(config.headerHeight),
-          bottom: numberToPx(config.footerHeight)
+          top: `calc(${numberToPx(layoutConfig.headerHeight)} + ${numberToPx(layoutConfig.tabHeight)})`,
+          bottom: numberToPx(layoutConfig.footerHeight)
         }"
       >
-        <RouterView />
+        <AppMain />
       </NLayoutContent>
       <NLayoutFooter
         bordered
         position="absolute"
         :style="{
-          height: numberToPx(config.footerHeight)
+          height: numberToPx(layoutConfig.footerHeight)
         }"
       >
         <AppFooter />
@@ -62,12 +71,18 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/stores'
+import { useLayoutStore, useThemeStore } from '@/stores'
 import { numberToPx } from '@/utils'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppLogo from '../components/AppLogo/index.vue'
+import AppTabs from '../components/AppTabs/index.vue'
+import AppHeader from '../components/AppHeader/index.vue'
+import AppMain from '../components/AppMain/index.vue'
 const layoutStore = useLayoutStore()
-const { config } = storeToRefs(layoutStore)
+const { config: layoutConfig } = storeToRefs(layoutStore)
+
+const themeStore = useThemeStore()
+const { config: themeConfig } = storeToRefs(themeStore)
 </script>
 
 <style scoped></style>

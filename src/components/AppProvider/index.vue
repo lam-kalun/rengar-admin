@@ -1,5 +1,5 @@
 <template>
-  <NConfigProvider>
+  <NConfigProvider :theme-overrides="themeOverrides">
     <NMessageProvider>
       <NDialogProvider>
         <NNotificationProvider>
@@ -14,8 +14,16 @@
 </template>
 
 <script setup lang="ts">
+import type { GlobalThemeOverrides } from 'naive-ui'
 import App from '@/App.vue'
 import { createTextVNode } from 'vue'
+
+const themeOverrides: GlobalThemeOverrides = {
+  Layout: {
+    colorEmbedded: 'rgb(247, 250, 252)',
+    footerColor: 'rgb(247, 250, 252)'
+  }
+}
 
 const InjectNaiveProvider = defineComponent({
   name: 'InjectNaiveProvider',

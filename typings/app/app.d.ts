@@ -8,4 +8,16 @@ declare namespace App {
       gap: number
     }
   }
+
+  namespace Theme {
+    interface Config {
+      asideShadow: string
+      headerShadow: string
+      tabShadow: string
+    }
+
+    interface Color {
+      primary: string
+    }
+  }
 }

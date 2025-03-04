@@ -1,11 +1,11 @@
 import { defineConfig, presetIcons } from 'unocss'
 
-import { presetWind3 } from '@unocss/preset-wind3'
+import presetWind4 from '@unocss/preset-wind3'
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 
 export default defineConfig({
   presets: [
-    presetWind3,
+    presetWind4,
     presetIcons({
       extraProperties: {
         display: 'inline-block'
@@ -18,6 +18,13 @@ export default defineConfig({
       }
     })
   ],
+  theme: {
+    colors: {
+      primary: {
+        DEFAULT: '#f40'
+      }
+    }
+  },
   shortcuts: [
     {
       'flex-center': 'flex justify-center items-center',
