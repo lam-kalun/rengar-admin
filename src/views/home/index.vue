@@ -1,12 +1,8 @@
 <template>
   <NCard>
-    <div class="i-mdi-ab-testing text-2xl text-red">111</div>
-    <div class="i-local-my"></div>
-    <!-- <span class="local-logo"></span>
-    <ILocalLogo class="text-2xl text-red-500" />
-    <ILocalMy class="text-red" />
-    <SvgIcon icon="mdi-ab-testing"></SvgIcon>
-    <SvgIcon local-icon="i-local-my"></SvgIcon> -->
+    <div class="i-mdi-ab-testing text-2xl text-red"></div>
+    <div class="i-local-logo" style="font-size: 40px; color: #f40"></div>
+    <SvgIcon icon="i-local-logo" class="text-2xl text-red"></SvgIcon>
   </NCard>
 </template>
 

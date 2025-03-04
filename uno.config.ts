@@ -1,9 +1,23 @@
-import { defineConfig } from 'unocss'
+import { defineConfig, presetIcons } from 'unocss'
 
 import { presetWind3 } from '@unocss/preset-wind3'
+import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 
 export default defineConfig({
-  presets: [presetWind3],
+  presets: [
+    presetWind3,
+    presetIcons({
+      extraProperties: {
+        display: 'inline-block'
+      },
+      collections: {
+        // 本地svg图标
+        local: FileSystemIconLoader('./src/assets/svg-icons', (svg) =>
+          svg.replace(/^<svg\s/, '<svg width="1em" height="1em" ')
+        )
+      }
+    })
+  ],
   shortcuts: [
     {
       'flex-center': 'flex justify-center items-center',

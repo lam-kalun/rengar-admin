@@ -6,7 +6,7 @@
     "packages/**/*",
     "build/**/*",
     "vite.config.*",
-    "uno.config.ts",
+    "uno.config.*",
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
