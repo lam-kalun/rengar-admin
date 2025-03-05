@@ -1,5 +1,7 @@
-import { themeColors } from '@rengar/color'
+import { cloneDeep } from 'es-toolkit'
+import { themeColors } from '../../theme'
 import type { Preflight } from 'unocss'
+
 function generateColorVariables(colors: Recordable) {
   let cssVariables = ''
   for (const [colorName, colorShades] of Object.entries(colors)) {
@@ -10,14 +12,18 @@ function generateColorVariables(colors: Recordable) {
   return cssVariables
 }
 
-export const preflights: Preflight[] = [
-  {
-    getCSS() {
-      return `
-       :root {
-          ${generateColorVariables(themeColors)}
-        }
-      `
+export function createPreflights(primaryColorKey: ThemeColorKey): Preflight[] {
+  const colorMap = cloneDeep(themeColors) as Recordable
+  colorMap.primary = colorMap[primaryColorKey]
+  return [
+    {
+      getCSS() {
+        return `
+         :root {
+            ${generateColorVariables(colorMap)}
+          }
+        `
+      }
     }
-  }
-]
+  ]
+}

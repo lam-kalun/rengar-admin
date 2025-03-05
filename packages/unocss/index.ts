@@ -1,13 +1,13 @@
 import { presets } from './src/presets'
 import { shortcuts } from './src/shortcuts'
-import { theme } from './src/theme'
-import { preflights } from './src/preflights'
+import { createTheme } from './src/theme'
+import { createPreflights } from './src/preflights'
 
-export function createUnocssConfig() {
+export function createUnocssConfig(primaryColorKey: ThemeColorKey) {
   return {
     presets,
-    theme,
+    theme: createTheme(primaryColorKey),
     shortcuts,
-    preflights
+    preflights: createPreflights(primaryColorKey)
   }
 }

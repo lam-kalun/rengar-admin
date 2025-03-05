@@ -1,5 +1,7 @@
 <template>
-  <RouterView />
+  <AppProvider>
+    <RouterView />
+  </AppProvider>
 </template>
 
 <script setup lang="ts">

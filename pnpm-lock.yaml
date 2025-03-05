@@ -39,12 +39,12 @@ importers:
       '@iconify/utils':
         specifier: ^2.3.0
         version: 2.3.0
-      '@rengar/color':
-        specifier: workspace:^
-        version: link:packages/color
       '@rengar/router':
         specifier: workspace:^
         version: link:packages/router
+      '@rengar/theme':
+        specifier: workspace:^
+        version: link:packages/theme
       '@rengar/unocss':
         specifier: workspace:^
         version: link:packages/unocss
@@ -129,9 +129,9 @@ importers:
 
   packages/axios: {}
 
-  packages/color: {}
-
   packages/router: {}
+
+  packages/theme: {}
 
   packages/unocss: {}
 

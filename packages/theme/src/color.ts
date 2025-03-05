@@ -1,5 +1,6 @@
-export const themeColors = {
+export const themeColors: ThemeColor = {
   slate: {
+    DEFAULT: '#64748b',
     50: '#f8fafc',
     100: '#f1f5f9',
     200: '#e2e8f0',
@@ -13,6 +14,7 @@ export const themeColors = {
     950: '#020617'
   },
   gray: {
+    DEFAULT: '#6b7280',
     50: '#f9fafb',
     100: '#f3f4f6',
     200: '#e5e7eb',
@@ -26,6 +28,7 @@ export const themeColors = {
     950: '#030712'
   },
   zinc: {
+    DEFAULT: '#71717a',
     50: '#fafafa',
     100: '#f4f4f5',
     200: '#e4e4e7',
@@ -39,6 +42,7 @@ export const themeColors = {
     950: '#09090b'
   },
   neutral: {
+    DEFAULT: '#737373',
     50: '#fafafa',
     100: '#f5f5f5',
     200: '#e5e5e5',
@@ -52,6 +56,7 @@ export const themeColors = {
     950: '#0a0a0a'
   },
   stone: {
+    DEFAULT: '#78716c',
     50: '#fafaf9',
     100: '#f5f5f4',
     200: '#e7e5e4',
@@ -65,6 +70,7 @@ export const themeColors = {
     950: '#0c0a09'
   },
   red: {
+    DEFAULT: '#ef4444',
     50: '#fef2f2',
     100: '#fee2e2',
     200: '#fecaca',
@@ -78,6 +84,7 @@ export const themeColors = {
     950: '#450a0a'
   },
   orange: {
+    DEFAULT: '#f97316',
     50: '#fff7ed',
     100: '#ffedd5',
     200: '#fed7aa',
@@ -91,6 +98,7 @@ export const themeColors = {
     950: '#431407'
   },
   amber: {
+    DEFAULT: '#f59e0b',
     50: '#fffbeb',
     100: '#fef3c7',
     200: '#fde68a',
@@ -104,6 +112,7 @@ export const themeColors = {
     950: '#451a03'
   },
   yellow: {
+    DEFAULT: '#eab308',
     50: '#fefce8',
     100: '#fef9c3',
     200: '#fef08a',
@@ -117,6 +126,7 @@ export const themeColors = {
     950: '#422006'
   },
   lime: {
+    DEFAULT: '#84cc16',
     50: '#f7fee7',
     100: '#ecfccb',
     200: '#d9f99d',
@@ -130,6 +140,7 @@ export const themeColors = {
     950: '#1a2e05'
   },
   green: {
+    DEFAULT: '#22c55e',
     50: '#f0fdf4',
     100: '#dcfce7',
     200: '#bbf7d0',
@@ -143,6 +154,7 @@ export const themeColors = {
     950: '#052e16'
   },
   emerald: {
+    DEFAULT: '#10b981',
     50: '#ecfdf5',
     100: '#d1fae5',
     200: '#a7f3d0',
@@ -156,6 +168,7 @@ export const themeColors = {
     950: '#022c22'
   },
   teal: {
+    DEFAULT: '#14b8a6',
     50: '#f0fdfa',
     100: '#ccfbf1',
     200: '#99f6e4',
@@ -169,6 +182,7 @@ export const themeColors = {
     950: '#042f2e'
   },
   cyan: {
+    DEFAULT: '#06b6d4',
     50: '#ecfeff',
     100: '#cffafe',
     200: '#a5f3fc',
@@ -182,6 +196,7 @@ export const themeColors = {
     950: '#083344'
   },
   sky: {
+    DEFAULT: '#0ea5e9',
     50: '#f0f9ff',
     100: '#e0f2fe',
     200: '#bae6fd',
@@ -195,6 +210,7 @@ export const themeColors = {
     950: '#082f49'
   },
   blue: {
+    DEFAULT: '#3b82f6',
     50: '#eff6ff',
     100: '#dbeafe',
     200: '#bfdbfe',
@@ -208,6 +224,7 @@ export const themeColors = {
     950: '#172554'
   },
   indigo: {
+    DEFAULT: '#6366f1',
     50: '#eef2ff',
     100: '#e0e7ff',
     200: '#c7d2fe',
@@ -221,6 +238,7 @@ export const themeColors = {
     950: '#1e1b4b'
   },
   violet: {
+    DEFAULT: '#8b5cf6',
     50: '#f5f3ff',
     100: '#ede9fe',
     200: '#ddd6fe',
@@ -234,6 +252,7 @@ export const themeColors = {
     950: '#2e1065'
   },
   purple: {
+    DEFAULT: '#a855f7',
     50: '#faf5ff',
     100: '#f3e8ff',
     200: '#e9d5ff',
@@ -247,6 +266,7 @@ export const themeColors = {
     950: '#3b0764'
   },
   fuchsia: {
+    DEFAULT: '#d946ef',
     50: '#fdf4ff',
     100: '#fae8ff',
     200: '#f5d0fe',
@@ -260,6 +280,7 @@ export const themeColors = {
     950: '#4a044e'
   },
   pink: {
+    DEFAULT: '#ec4899',
     50: '#fdf2f8',
     100: '#fce7f3',
     200: '#fbcfe8',
@@ -273,6 +294,7 @@ export const themeColors = {
     950: '#500724'
   },
   rose: {
+    DEFAULT: '#f43f5e',
     50: '#fff1f2',
     100: '#ffe4e6',
     200: '#fecdd3',

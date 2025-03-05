@@ -31,7 +31,7 @@
   "devDependencies": {
     "@iconify/json": "^2.2.310",
     "@iconify/utils": "^2.3.0",
-    "@rengar/color": "workspace:^",
+    "@rengar/theme": "workspace:^",
     "@rengar/router": "workspace:^",
     "@rengar/unocss": "workspace:^",
     "@tsconfig/node22": "^22.0.0",

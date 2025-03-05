@@ -1,8 +1,11 @@
-import { colorConfig } from '@rengar/color'
+import { themeColors } from '../../theme'
 import type { PresetWind3Theme } from 'unocss'
 
-export const theme: PresetWind3Theme = {
-  colors: {
-    ...colorConfig
+export function createTheme(primaryColorKey: ThemeColorKey): PresetWind3Theme {
+  return {
+    colors: {
+      ...themeColors,
+      primary: themeColors[primaryColorKey]
+    }
   }
 }

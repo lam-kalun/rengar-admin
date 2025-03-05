@@ -1,11 +1,11 @@
 <template>
-  <NConfigProvider :theme-overrides="themeOverrides">
+  <NConfigProvider :theme-overrides="themeStore.themeOverrides">
     <NMessageProvider>
       <NDialogProvider>
         <NNotificationProvider>
           <NLoadingBarProvider>
             <InjectNaiveProvider />
-            <App />
+            <slot></slot>
           </NLoadingBarProvider>
         </NNotificationProvider>
       </NDialogProvider>
@@ -14,20 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import type { GlobalThemeOverrides } from 'naive-ui'
-import App from '@/App.vue'
-import { colorConfig } from '@rengar/color'
 import { createTextVNode } from 'vue'
+import { useThemeStore } from '@/stores'
 
-const themeOverrides: GlobalThemeOverrides = {
-  Layout: {
-    colorEmbedded: 'rgb(247, 250, 252)',
-    footerColor: 'rgb(247, 250, 252)'
-  },
-  common: {
-    primaryColor: colorConfig.primary.DEFAULT
-  }
-}
+defineOptions({
+  name: 'AppProvider'
+})
+const themeStore = useThemeStore()
 
 const InjectNaiveProvider = defineComponent({
   name: 'InjectNaiveProvider',
