@@ -3,11 +3,11 @@ import { shortcuts } from './src/shortcuts'
 import { createTheme } from './src/theme'
 import { createPreflights } from './src/preflights'
 
-export function createUnocssConfig() {
+export function createUnocssConfig(primaryColorKey: TailwindColorKey) {
   return {
     presets,
-    theme: createTheme(),
+    theme: createTheme(primaryColorKey),
     shortcuts,
-    preflights: createPreflights()
+    preflights: createPreflights(primaryColorKey)
   }
 }
