@@ -1,4 +1,8 @@
-export const themeColors: ThemeColor = {
+import { loadEnv } from 'vite'
+
+const env = loadEnv('', process.cwd()) as unknown as ImportMetaEnv
+const primaryColorKey = env.VITE_PRIMARY_COLOR_KEY
+const colors: TailWindColor = {
   slate: {
     DEFAULT: '#64748b',
     50: '#f8fafc',
@@ -308,3 +312,35 @@ export const themeColors: ThemeColor = {
     950: '#4c0519'
   }
 }
+
+export const themeColors: ThemeColor = {
+  ...colors,
+  primary: colors[primaryColorKey]
+}
+function generateColorVariables(colors: ThemeColor) {
+  let cssVariables = ''
+  for (const [colorName, colorShades] of Object.entries(colors)) {
+    for (const [shade, value] of Object.entries(colorShades)) {
+      cssVariables += `--color-${colorName}${shade === 'DEFAULT' ? '' : '-' + shade}: ${value};\n`
+    }
+  }
+  return cssVariables
+}
+
+export const colorVariables = generateColorVariables(themeColors)
+
+function generateThemeColorVariables(colors: ThemeColor) {
+  const themeColorsariables: ThemeColor = {} as ThemeColor
+  for (const [colorName, colorShades] of Object.entries(colors)) {
+    if (typeof colorName === 'string') {
+      themeColorsariables[colorName as keyof ThemeColor] = {} as Record<ThemeColorValue, string>
+      for (const [shade] of Object.entries(colorShades)) {
+        const variableName = `var(--color-${colorName}${shade === 'DEFAULT' ? '' : '-' + shade})`
+        themeColorsariables[colorName as keyof ThemeColor][shade as ThemeColorValue] = variableName
+      }
+    }
+  }
+  return themeColorsariables
+}
+
+export const themeColorsariables = generateThemeColorVariables(themeColors)

@@ -3,7 +3,7 @@ declare interface ImportMetaEnv {
   readonly VITE_APP_PORT: string
   readonly VITE_ICON_PREFIX: string
   readonly VITE_ICON_LOCAL_PREFIX: string
-  readonly VITE_PRIMARY_COLOR_KEY: ThemeColorKey
+  readonly VITE_PRIMARY_COLOR_KEY: TailwindColorKey
 }
 
 declare interface ImportMeta {
