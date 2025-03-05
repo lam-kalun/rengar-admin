@@ -1,7 +1,7 @@
 <template>
-  <div class="h-full flex items-center text-2xl text-primary">
-    <SvgIcon icon="i-local-logo"></SvgIcon>
-    <div class="flex-1 text-center">{{ title }}</div>
+  <div class="h-full flex-center gap-4 text-xl text-primary">
+    <SvgIcon icon="i-local-logo text-4xl"></SvgIcon>
+    <div class="text-center">{{ title }}</div>
   </div>
 </template>
 
