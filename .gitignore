@@ -28,5 +28,3 @@ coverage
 *.sw?
 
 *.tsbuildinfo
-
-typings/app/components.d.ts
