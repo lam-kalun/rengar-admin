@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue}": "eslint . --fix"
+    "*.{js,jsx,ts,tsx,vue}": "pnpm lint"
   },
   "dependencies": {
     "@iconify/vue": "^4.3.0",
