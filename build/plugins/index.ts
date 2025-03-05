@@ -14,7 +14,7 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv) {
     vueJsx(),
     vueDevTools(),
     setupHtmlPlugin(viteEnv),
-    setupUnocssPlugin(viteEnv),
+    setupUnocssPlugin(),
     setupRouter(),
     ...setupAutoImportPlugin()
   ]

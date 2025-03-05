@@ -12,7 +12,7 @@ export const useThemeStore = defineStore('theme', () => {
       footerColor: 'rgb(247, 250, 252)'
     },
     common: {
-      primaryColor: 'var(--color-primary-500)',
+      primaryColor: 'var(--color-primary)',
       primaryColorHover: 'var(--color-primary-400)',
       primaryColorPressed: 'var(--color-primary-800)',
       primaryColorSuppl: 'var(--color-primary-400)'

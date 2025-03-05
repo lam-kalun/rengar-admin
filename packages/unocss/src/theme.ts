@@ -1,4 +1,4 @@
-import { themeColors } from '../../theme'
+import { themeColors } from '@rengar/theme'
 import type { PresetWind3Theme } from 'unocss'
 
 export function createTheme(primaryColorKey: ThemeColorKey): PresetWind3Theme {
