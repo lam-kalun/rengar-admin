@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@iconify/vue':
-        specifier: ^4.3.0
-        version: 4.3.0(vue@3.5.13(typescript@5.7.3))
       '@rengar/axios':
         specifier: workspace:^
         version: link:packages/axios
@@ -39,6 +36,9 @@ importers:
       '@iconify/utils':
         specifier: ^2.3.0
         version: 2.3.0
+      '@iconify/vue':
+        specifier: ^4.3.0
+        version: 4.3.0(vue@3.5.13(typescript@5.7.3))
       '@rengar/router':
         specifier: workspace:^
         version: link:packages/router

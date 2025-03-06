@@ -8,9 +8,11 @@ const svgFilePath = path.resolve(process.cwd(), 'src/assets/svg-icons')
 export const presets: Preset[] = [
   presetWind3,
   presetIcons({
+    scale: 1,
     extraProperties: {
       display: 'inline-block'
     },
+    warn: true,
     collections: {
       local: FileSystemIconLoader(svgFilePath, (svg) => svg.replace(/^<svg\s/, '<svg width="1em" height="1em" '))
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex-center gap-4 text-xl text-primary">
-    <SvgIcon icon="i-local-logo text-4xl"></SvgIcon>
+    <SvgIcon local-icon="i-local-logo" class="text-4xl"></SvgIcon>
     <div class="text-center">{{ title }}</div>
   </div>
 </template>
