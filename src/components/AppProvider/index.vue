@@ -1,5 +1,8 @@
 <template>
-  <NConfigProvider :theme-overrides="themeStore.themeOverrides">
+  <NConfigProvider
+    :theme-overrides="themeStore.themeOverrides"
+    :theme="themeStore.theme === 'light' ? lightTheme : darkTheme"
+  >
     <NMessageProvider>
       <NDialogProvider>
         <NNotificationProvider>
@@ -14,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import { darkTheme, lightTheme } from 'naive-ui'
 import { createTextVNode } from 'vue'
 import { useThemeStore } from '@/stores'
 

@@ -1,26 +1,33 @@
+import { useOsTheme } from 'naive-ui'
 import type { GlobalThemeOverrides } from 'naive-ui'
 export const useThemeStore = defineStore('theme', () => {
-  const config = reactive<App.Theme.Config>({
-    asideShadow: '2px 0 8px 0 rgb(29, 35, 41, 0.05)',
-    headerShadow: '0 1px 2px rgb(0, 21, 41, 0.08)',
-    tabShadow: '0 1px 2px rgb(0, 21, 41, 0.08)'
+  const osTheme = useOsTheme()
+  const theme = ref<'light' | 'dark'>(osTheme.value || 'light')
+  watch(osTheme, (newValue) => {
+    theme.value = newValue || 'light'
   })
-
-  const themeOverrides: GlobalThemeOverrides = {
-    Layout: {
-      colorEmbedded: 'rgb(247, 250, 252)',
-      footerColor: 'rgb(247, 250, 252)'
-    },
-    common: {
-      primaryColor: 'var(--color-primary',
-      primaryColorHover: 'var(--color-primary-400)',
-      primaryColorPressed: 'var(--color-primary-700)',
-      primaryColorSuppl: 'var(--color-primary-400)'
-    }
+  function toggleTheme() {
+    theme.value = theme.value === 'light' ? 'dark' : 'light'
   }
 
+  const themeOverrides = computed<GlobalThemeOverrides>(() => {
+    return {
+      Layout: {
+        colorEmbedded: theme.value === 'light' ? '#f8fafc' : 'transparent',
+        footerColor: theme.value === 'light' ? '#f8fafc' : 'transparent'
+      },
+      common: {
+        primaryColor: 'var(--color-primary',
+        primaryColorHover: 'var(--color-primary-400)',
+        primaryColorPressed: 'var(--color-primary-700)',
+        primaryColorSuppl: 'var(--color-primary-400)'
+      }
+    }
+  })
+
   return {
-    config,
-    themeOverrides
+    themeOverrides,
+    theme,
+    toggleTheme
   }
 })

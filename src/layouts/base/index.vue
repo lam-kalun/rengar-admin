@@ -1,9 +1,9 @@
 <template>
   <NLayout embedded has-sider style="height: 100vh">
     <NLayoutSider
+      bordered
       :style="{
-        width: numberToPx(layoutConfig.asideWidth),
-        boxShadow: themeConfig.asideShadow
+        width: numberToPx(layoutConfig.asideWidth)
       }"
     >
       <NLayout position="absolute">
@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore, useThemeStore } from '@/stores'
+import { useLayoutStore } from '@/stores'
 import { numberToPx } from '@/utils'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppLogo from '../components/AppLogo/index.vue'
@@ -80,9 +80,6 @@ import AppHeader from '../components/AppHeader/index.vue'
 import AppMain from '../components/AppMain/index.vue'
 const layoutStore = useLayoutStore()
 const { config: layoutConfig } = storeToRefs(layoutStore)
-
-const themeStore = useThemeStore()
-const { config: themeConfig } = storeToRefs(themeStore)
 </script>
 
 <style scoped></style>
