@@ -1,9 +1,8 @@
-import { generateThemeColor, primaryColorKey } from '@rengar/theme'
+import { themeColors } from '@rengar/theme'
 import { generateColorVariables, generateUnocssColor } from './src/utils'
 import type { Preset } from 'unocss'
 
 export function presetRengarAdmin(): Preset {
-  const themeColors = generateThemeColor(primaryColorKey)
   const preset: Preset = {
     name: 'rengar-admin',
     theme: {

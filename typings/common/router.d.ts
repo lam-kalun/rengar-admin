@@ -3,6 +3,8 @@
 type RouterKey =
   | 'home'
   | 'home-index'
+  | 'login'
+  | 'login-index'
   | 'user'
   | 'user-add'
   | 'user-list'

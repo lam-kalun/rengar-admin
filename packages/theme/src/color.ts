@@ -308,10 +308,3 @@ export const tailwindColors: TailWindColor = {
     950: '#4c0519'
   }
 }
-
-export function generateThemeColor(primaryColorKey: TailwindColorKey) {
-  return {
-    ...tailwindColors,
-    primary: tailwindColors[primaryColorKey]
-  }
-}

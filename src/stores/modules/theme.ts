@@ -1,4 +1,5 @@
 import { useOsTheme } from 'naive-ui'
+import { themeColors, primaryColorKey } from '@rengar/theme'
 import type { GlobalThemeOverrides } from 'naive-ui'
 export const useThemeStore = defineStore('theme', () => {
   const osTheme = useOsTheme()
@@ -17,10 +18,10 @@ export const useThemeStore = defineStore('theme', () => {
         footerColor: theme.value === 'light' ? '#f8fafc' : 'transparent'
       },
       common: {
-        primaryColor: 'var(--color-primary',
-        primaryColorHover: 'var(--color-primary-400)',
-        primaryColorPressed: 'var(--color-primary-700)',
-        primaryColorSuppl: 'var(--color-primary-400)'
+        primaryColor: themeColors[primaryColorKey].DEFAULT,
+        primaryColorHover: themeColors[primaryColorKey]['400'],
+        primaryColorPressed: themeColors[primaryColorKey]['700'],
+        primaryColorSuppl: themeColors[primaryColorKey]['400']
       }
     }
   })

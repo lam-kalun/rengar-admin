@@ -23,6 +23,24 @@ export const routes: RouteRecordRaw[] = [
     ]
   },
   {
+    name: 'login',
+    path: '/login',
+    component: () => import('@/layouts/blank/index.vue'),
+    meta: {
+      title: 'login'
+    },
+    children: [
+      {
+        name: 'login-index',
+        path: '',
+        component: () => import('@/views/login/index.vue'),
+        meta: {
+          title: 'login'
+        },
+      }
+    ]
+  },
+  {
     name: 'user',
     path: '/user',
     component: () => import('@/layouts/base/index.vue'),

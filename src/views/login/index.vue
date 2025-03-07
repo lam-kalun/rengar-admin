@@ -1,0 +1,77 @@
+<template>
+  <div class="size-screen flex-center bg-primary-100">
+    <NCard class="w-[440px]" size="large"  :bordered="false"  round hoverable >
+      <div class="flex-center gap-4 text-primary">
+        <SvgIcon local-icon="i-local-logo" class="text-6xl text-primary"></SvgIcon>
+        <div class="text-3xl">{{ title }}</div>
+      </div>
+      <NForm
+        :model="formData"
+        ref="formRef"
+        :rules
+        label-placement="left"
+        label-width="auto"
+        size="large"
+        class="mt-12"
+      >
+        <NFormItem path="username">
+          <NInput
+            v-model:value="formData.username"
+            placeholder="请输入用户名"
+            clearable
+            :theme-overrides="{
+              borderRadius: '6px'
+            }"
+          />
+        </NFormItem>
+        <NFormItem path="password">
+          <NInput
+            v-model:value="formData.password"
+            placeholder="请输入密码"
+            clearable
+            show-password-on="mousedown"
+            type="password"
+            :theme-overrides="{
+              borderRadius: '6px'
+            }"
+          />
+        </NFormItem>
+        <NFormItem>
+          <NButton type="primary" round block @click="handleSubmit">登录</NButton>
+        </NFormItem>
+      </NForm>
+    </NCard>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { to } from '@/utils'
+import type { FormInst, FormRules } from 'naive-ui'
+const title = import.meta.env.VITE_APP_TITLE
+
+const formData = reactive({
+  username: null,
+  password: null
+})
+const formRef = useTemplateRef<FormInst>('formRef')
+const rules: FormRules = {
+  username: {
+    required: true,
+    trigger: ['input', 'blur'],
+    message: '请输入用户名'
+  },
+  password: {
+    required: true,
+    trigger: ['input', 'blur'],
+    message: '请输入密码'
+  }
+}
+
+async function handleSubmit() {
+  const [err] = await to(formRef.value!.validate())
+  if (err) return
+  console.log(2333)
+}
+</script>
+
+<style scoped></style>
