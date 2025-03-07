@@ -41,7 +41,7 @@
         </NFormItem>
       </NForm>
     </NCard>
-    <div class="absolute left-0 right-0 -top-[100px]">
+    <div class="absolute left-0 right-0 -top-[10%]">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="var(--color-primary)"
@@ -50,7 +50,7 @@
         ></path>
       </svg>
     </div>
-    <div class="absolute left-0 right-0 -bottom-[80px]">
+    <div class="absolute left-0 right-0 -bottom-[10%]">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="var(--color-primary)"
