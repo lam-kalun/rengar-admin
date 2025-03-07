@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig, CancelTokenSource, AxiosResponse } from 'axios'
+import type { AxiosInstance, AxiosRequestConfig, CancelTokenSource } from 'axios'
 
 abstract class BaseHttpClient {
   protected instance: AxiosInstance
@@ -20,19 +20,19 @@ abstract class BaseHttpClient {
   protected abstract initializeRequestInterceptor(): number
   protected abstract initializeResponseInterceptor(): number
 
-  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.instance.get<T>(url, config)
+  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.get<T>(url, config) as Promise<T>
   }
 
-  public async post<T>(url: string, data?: Recordable, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.instance.post<T>(url, data, config)
+  public async post<T>(url: string, data?: Recordable, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.post<T>(url, data, config) as Promise<T>
   }
 
-  public async request<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.instance.request<T>(config)
+  public async request<T>(config: AxiosRequestConfig): Promise<T> {
+    return this.instance.request<T>(config) as Promise<T>
   }
 
-  public async upload<T>(url: string, file: File, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  public async upload<T>(url: string, file: File, config?: AxiosRequestConfig): Promise<T> {
     const formData = new FormData()
     formData.append('file', file)
 
@@ -41,7 +41,7 @@ abstract class BaseHttpClient {
         'Content-Type': 'multipart/form-data'
       },
       ...config
-    })
+    }) as Promise<T>
   }
 }
 

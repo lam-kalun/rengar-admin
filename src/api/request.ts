@@ -1,5 +1,5 @@
 import BaseHttpClient from '@rengar/axios'
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 
 class HttpClient extends BaseHttpClient {
@@ -7,7 +7,7 @@ class HttpClient extends BaseHttpClient {
 
   constructor(config: AxiosRequestConfig) {
     super({
-      baseURL: config.baseURL || 'http://localhost:3000',
+      baseURL: config.baseURL,
       timeout: config.timeout || 10000,
       ...config
     })
@@ -46,19 +46,19 @@ class HttpClient extends BaseHttpClient {
     )
   }
 
-  public get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.instance.get<T>(url, config)
+  public get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.get<T>(url, config) as Promise<T>
   }
 
-  public post<T>(url: string, data?: Recordable, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.instance.post<T>(url, data, config)
+  public post<T>(url: string, data?: Recordable, config?: AxiosRequestConfig): Promise<T> {
+    return this.instance.post<T>(url, data, config) as Promise<T>
   }
 
-  public request<T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    return this.instance.request<T>(config)
+  public request<T>(config: AxiosRequestConfig): Promise<T> {
+    return this.instance.request<T>(config) as Promise<T>
   }
 
-  public upload<T>(url: string, file: File, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  public upload<T>(url: string, file: File, config?: AxiosRequestConfig): Promise<T> {
     const formData = new FormData()
     formData.append('file', file)
 
@@ -67,10 +67,11 @@ class HttpClient extends BaseHttpClient {
         'Content-Type': 'multipart/form-data'
       },
       ...config
-    })
+    }) as Promise<T>
   }
 }
 
+console.log(import.meta.env.VITE_API_URL)
 const baseHttp = new HttpClient({
   baseURL: import.meta.env.VITE_API_URL,
   timeout: 1000 * 10
