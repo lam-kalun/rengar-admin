@@ -1,4 +1,3 @@
-import { generateThemeColor } from '@rengar/theme'
 import type { GlobalThemeOverrides } from 'naive-ui'
 export const useThemeStore = defineStore('theme', () => {
   const config = reactive<App.Theme.Config>({
@@ -7,19 +6,16 @@ export const useThemeStore = defineStore('theme', () => {
     tabShadow: '0 1px 2px rgb(0, 21, 41, 0.08)'
   })
 
-  const primaryColorKey = import.meta.env.VITE_PRIMARY_COLOR_KEY
-  const themeColors = generateThemeColor(primaryColorKey)
-
   const themeOverrides: GlobalThemeOverrides = {
     Layout: {
       colorEmbedded: 'rgb(247, 250, 252)',
       footerColor: 'rgb(247, 250, 252)'
     },
     common: {
-      primaryColor: themeColors.primary.DEFAULT,
-      primaryColorHover: themeColors.primary[400],
-      primaryColorPressed: themeColors.primary[800],
-      primaryColorSuppl: themeColors.primary[400]
+      primaryColor: 'var(--color-primary',
+      primaryColorHover: 'var(--color-primary-400)',
+      primaryColorPressed: 'var(--color-primary-700)',
+      primaryColorSuppl: 'var(--color-primary-400)'
     }
   }
 
