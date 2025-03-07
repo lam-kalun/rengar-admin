@@ -71,4 +71,9 @@ class HttpClient extends BaseHttpClient {
   }
 }
 
-export default HttpClient
+const baseHttp = new HttpClient({
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: 1000 * 10
+})
+
+export { baseHttp }
