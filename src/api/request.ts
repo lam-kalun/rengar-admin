@@ -2,6 +2,10 @@ import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 
+function showErrorMessage(message: string) {
+  window.$message.error(message)
+}
+
 class HttpClient extends BaseHttpClient {
   protected cancelTokenSource = axios.CancelToken.source()
 
@@ -31,16 +35,19 @@ class HttpClient extends BaseHttpClient {
       (response) => {
         if (response.status === 200 && response.data.code === '000000') {
           return response.data.data
-        } else if (response.data.code === '401') {
+        } else if (response.status === 401 || response.data.code === '401') {
           this.instance.interceptors.request.eject(this.requestInterceptor)
           this.instance.interceptors.response.eject(this.responseInterceptor)
           this.cancelTokenSource.cancel('未授权，请重新登录')
+          showErrorMessage('未授权，请重新登录')
           return Promise.reject(new Error('未授权，请重新登录'))
         } else {
+          showErrorMessage(response.data.msg || '请求失败')
           return Promise.reject(new Error(response.data.msg || '请求失败'))
         }
       },
       (error) => {
+        showErrorMessage('请求失败')
         return Promise.reject(error)
       }
     )
@@ -71,7 +78,6 @@ class HttpClient extends BaseHttpClient {
   }
 }
 
-console.log(import.meta.env.VITE_API_URL)
 const baseHttp = new HttpClient({
   baseURL: import.meta.env.VITE_API_URL,
   timeout: 1000 * 10

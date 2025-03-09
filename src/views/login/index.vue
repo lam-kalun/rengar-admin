@@ -65,6 +65,7 @@
 <script setup lang="ts">
 import { to } from '@/utils'
 import { useAuthStore } from '@/stores'
+import { useRouterHook } from '@/hooks'
 import type { FormInst, FormRules } from 'naive-ui'
 const title = import.meta.env.VITE_APP_TITLE
 
@@ -87,13 +88,15 @@ const rules: FormRules = {
 }
 
 const authStore = useAuthStore()
+const { pushByRouterName } = useRouterHook()
 async function handleSubmit() {
   const [err] = await to(formRef.value!.validate())
   if (err) return
   console.log(2333)
   const [loginErr] = await to(authStore.authLoginAction(formData))
   if (loginErr) return
-  console.log('成功')
+  window.$message.success('登录成功')
+  pushByRouterName('home')
 }
 </script>
 

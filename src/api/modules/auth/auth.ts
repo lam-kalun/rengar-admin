@@ -2,7 +2,7 @@ import { baseHttp } from '@/api/request'
 
 export function authLoginApi(data: Api.Auth.LoginParams) {
   return baseHttp.request<string>({
-    url: 'user/login',
+    url: 'auth/login',
     method: 'POST',
     data
   })

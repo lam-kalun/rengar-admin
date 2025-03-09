@@ -3,9 +3,9 @@ declare namespace Api {
 
   namespace Auth {
     interface User {
-      username: string
-      id: number
-      token: string
+      username?: string
+      id?: number
+      token?: string
     }
     interface LoginParams {
       username: string
