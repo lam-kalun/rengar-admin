@@ -7,3 +7,10 @@ export function authLoginApi(data: Api.Auth.LoginParams) {
     data
   })
 }
+
+export function authDetailApi() {
+  return baseHttp.request<Api.Auth.DetailResponse>({
+    url: 'auth/detail',
+    method: 'post'
+  })
+}
