@@ -11,6 +11,7 @@ export function vitePluginRoutes(option: Option): Plugin {
   const viewsDir = path.resolve(root, entry)
   const outputPath = path.resolve(root, output)
   const typesDir = path.resolve(root, typeDir)
+  let watcher: fs.FSWatcher | null = null
 
   return {
     name: 'vite-plugin-routes',
@@ -40,7 +41,14 @@ export function vitePluginRoutes(option: Option): Plugin {
         }
       }, 300)
 
-      createFileWatcher(viewsDir, handleFileChange)
+      watcher = createFileWatcher(viewsDir, handleFileChange)
+    },
+    closeBundle() {
+      // 关闭文件监听器
+      if (watcher) {
+        watcher.close()
+        watcher = null
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     server: {
       port: Number(vitEnv.VITE_APP_PORT)
     },
-    plugins: setupVitePlugins(),
+    plugins: setupVitePlugins(mode),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
