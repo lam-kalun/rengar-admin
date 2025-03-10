@@ -41,10 +41,13 @@ class HttpClient extends BaseHttpClient {
       (response) => {
         if (response.status === 200 && response.data.code === '000000') {
           return response.data.data
-        } else if (response.status === 401 || response.data.code === '401') {
-          this.instance.interceptors.request.eject(this.requestInterceptor)
-          this.instance.interceptors.response.eject(this.responseInterceptor)
+        } else if (response.data.code === '401') {
+          // 取消所有正在进行的请求
           this.cancelTokenSource.cancel('未授权，请重新登录')
+          // 创建新的cancelTokenSource用于后续请求
+          this.cancelTokenSource = axios.CancelToken.source()
+          this.instance.defaults.cancelToken = this.cancelTokenSource.token
+
           showErrorMessage('未授权，请重新登录')
           const authStore = useAuthStore()
           authStore.reset()
