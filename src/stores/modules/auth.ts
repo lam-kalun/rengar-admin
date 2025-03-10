@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function authDetailAction() {
     const [err, data] = await to(authDetailApi())
     if (err) return Promise.reject(err)
-    user.value = data
+    Object.assign(user.value, data)
     return true
   }
 

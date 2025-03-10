@@ -4,7 +4,6 @@ import type { Router } from 'vue-router'
 
 export function setupRouterGuard(router: Router) {
   const authStore = useAuthStore()
-  const { user } = authStore
 
   router.beforeEach(async (to) => {
     // 常量路由直接通过（除登录页外）
@@ -12,8 +11,10 @@ export function setupRouterGuard(router: Router) {
       return true
     }
 
-    const isAuthenticated = Boolean(user.token && user.id)
-    const shouldGetUserInfo = Boolean(user.token && !user.id)
+    const isAuthenticated = Boolean(authStore.user.token && authStore.user.id)
+    const shouldGetUserInfo = Boolean(authStore.user.token && !authStore.user.id)
+
+    console.log(isAuthenticated, shouldGetUserInfo)
 
     if (to.path === '/login') {
       if (shouldGetUserInfo || isAuthenticated) {
