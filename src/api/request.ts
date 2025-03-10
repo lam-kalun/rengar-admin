@@ -36,30 +36,37 @@ class HttpClient extends BaseHttpClient {
     )
   }
 
+  private handleUnauthorized(message: string = '未授权，请重新登录') {
+    // 取消所有正在进行的请求
+    this.cancelTokenSource.cancel(message)
+    // 创建新的cancelTokenSource用于后续请求
+    this.cancelTokenSource = axios.CancelToken.source()
+    this.instance.defaults.cancelToken = this.cancelTokenSource.token
+
+    showErrorMessage(message)
+    const authStore = useAuthStore()
+    authStore.reset()
+    const { replaceLogin } = useRouterHook()
+    replaceLogin()
+    return Promise.reject(new Error(message))
+  }
+
   protected initializeResponseInterceptor(): number {
     return this.instance.interceptors.response.use(
       (response) => {
         if (response.status === 200 && response.data.code === '000000') {
           return response.data.data
         } else if (response.data.code === '401') {
-          // 取消所有正在进行的请求
-          this.cancelTokenSource.cancel('未授权，请重新登录')
-          // 创建新的cancelTokenSource用于后续请求
-          this.cancelTokenSource = axios.CancelToken.source()
-          this.instance.defaults.cancelToken = this.cancelTokenSource.token
-
-          showErrorMessage('未授权，请重新登录')
-          const authStore = useAuthStore()
-          authStore.reset()
-          const { replaceLogin } = useRouterHook()
-          replaceLogin()
-          return Promise.reject(new Error('未授权，请重新登录'))
+          return this.handleUnauthorized()
         } else {
           showErrorMessage(response.data.msg || '请求失败')
           return Promise.reject(new Error(response.data.msg || '请求失败'))
         }
       },
       (error) => {
+        if (error.response?.status === 401) {
+          return this.handleUnauthorized()
+        }
         showErrorMessage('请求失败')
         return Promise.reject(error)
       }

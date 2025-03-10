@@ -7,12 +7,15 @@
       <span class="text-base">{{ authStore.user?.username }}</span>
     </div>
   </NDropdown>
+
+  <PasswordModal v-bind:show="showModal" />
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores'
 import { to } from '@/utils'
 import { useRouterHook } from '@/hooks'
+import PasswordModal from './PasswordModal.vue'
 
 const authStore = useAuthStore()
 
@@ -38,7 +41,10 @@ function handleSelect(key: string) {
   }
 }
 
-function handleChangePassword() {}
+const showModal = ref(false)
+function handleChangePassword() {
+  showModal.value = true
+}
 
 const { replaceLogin } = useRouterHook()
 function handleLoginOut() {

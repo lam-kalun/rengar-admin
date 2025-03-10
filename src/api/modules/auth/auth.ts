@@ -2,7 +2,7 @@ import { baseHttp } from '@/api/request'
 
 export function authLoginApi(data: Api.Auth.LoginParams) {
   return baseHttp.request<string>({
-    url: 'auth/login',
+    url: '/auth/login',
     method: 'POST',
     data
   })
@@ -10,14 +10,22 @@ export function authLoginApi(data: Api.Auth.LoginParams) {
 
 export function authDetailApi() {
   return baseHttp.request<Api.Auth.DetailResponse>({
-    url: 'auth/detail',
+    url: '/auth/detail',
     method: 'post'
   })
 }
 
 export function authLoginOutApi() {
   return baseHttp.request<boolean>({
-    url: 'auth/loginOut',
+    url: '/auth/loginOut',
     method: 'post'
+  })
+}
+
+export function authPasswordApi(data: Api.Auth.PasswordParams) {
+  return baseHttp.request<boolean>({
+    url: '/auth/password',
+    method: 'post',
+    data
   })
 }

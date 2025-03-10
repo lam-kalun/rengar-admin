@@ -12,5 +12,11 @@ declare namespace Api {
       id: number
       codes: string[]
     }
+
+    interface PasswordParams {
+      oldPassword: string
+      newPassword: string
+      confirmPassword: string
+    }
   }
 }
