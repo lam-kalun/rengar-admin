@@ -18,7 +18,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/home/index.vue'),
         meta: {
           title: 'home'
-        }
+        },
       }
     ]
   },
@@ -37,7 +37,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/login/index.vue'),
         meta: {
           title: 'login'
-        }
+        },
       }
     ]
   },
@@ -55,17 +55,15 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/setting/menu/index.vue'),
         meta: {
           title: 'setting_menu'
-        }
+        },
       },
       {
         name: 'setting-role',
         path: 'role',
-        redirect: {
-          name: 'setting-role-list'
-        },
+        component: () => import('@/views/setting/role/config/[id].vue'),
         meta: {
-          title: 'setting_role'
-        },
+              title: 'setting_role_config'
+            },
         children: [
           {
             name: 'setting-role-config',
@@ -73,7 +71,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/setting/role/config/[id].vue'),
             meta: {
               title: 'setting_role_config'
-            }
+            },
           },
           {
             name: 'setting-role-list',
@@ -81,7 +79,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/setting/role/list/index.vue'),
             meta: {
               title: 'setting_role_list'
-            }
+            },
           }
         ]
       },
@@ -91,7 +89,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/setting/user/index.vue'),
         meta: {
           title: 'setting_user'
-        }
+        },
       }
     ]
   }
