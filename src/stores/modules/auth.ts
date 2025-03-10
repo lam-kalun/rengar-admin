@@ -3,10 +3,10 @@ import { to } from '@/utils'
 const saveStorage = import.meta.env.VITE_APP_TOKEN_STORAGE
 const saveTokenKey = 'token'
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref<Store.Auth.User>({
-    token: getToken() ?? undefined
-  })
+  // 用户信息
+  const user = ref<App.Auth.User | null>(null)
 
+  const token = ref(getToken())
   //权限codes
   const codes = ref<string[]>([])
 
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function authLoginAction(params: Api.Auth.LoginParams) {
     const [err, data] = await to(authLoginApi(params))
     if (err) return Promise.reject(err)
-    user.value.token = data
+    token.value = data
     saveToken(data)
     // 修正为使用正确的变量名来访问存储对象
     return true
@@ -43,8 +43,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function authDetailAction() {
     const [err, data] = await to(authDetailApi())
     if (err) return Promise.reject(err)
-    user.value.username = data.username
-    user.value.id = data.id
+    user.value = data
     codes.value = data.codes
     return true
   }
@@ -53,6 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     authLoginAction,
     authDetailAction,
-    codes
+    codes,
+    token
   }
 })

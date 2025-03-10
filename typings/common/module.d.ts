@@ -7,5 +7,6 @@ declare module 'vue-router' {
     icon?: string
     hideMenu?: boolean
     active?: RouterKey
+    constant?: boolean
   }
 }

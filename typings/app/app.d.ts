@@ -8,4 +8,11 @@ declare namespace App {
       gap: number
     }
   }
+
+  namespace Auth {
+    interface User {
+      username: string
+      id: number
+    }
+  }
 }

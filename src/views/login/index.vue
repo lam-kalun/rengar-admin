@@ -88,15 +88,18 @@ const rules: FormRules = {
 }
 
 const authStore = useAuthStore()
-const { pushByRouterName } = useRouterHook()
+
+const { replaceByRouterName } = useRouterHook()
 async function handleSubmit() {
   const [err] = await to(formRef.value!.validate())
   if (err) return
-  console.log(2333)
   const [loginErr] = await to(authStore.authLoginAction(formData))
   if (loginErr) return
+  // 登录成功后先获取用户信息
+  const [detailErr] = await to(authStore.authDetailAction())
+  if (detailErr) return
   window.$message.success('登录成功')
-  pushByRouterName('home')
+  replaceByRouterName('home')
 }
 </script>
 
