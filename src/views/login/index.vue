@@ -95,9 +95,6 @@ async function handleSubmit() {
   if (err) return
   const [loginErr] = await to(authStore.authLoginAction(formData))
   if (loginErr) return
-  // 登录成功后先获取用户信息
-  const [detailErr] = await to(authStore.authDetailAction())
-  if (detailErr) return
   window.$message.success('登录成功')
   replaceByRouterName('home')
 }

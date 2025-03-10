@@ -11,8 +11,10 @@ declare namespace App {
 
   namespace Auth {
     interface User {
-      username: string
-      id: number
+      username?: string
+      id?: number
+      codes?: string[]
+      token?: string
     }
   }
 }

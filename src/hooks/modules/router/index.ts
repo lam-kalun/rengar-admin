@@ -9,7 +9,7 @@ export function useRouterHook() {
   }
 
   function pushHome() {
-    pushByRouterName('home')
+    pushByRouterName('home-index')
   }
 
   function replaceByRouterName(name: RouterKey, option?: Option) {
@@ -19,9 +19,9 @@ export function useRouterHook() {
     })
   }
 
-  function redirecLogin(routerName?: RouterKey) {
+  function replaceLogin(routerName?: RouterKey) {
     const params: Recordable = {
-      name: 'login'
+      name: 'login-index'
     }
     if (routerName) {
       params.query = {
@@ -34,7 +34,7 @@ export function useRouterHook() {
   return {
     pushByRouterName,
     pushHome,
-    redirecLogin,
+    replaceLogin,
     replaceByRouterName
   }
 }

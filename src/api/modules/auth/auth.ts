@@ -14,3 +14,10 @@ export function authDetailApi() {
     method: 'post'
   })
 }
+
+export function authLoginOutApi() {
+  return baseHttp.request<boolean>({
+    url: 'auth/loginOut',
+    method: 'post'
+  })
+}
