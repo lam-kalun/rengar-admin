@@ -1,6 +1,8 @@
 import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
+import { useRouterHook } from '@/hooks'
+import { useAuthStore } from '@/stores'
 
 function showErrorMessage(message: string) {
   window.$message.error(message)
@@ -21,6 +23,10 @@ class HttpClient extends BaseHttpClient {
   protected initializeRequestInterceptor(): number {
     return this.instance.interceptors.request.use(
       (config) => {
+        const authStore = useAuthStore()
+        if (authStore.user.token) {
+          config.headers.Authorization = `Bearer ${authStore.user.token}`
+        }
         // 在这里可以添加请求拦截逻辑
         return config
       },
@@ -40,6 +46,10 @@ class HttpClient extends BaseHttpClient {
           this.instance.interceptors.response.eject(this.responseInterceptor)
           this.cancelTokenSource.cancel('未授权，请重新登录')
           showErrorMessage('未授权，请重新登录')
+          const authStore = useAuthStore()
+          authStore.reset()
+          const { replaceLogin } = useRouterHook()
+          replaceLogin()
           return Promise.reject(new Error('未授权，请重新登录'))
         } else {
           showErrorMessage(response.data.msg || '请求失败')
