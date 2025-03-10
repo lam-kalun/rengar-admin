@@ -1,9 +1,10 @@
 import fs from 'fs'
 import path from 'path'
+import { generateRouteString, generateTree, collectRouteNames, generateRouteTypes, createFileWatcher } from './utils'
+import { debounce } from 'es-toolkit'
+
 import type { Plugin } from 'vite'
 import type { Option } from './types'
-import { generateRouteString, generateTree, collectRouteNames, generateRouteTypes, createFileWatcher } from './utils'
-
 export function vitePluginRoutes(option: Option): Plugin {
   const { entry, output, layout, typeDir } = option
   const root = process.cwd()
@@ -25,14 +26,21 @@ export function vitePluginRoutes(option: Option): Plugin {
       fs.writeFileSync(typesDir, typeContent, 'utf-8')
 
       // 监听views目录的文件变化
-      createFileWatcher(viewsDir, (eventType, filename) => {
+      const handleFileChange = debounce((eventType: fs.WatchEventType, filename: string | null) => {
         if (filename) {
           console.log(`检测到文件变化: ${filename}, 事件类型: ${eventType}`)
           const updatedRoutes = generateTree(viewsDir, viewsDir, 1, layout)
           const updatedRouteString = generateRouteString(updatedRoutes, outputPath)
           fs.writeFileSync(outputPath, updatedRouteString, 'utf-8')
+
+          // 更新路由类型定义
+          const updatedRouteNames = collectRouteNames(updatedRoutes)
+          const updatedTypeContent = generateRouteTypes(updatedRouteNames)
+          fs.writeFileSync(typesDir, updatedTypeContent, 'utf-8')
         }
-      })
+      }, 300)
+
+      createFileWatcher(viewsDir, handleFileChange)
     }
   }
 }

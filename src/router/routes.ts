@@ -40,49 +40,5 @@ export const routes: RouteRecordRaw[] = [
         },
       }
     ]
-  },
-  {
-    name: 'user',
-    path: '/user',
-    component: () => import('@/layouts/base/index.vue'),
-    meta: {
-      title: 'user'
-    },
-    children: [
-      {
-        name: 'user-add',
-        path: 'add/:id',
-        component: () => import('@/views/user/add/[id].vue'),
-        meta: {
-          title: 'user_add'
-        },
-      },
-      {
-        name: 'user-list',
-        path: 'list',
-        component: () => import('@/views/user/list/index.vue'),
-        meta: {
-          title: 'user_list'
-        },
-        children: [
-          {
-            name: 'user-list-edit',
-            path: 'edit/:id',
-            component: () => import('@/views/user/list/edit/[id].vue'),
-            meta: {
-              title: 'user_list_edit'
-            },
-          },
-          {
-            name: 'user-list-show',
-            path: 'show',
-            component: () => import('@/views/user/list/show/index.vue'),
-            meta: {
-              title: 'user_list_show'
-            },
-          }
-        ]
-      }
-    ]
   }
 ]
