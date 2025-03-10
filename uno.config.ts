@@ -1,6 +1,6 @@
 import { defineConfig, presetIcons } from 'unocss'
 import { presetRengarAdmin } from '@rengar/unocss'
-import { presetWind3 } from '@unocss/preset-wind3'
+import presetWind3 from '@unocss/preset-wind3'
 import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 import path from 'node:path'
 

@@ -7,6 +7,21 @@ export const useThemeStore = defineStore('theme', () => {
   watch(osTheme, (newValue) => {
     theme.value = newValue || 'light'
   })
+
+  watch(
+    theme,
+    (val) => {
+      if (val === 'dark') {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    },
+    {
+      immediate: true
+    }
+  )
+
   function toggleTheme() {
     theme.value = theme.value === 'light' ? 'dark' : 'light'
   }

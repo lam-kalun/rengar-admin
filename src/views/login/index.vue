@@ -37,7 +37,7 @@
           />
         </NFormItem>
         <NFormItem>
-          <NButton type="primary" round block @click="handleSubmit">登录</NButton>
+          <NButton type="primary" :loading round block @click="handleSubmit">登录</NButton>
         </NFormItem>
       </NForm>
     </NCard>
@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { to } from '@/utils'
 import { useAuthStore } from '@/stores'
-import { useRouterHook } from '@/hooks'
+import { useRouterHook, useLoading } from '@/hooks'
 import type { FormInst, FormRules } from 'naive-ui'
 import BottomWave from './components/BottomWave.vue'
 import TopWave from './components/TopWave.vue'
@@ -76,19 +76,29 @@ const rules: FormRules = {
 const authStore = useAuthStore()
 
 const { replaceByRouterName } = useRouterHook()
+
+const { loading, startLoading, endLoading } = useLoading()
 async function handleSubmit() {
+  startLoading()
   const [err] = await to(formRef.value!.validate())
-  if (err) return
+  if (err) {
+    endLoading()
+    return
+  }
   const [loginErr] = await to(authStore.authLoginAction(formData))
-  if (loginErr) return
+  if (loginErr) {
+    endLoading()
+    return
+  }
   const [detailErr] = await to(authStore.authDetailAction())
   if (detailErr) {
-    window.$message.error('获取用户信息失败')
+    endLoading()
     return
   }
   window.$message.success('登录成功')
   await nextTick()
   replaceByRouterName('home')
+  endLoading()
 }
 </script>
 

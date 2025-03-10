@@ -1,7 +1,9 @@
 <template>
   <NDropdown trigger="hover" :options="options" @select="handleSelect">
-    <div class="flex cursor-pointer items-center gap-2 hover:bg-primary-100">
-      <SvgIcon icon="line-md:account" class="text-2xl hover:text-primary"></SvgIcon>
+    <div
+      class="flex cursor-pointer items-center gap-2 rounded-2xl bg-primary-100 px-2 py-1 dark:bg-primary-800 hover:text-primary"
+    >
+      <SvgIcon icon="line-md:account" class="text-2xl"></SvgIcon>
       <span class="text-base">{{ authStore.user?.username }}</span>
     </div>
   </NDropdown>
