@@ -1,10 +1,10 @@
 import router from '@/router'
 import type { Option } from './type'
 export function useRouterHook() {
-  function pushByRouterName(name: RouterKey, option?: Option) {
+  function pushByRouterName(name: RouterName, option?: Option) {
     router.push({
       name,
-      ...option
+      ...option,
     })
   }
 
@@ -12,20 +12,20 @@ export function useRouterHook() {
     pushByRouterName('home-index')
   }
 
-  function replaceByRouterName(name: RouterKey, option?: Option) {
+  function replaceByRouterName(name: RouterName, option?: Option) {
     router.replace({
       name,
-      ...option
+      ...option,
     })
   }
 
-  function replaceLogin(routerName?: RouterKey) {
+  function replaceLogin(routerName?: RouterName) {
     const params: Recordable = {
-      name: 'login-index'
+      name: 'login-index',
     }
     if (routerName) {
       params.query = {
-        redirect: routerName
+        redirect: routerName,
       }
     }
     router.replace(params)
@@ -35,6 +35,6 @@ export function useRouterHook() {
     pushByRouterName,
     pushHome,
     replaceLogin,
-    replaceByRouterName
+    replaceByRouterName,
   }
 }

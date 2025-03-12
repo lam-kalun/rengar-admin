@@ -6,7 +6,7 @@ declare module 'vue-router' {
     auths?: string[]
     icon?: string
     hideMenu?: boolean
-    active?: RouterKey
+    active?: RouterName
     constant?: boolean
   }
 }

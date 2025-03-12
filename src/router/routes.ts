@@ -1,22 +1,38 @@
-// 此文件由vite-plugin-routes自动生成，手动修改componet、meta的值不会被覆盖，其他请勿手动修改
+// 此文件由vite-plugin-routes自动生成，请勿手动修改
 
 import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
   {
-    name: 'a&b',
-    path: '/a&b',
+    name: 'a',
+    path: '/a',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'a&b'
+      title: 'a'
     },
     children: [
       {
-        name: 'a&b-index',
         path: '',
         component: () => import('@/views/a&b/index.vue'),
         meta: {
-          title: 'a&b'
+          title: 'a'
+        },
+      }
+    ]
+  },
+  {
+    name: 'b',
+    path: '/b',
+    component: () => import('@/layouts/base/index.vue'),
+    meta: {
+      title: 'b'
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/a&b/index.vue'),
+        meta: {
+          title: 'b'
         },
       }
     ]
@@ -26,12 +42,10 @@ export const routes: RouteRecordRaw[] = [
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'home',
-      auths: ['admin']
+      title: 'home'
     },
     children: [
       {
-        name: 'home-index',
         path: '',
         component: () => import('@/views/home/index.vue'),
         meta: {
@@ -43,14 +57,12 @@ export const routes: RouteRecordRaw[] = [
   {
     name: 'login',
     path: '/login',
-    component: () => import('@/layouts/blank/index.vue'),
+    component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'login',
-      constant: true
+      title: 'login'
     },
     children: [
       {
-        name: 'login-index',
         path: '',
         component: () => import('@/views/login/index.vue'),
         meta: {
@@ -68,35 +80,65 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
-        name: 'setting-c',
         path: 'c',
-        component: () => import('@/layouts/base/index.vue'),
         meta: {
           title: 'setting_c'
         },
         children: [
           {
-            name: 'setting-c-a[id]&b&h[id]',
-            path: 'a[id]&b&h[id]',
+            name: 'setting-c-a',
+            path: 'a/:id',
             component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
             meta: {
-              title: 'setting_c_a[id]&b&h[id]'
+              title: 'setting_c_a'
             },
           },
           {
-            name: 'setting-c-q[id]&j[code]',
-            path: 'q[id]&j[code]',
+            name: 'setting-c-b',
+            path: 'b',
+            component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
+            meta: {
+              title: 'setting_c_b'
+            },
+          },
+          {
+            name: 'setting-c-h',
+            path: 'h/:id',
+            component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
+            meta: {
+              title: 'setting_c_h'
+            },
+          },
+          {
+            name: 'setting-c-q',
+            path: 'q/:id',
             component: () => import('@/views/setting/c/q[id]&j[code]/index.vue'),
             meta: {
-              title: 'setting_c_q[id]&j[code]'
+              title: 'setting_c_q'
             },
           },
           {
-            name: 'setting-c-r&y[query]',
-            path: 'r&y[query]',
+            name: 'setting-c-j',
+            path: 'j/:code',
+            component: () => import('@/views/setting/c/q[id]&j[code]/index.vue'),
+            meta: {
+              title: 'setting_c_j'
+            },
+          },
+          {
+            name: 'setting-c-r',
+            path: 'r',
             component: () => import('@/views/setting/c/r&y[query]/index.vue'),
             meta: {
-              title: 'setting_c_r&y[query]'
+              title: 'setting_c_r'
+            },
+          },
+          {
+            name: 'setting-c-y',
+            path: 'y/:query',
+            component: () => import('@/views/setting/c/r&y[query]/index.vue'),
+            meta: {
+              title: 'setting_c_y'
             },
           }
         ]
@@ -110,27 +152,17 @@ export const routes: RouteRecordRaw[] = [
         },
       },
       {
-        name: 'setting-role',
         path: 'role',
-        component: () => import('@/views/setting/role/config/[id].vue'),
         meta: {
-              title: 'setting_role_config'
-            },
+          title: 'setting_role'
+        },
         children: [
           {
             name: 'setting-role-config',
             path: 'config/:id',
-            component: () => import('@/views/setting/role/config/[id].vue'),
-            meta: {
-              title: 'setting_role_config'
-            },
-          },
-          {
-            name: 'setting-role-config[id]',
-            path: 'config[id]',
             component: () => import('@/views/setting/role/config[id]/index.vue'),
             meta: {
-              title: 'setting_role_config[id]'
+              title: 'setting_role_config'
             },
           },
           {
