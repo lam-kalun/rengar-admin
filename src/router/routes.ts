@@ -4,50 +4,11 @@ import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
   {
-    name: 'a',
-    path: '/a',
-    component: () => import('@/layouts/base/index.vue'),
-    meta: {
-      title: '2333333 ',
-      keepAlive: true,
-      auths: ['2333333333333','2322'],
-      icon: 'el-icon-s-home',
-    },
-    children: [
-      {
-        name: 'a-index',
-        path: '',
-        component: () => import('@/views/a&b/index.vue'),
-        meta: {
-          title: 'a',
-        },
-      }
-    ]
-  },
-  {
-    name: 'b',
-    path: '/b',
-    component: () => import('@/layouts/base/index.vue'),
-    meta: {
-      title: 'b',
-    },
-    children: [
-      {
-        name: 'b-index',
-        path: '',
-        component: () => import('@/views/a&b/index.vue'),
-        meta: {
-          title: 'b',
-        },
-      }
-    ]
-  },
-  {
     name: 'home',
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'home',
+      title: '首页',
     },
     children: [
       {
@@ -57,8 +18,8 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           title: 'home',
         },
-      }
-    ]
+      },
+    ],
   },
   {
     name: 'login',
@@ -75,8 +36,8 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           title: 'login',
         },
-      }
-    ]
+      },
+    ],
   },
   {
     name: 'setting',
@@ -104,7 +65,7 @@ export const routes: RouteRecordRaw[] = [
           {
             name: 'setting-role-config',
             path: 'config/:id',
-            component: () => import('@/views/setting/role/config[id]/index.vue'),
+            component: () => import('@/views/setting/role/config/[id].vue'),
             meta: {
               title: 'setting_role_config',
             },
@@ -116,8 +77,8 @@ export const routes: RouteRecordRaw[] = [
             meta: {
               title: 'setting_role_list',
             },
-          }
-        ]
+          },
+        ],
       },
       {
         name: 'setting-user',
@@ -126,7 +87,7 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           title: 'setting_user',
         },
-      }
-    ]
-  }
+      },
+    ],
+  },
 ]
