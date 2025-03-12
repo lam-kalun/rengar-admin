@@ -9,6 +9,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/layouts/base/index.vue'),
     meta: {
       title: '首页',
+      auths: ['admin', 'user'],
     },
     children: [
       {
