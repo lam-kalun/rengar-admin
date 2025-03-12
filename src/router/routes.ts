@@ -5,6 +5,24 @@ import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
   {
+    name: '404',
+    path: '/404',
+    component: () => import('@/layouts/base/index.vue'),
+    meta: {
+      title: '404',
+    },
+    children: [
+      {
+        name: '404-index',
+        path: '',
+        component: () => import('@/views/404/index.vue'),
+        meta: {
+          title: '404',
+        },
+      },
+    ],
+  },
+  {
     name: 'home',
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),

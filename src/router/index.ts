@@ -10,10 +10,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'root',
-      redirect: '/home'
+      redirect: '/home',
     },
-    ...routes
-  ]
+    ...routes,
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      redirect: '/404',
+    },
+  ],
 })
 
 export default router

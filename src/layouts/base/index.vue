@@ -3,13 +3,13 @@
     <NLayoutSider
       bordered
       :style="{
-        width: numberToPx(layoutConfig.asideWidth)
+        width: numberToPx(layoutConfig.asideWidth),
       }"
     >
       <NLayout position="absolute">
         <NLayoutHeader
           :style="{
-            height: numberToPx(layoutConfig.headerHeight)
+            height: numberToPx(layoutConfig.headerHeight),
           }"
         >
           <AppLogo />
@@ -19,7 +19,7 @@
           position="absolute"
           :style="{
             top: numberToPx(layoutConfig.headerHeight),
-            bottom: 0
+            bottom: 0,
           }"
         >
           <div v-for="item in 100" :key="item">{{ item }}</div>
@@ -30,7 +30,7 @@
       <NLayoutHeader
         bordered
         :style="{
-          height: numberToPx(layoutConfig.headerHeight)
+          height: numberToPx(layoutConfig.headerHeight),
         }"
       >
         <AppHeader />
@@ -38,7 +38,7 @@
       <NLayoutHeader
         bordered
         :style="{
-          height: numberToPx(layoutConfig.tabHeight)
+          height: numberToPx(layoutConfig.tabHeight),
         }"
       >
         <AppTabs />
@@ -47,12 +47,12 @@
         embedded
         :native-scrollbar="false"
         :content-style="{
-          padding: numberToPx(layoutConfig.gap)
+          padding: numberToPx(layoutConfig.gap),
         }"
         position="absolute"
         :style="{
           top: `calc(${numberToPx(layoutConfig.headerHeight)} + ${numberToPx(layoutConfig.tabHeight)})`,
-          bottom: numberToPx(layoutConfig.footerHeight)
+          bottom: numberToPx(layoutConfig.footerHeight),
         }"
       >
         <AppMain />
@@ -61,7 +61,7 @@
         bordered
         position="absolute"
         :style="{
-          height: numberToPx(layoutConfig.footerHeight)
+          height: numberToPx(layoutConfig.footerHeight),
         }"
       >
         <AppFooter />
