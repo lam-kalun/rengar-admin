@@ -4,6 +4,24 @@ import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
   {
+    name: 'a&b',
+    path: '/a&b',
+    component: () => import('@/layouts/base/index.vue'),
+    meta: {
+      title: 'a&b'
+    },
+    children: [
+      {
+        name: 'a&b-index',
+        path: '',
+        component: () => import('@/views/a&b/index.vue'),
+        meta: {
+          title: 'a&b'
+        },
+      }
+    ]
+  },
+  {
     name: 'home',
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),
@@ -50,6 +68,40 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'setting-c',
+        path: 'c',
+        component: () => import('@/layouts/base/index.vue'),
+        meta: {
+          title: 'setting_c'
+        },
+        children: [
+          {
+            name: 'setting-c-a[id]&b&h[id]',
+            path: 'a[id]&b&h[id]',
+            component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
+            meta: {
+              title: 'setting_c_a[id]&b&h[id]'
+            },
+          },
+          {
+            name: 'setting-c-q[id]&j[code]',
+            path: 'q[id]&j[code]',
+            component: () => import('@/views/setting/c/q[id]&j[code]/index.vue'),
+            meta: {
+              title: 'setting_c_q[id]&j[code]'
+            },
+          },
+          {
+            name: 'setting-c-r&y[query]',
+            path: 'r&y[query]',
+            component: () => import('@/views/setting/c/r&y[query]/index.vue'),
+            meta: {
+              title: 'setting_c_r&y[query]'
+            },
+          }
+        ]
+      },
+      {
         name: 'setting-menu',
         path: 'menu',
         component: () => import('@/views/setting/menu/index.vue'),
@@ -71,6 +123,14 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/setting/role/config/[id].vue'),
             meta: {
               title: 'setting_role_config'
+            },
+          },
+          {
+            name: 'setting-role-config[id]',
+            path: 'config[id]',
+            component: () => import('@/views/setting/role/config[id]/index.vue'),
+            meta: {
+              title: 'setting_role_config[id]'
             },
           },
           {
