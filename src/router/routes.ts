@@ -12,6 +12,7 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'a-index',
         path: '',
         component: () => import('@/views/a&b/index.vue'),
         meta: {
@@ -29,6 +30,7 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'b-index',
         path: '',
         component: () => import('@/views/a&b/index.vue'),
         meta: {
@@ -46,6 +48,7 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'home-index',
         path: '',
         component: () => import('@/views/home/index.vue'),
         meta: {
@@ -63,6 +66,7 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'login-index',
         path: '',
         component: () => import('@/views/login/index.vue'),
         meta: {
@@ -79,70 +83,6 @@ export const routes: RouteRecordRaw[] = [
       title: 'setting'
     },
     children: [
-      {
-        path: 'c',
-        meta: {
-          title: 'setting_c'
-        },
-        children: [
-          {
-            name: 'setting-c-a',
-            path: 'a/:id',
-            component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
-            meta: {
-              title: 'setting_c_a'
-            },
-          },
-          {
-            name: 'setting-c-b',
-            path: 'b',
-            component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
-            meta: {
-              title: 'setting_c_b'
-            },
-          },
-          {
-            name: 'setting-c-h',
-            path: 'h/:id',
-            component: () => import('@/views/setting/c/a[id]&b&h[id]/index.vue'),
-            meta: {
-              title: 'setting_c_h'
-            },
-          },
-          {
-            name: 'setting-c-q',
-            path: 'q/:id',
-            component: () => import('@/views/setting/c/q[id]&j[code]/index.vue'),
-            meta: {
-              title: 'setting_c_q'
-            },
-          },
-          {
-            name: 'setting-c-j',
-            path: 'j/:code',
-            component: () => import('@/views/setting/c/q[id]&j[code]/index.vue'),
-            meta: {
-              title: 'setting_c_j'
-            },
-          },
-          {
-            name: 'setting-c-r',
-            path: 'r',
-            component: () => import('@/views/setting/c/r&y[query]/index.vue'),
-            meta: {
-              title: 'setting_c_r'
-            },
-          },
-          {
-            name: 'setting-c-y',
-            path: 'y/:query',
-            component: () => import('@/views/setting/c/r&y[query]/index.vue'),
-            meta: {
-              title: 'setting_c_y'
-            },
-          }
-        ]
-      },
       {
         name: 'setting-menu',
         path: 'menu',

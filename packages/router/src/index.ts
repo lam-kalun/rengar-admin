@@ -45,7 +45,7 @@ function collectRouteNames(routes: TreeNode[]): string[] {
 function generateRouteNameType(names: string[]): string {
   return `// 此文件由vite-plugin-routes自动生成，请勿手动修改
 
-type RouteName =
+type RouterName =
   ${names.map((name) => `| '${name}'`).join('\n  ')}
 `
 }
@@ -154,8 +154,9 @@ function generateRoutesTree(dir: string, rootDir: string, layout: string): TreeN
               node.children = [
                 {
                   path: '',
-                  level: 2,
+                  name: `${name}-index`,
                   component: `@${path.relative(root, rootDir).replace('src', '').split(path.sep).join('/')}/${relativePath}/index.vue`,
+                  level: 2,
                   meta: {
                     title,
                   },
@@ -211,8 +212,9 @@ function generateRoutesTree(dir: string, rootDir: string, layout: string): TreeN
             node.children = [
               {
                 path: '',
-                level: 2,
+                name: `${name}-index`,
                 component: `@${path.relative(root, rootDir).replace('src', '').split(path.sep).join('/')}/${relativePath}/index.vue`,
+                level: 2,
                 meta: {
                   title,
                 },

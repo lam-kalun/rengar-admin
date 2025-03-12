@@ -8,7 +8,7 @@ export default {
   printWidth: 120,
 
   // 在对象文字中不打印尾随逗号
-  trailingComma: 'none',
+  trailingComma: 'all',
 
   // 在对象文字中的括号之间打印空格
   bracketSpacing: true,
@@ -20,5 +20,5 @@ export default {
   useTabs: false,
 
   // 每个缩进级别的空格数
-  tabWidth: 2
+  tabWidth: 2,
 }
