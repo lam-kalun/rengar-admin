@@ -11,6 +11,7 @@ type RouterName =
   | 'login-index'
   | 'setting'
   | 'setting-menu'
+  | 'setting-role'
   | 'setting-role-config'
   | 'setting-role-list'
   | 'setting-user'

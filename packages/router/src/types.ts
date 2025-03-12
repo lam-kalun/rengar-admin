@@ -13,10 +13,17 @@ export interface Option {
 }
 
 export interface TreeNode {
-  name?: string
+  name: string
   path: string
   component?: string
   children?: TreeNode[]
   meta: RouteMeta
   level: number
+  redirect?: string | Recordable
+}
+
+export interface RouterMap {
+  component?: string
+  meta: RouteMeta
+  redirect?: string | Recordable
 }
