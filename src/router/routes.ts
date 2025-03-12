@@ -1,5 +1,6 @@
-// 此文件由vite-plugin-routes自动生成，请勿手动修改
-
+// 此文件由vite-plugin-routes自动生成，手动修改的地方受限
+// 假如你想用其他的layout，你可以手动修改一级路由的component属性，不会覆盖
+// 修改所有路由的meta值、新增rediect属性不会覆盖
 import type { RouteRecordRaw } from 'vue-router'
 
 export const routes: RouteRecordRaw[] = [
