@@ -47,12 +47,13 @@
         embedded
         :native-scrollbar="false"
         :content-style="{
-          padding: numberToPx(layoutConfig.gap),
+          height: '100%',
         }"
         position="absolute"
         :style="{
           top: `calc(${numberToPx(layoutConfig.headerHeight)} + ${numberToPx(layoutConfig.tabHeight)})`,
           bottom: numberToPx(layoutConfig.footerHeight),
+          padding: numberToPx(layoutConfig.gap),
         }"
       >
         <AppMain />

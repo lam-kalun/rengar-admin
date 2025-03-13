@@ -20,7 +20,7 @@
             placeholder="请输入用户名"
             clearable
             :theme-overrides="{
-              borderRadius: '6px'
+              borderRadius: '6px',
             }"
           />
         </NFormItem>
@@ -32,12 +32,12 @@
             show-password-on="mousedown"
             type="password"
             :theme-overrides="{
-              borderRadius: '6px'
+              borderRadius: '6px',
             }"
           />
         </NFormItem>
         <NFormItem>
-          <NButton type="primary" :loading round block @click="handleSubmit">登录</NButton>
+          <NButton type="primary" :loading attr-type="submit" round block @click="handleSubmit">登录</NButton>
         </NFormItem>
       </NForm>
     </NCard>
@@ -57,20 +57,20 @@ const title = import.meta.env.VITE_APP_TITLE
 
 const formData = reactive({
   username: '',
-  password: ''
+  password: '',
 })
 const formRef = useTemplateRef<FormInst>('formRef')
 const rules: FormRules = {
   username: {
     required: true,
     trigger: ['input', 'blur'],
-    message: '请输入用户名'
+    message: '请输入用户名',
   },
   password: {
     required: true,
     trigger: ['input', 'blur'],
-    message: '请输入密码'
-  }
+    message: '请输入密码',
+  },
 }
 
 const authStore = useAuthStore()

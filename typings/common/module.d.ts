@@ -8,5 +8,6 @@ declare module 'vue-router' {
     hideMenu?: boolean
     activeMenu?: RouterName
     constant?: boolean
+    sort?: number
   }
 }

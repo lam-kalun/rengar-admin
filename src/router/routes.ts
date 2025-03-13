@@ -10,6 +10,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/layouts/base/index.vue'),
     meta: {
       title: '404',
+      hideMenu: true,
     },
     children: [
       {
@@ -27,8 +28,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: '首页',
-      auths: ['admin', 'user'],
+      title: 'home',
     },
     children: [
       {
@@ -36,7 +36,7 @@ export const routes: RouteRecordRaw[] = [
         path: '',
         component: () => import('@/views/home/index.vue'),
         meta: {
-          title: 'home',
+          title: '首页',
         },
       },
     ],
@@ -46,7 +46,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/login',
     component: () => import('@/layouts/blank/index.vue'),
     meta: {
-      title: 'login',
+      title: '登录',
     },
     children: [
       {
@@ -64,7 +64,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/setting',
     component: () => import('@/layouts/base/index.vue'),
     meta: {
-      title: 'setting',
+      title: '系统设置',
     },
     children: [
       {
@@ -72,14 +72,15 @@ export const routes: RouteRecordRaw[] = [
         path: 'menu',
         component: () => import('@/views/setting/menu/index.vue'),
         meta: {
-          title: 'setting_menu',
+          title: '菜单管理',
         },
       },
       {
         name: 'setting-role',
         path: 'role',
+        redirect: '/setting/role/list',
         meta: {
-          title: 'setting_role',
+          title: '角色管理',
         },
         children: [
           {
@@ -87,7 +88,7 @@ export const routes: RouteRecordRaw[] = [
             path: 'config/:id',
             component: () => import('@/views/setting/role/config/[id].vue'),
             meta: {
-              title: 'setting_role_config',
+              title: '角色配置',
             },
           },
           {
@@ -95,7 +96,7 @@ export const routes: RouteRecordRaw[] = [
             path: 'list',
             component: () => import('@/views/setting/role/list/index.vue'),
             meta: {
-              title: 'setting_role_list',
+              title: '角色列表',
             },
           },
         ],
@@ -105,7 +106,7 @@ export const routes: RouteRecordRaw[] = [
         path: 'user',
         component: () => import('@/views/setting/user/index.vue'),
         meta: {
-          title: 'setting_user',
+          title: '用户管理',
         },
       },
     ],
