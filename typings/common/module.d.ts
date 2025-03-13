@@ -3,11 +3,16 @@ import 'vue-router'
 declare module 'vue-router' {
   interface RouteMeta {
     title: string
-    auths?: string[]
+    roles?: string[]
     icon?: string
-    hideMenu?: boolean
+    localIcon?: string
+    keepAlive?: boolean
+    hideInMenu?: boolean
     activeMenu?: RouterName
     constant?: boolean
-    sort?: number
+    order?: number
+    href?: string
+    multiTab?: boolean
+    fixedInTab?: number
   }
 }

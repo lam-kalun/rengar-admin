@@ -1,9 +1,10 @@
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useRouterStore } from '@/stores'
 import { to as awaitTo } from '@/utils'
 import type { Router } from 'vue-router'
 
 export function setupRouterGuard(router: Router) {
   const authStore = useAuthStore()
+  const routerStore = useRouterStore()
 
   router.beforeEach(async (to) => {
     // 常量路由直接通过（除登录页外）
@@ -26,10 +27,31 @@ export function setupRouterGuard(router: Router) {
     if (shouldGetUserInfo) {
       // 有token但是没有用户信息，重新获取用户信息
       const [err] = await awaitTo(authStore.authDetailAction())
+
       if (err) {
         return '/login'
       }
-      return true
+      const routes = await routerStore.filterRouterByRoles()
+      // 移除所有动态路由
+      router.getRoutes().forEach((route) => {
+        if (route.meta?.roles) {
+          router.removeRoute(route.name as string)
+        }
+      })
+      router.removeRoute('not-found')
+
+      // 添加过滤后的动态路由
+      routes.forEach((route) => {
+        router.addRoute(route)
+      })
+      router.addRoute({
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        redirect: '/404',
+      })
+
+      // 重定向到完整的路由路径
+      return { ...to, replace: true }
     }
 
     // 处理需要登录的页面

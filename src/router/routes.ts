@@ -11,6 +11,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '404',
       hideMenu: true,
+      constant: true,
     },
     children: [
       {
@@ -47,6 +48,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/layouts/blank/index.vue'),
     meta: {
       title: '登录',
+      constant: true,
     },
     children: [
       {
@@ -54,7 +56,7 @@ export const routes: RouteRecordRaw[] = [
         path: '',
         component: () => import('@/views/login/index.vue'),
         meta: {
-          title: 'login',
+          title: '登录',
         },
       },
     ],
@@ -65,6 +67,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/layouts/base/index.vue'),
     meta: {
       title: '系统设置',
+      roles: ['menu001'],
     },
     children: [
       {
@@ -73,6 +76,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/setting/menu/index.vue'),
         meta: {
           title: '菜单管理',
+          roles: ['menu002'],
         },
       },
       {
@@ -81,6 +85,7 @@ export const routes: RouteRecordRaw[] = [
         redirect: '/setting/role/list',
         meta: {
           title: '角色管理',
+          roles: ['menu003'],
         },
         children: [
           {
@@ -89,6 +94,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/setting/role/config/[id].vue'),
             meta: {
               title: '角色配置',
+              roles: ['menu004'],
             },
           },
           {
@@ -97,6 +103,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/setting/role/list/index.vue'),
             meta: {
               title: '角色列表',
+              roles: ['menu005'],
             },
           },
         ],
@@ -107,6 +114,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/setting/user/index.vue'),
         meta: {
           title: '用户管理',
+          roles: ['menu006'],
         },
       },
     ],
