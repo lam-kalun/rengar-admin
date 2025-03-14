@@ -8,13 +8,13 @@ export default defineConfig(({ mode }) => {
   const vitEnv = loadEnv(mode, process.cwd(), '') as unknown as ImportMetaEnv
   return {
     server: {
-      port: Number(vitEnv.VITE_APP_PORT)
+      port: Number(vitEnv.VITE_APP_PORT),
     },
-    plugins: setupVitePlugins(mode),
+    plugins: setupVitePlugins(),
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
-      }
-    }
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
   }
 })

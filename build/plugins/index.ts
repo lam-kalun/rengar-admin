@@ -7,11 +7,17 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { setupUnocssPlugin } from './unocss'
 import { setupRouter } from './router'
 import { setupAutoImportPlugin } from './import'
-export function setupVitePlugins(mode: string) {
-  const plugins: PluginOption[] = [vue(), vueJsx(), vueDevTools(), setupUnocssPlugin(), ...setupAutoImportPlugin()]
+import { setupInject } from './inject'
+export function setupVitePlugins() {
+  const plugins: PluginOption[] = [
+    setupInject(),
+    vue(),
+    vueJsx(),
+    vueDevTools(),
 
-  if (mode === 'development') {
-    plugins.push(setupRouter())
-  }
+    setupRouter(),
+    setupUnocssPlugin(),
+    ...setupAutoImportPlugin(),
+  ]
   return plugins
 }

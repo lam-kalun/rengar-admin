@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 const router = useRouter()
+
 function handleClick() {
   router.push('/setting/role')
 }

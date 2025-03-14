@@ -48,6 +48,9 @@ importers:
       '@rengar/unocss':
         specifier: workspace:^
         version: link:packages/unocss
+      '@rollup/pluginutils':
+        specifier: ^5.1.4
+        version: 5.1.4(rollup@4.34.8)
       '@tsconfig/node22':
         specifier: ^22.0.0
         version: 22.0.0
@@ -66,6 +69,9 @@ importers:
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.1.1
         version: 4.1.1(vite@6.1.0(@types/node@22.13.4)(jiti@2.4.2)(terser@5.39.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
+      '@vue/compiler-sfc':
+        specifier: ^3.5.13
+        version: 3.5.13
       '@vue/eslint-config-prettier':
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.20.1(jiti@2.4.2))(prettier@3.5.1)
