@@ -50,7 +50,6 @@ export function setupRouterGuard(router: Router) {
         name: 'not-found',
         redirect: '/404',
       })
-
       // 重定向到完整的路由路径
       return { ...to, replace: true }
     }

@@ -56,8 +56,8 @@ import TopWave from './components/TopWave.vue'
 const title = import.meta.env.VITE_APP_TITLE
 
 const formData = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
 })
 const formRef = useTemplateRef<FormInst>('formRef')
 const rules: FormRules = {
@@ -87,11 +87,6 @@ async function handleSubmit() {
   }
   const [loginErr] = await to(authStore.authLoginAction(formData))
   if (loginErr) {
-    endLoading()
-    return
-  }
-  const [detailErr] = await to(authStore.authDetailAction())
-  if (detailErr) {
     endLoading()
     return
   }
