@@ -8,6 +8,9 @@ export const routes: RouteRecordRaw[] = [
     name: '404',
     path: '/404',
     component: () => import('@/layouts/base/index.vue'),
+    redirect: {
+      name: '404-index',
+    },
     meta: {
       title: '404',
       hideMenu: true,
@@ -28,8 +31,11 @@ export const routes: RouteRecordRaw[] = [
     name: 'home',
     path: '/home',
     component: () => import('@/layouts/base/index.vue'),
+    redirect: {
+      name: 'home-index',
+    },
     meta: {
-      title: 'home',
+      title: '首页',
     },
     children: [
       {
@@ -46,6 +52,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'login',
     path: '/login',
     component: () => import('@/layouts/blank/index.vue'),
+    redirect: {
+      name: 'login-index',
+    },
     meta: {
       title: '登录',
       constant: true,

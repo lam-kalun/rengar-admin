@@ -108,6 +108,22 @@ export function generateRouteString(routes: TreeNode[], routerMap: Map<string, R
         }
         str += `${spaces}${indent}},\n`
       }
+    } else if (node.redirect) {
+      if (typeof node.redirect === 'string') {
+        str += `${spaces}${indent}redirect: '${node.redirect}',\n`
+      } else {
+        str += `${spaces}${indent}redirect: {\n`
+        for (const [key, value] of Object.entries(node.redirect || {})) {
+          const formattedValue =
+            typeof value === 'string'
+              ? `'${value}'`
+              : Array.isArray(value)
+                ? JSON.stringify(value).replace(/"/g, "'")
+                : value
+          str += `${spaces}${indent}${indent}${key}: ${formattedValue},\n`
+        }
+        str += `${spaces}${indent}},\n`
+      }
     }
 
     if (routerMap.get(node.name)?.meta) {
@@ -203,6 +219,9 @@ export function generateRoutesTree(dir: string, rootDir: string, layout: string)
 
         // 处理一级目录的特殊情况
         if (isFirstLevel && hasIndexVue) {
+          node.redirect = {
+            name: `${name}-index`,
+          }
           node.children = [
             {
               path: '',

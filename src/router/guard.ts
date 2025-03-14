@@ -34,11 +34,10 @@ export function setupRouterGuard(router: Router) {
       const routes = await routerStore.filterRouterByRoles()
       // 移除所有动态路由
       router.getRoutes().forEach((route) => {
-        if (route.meta?.roles) {
+        if ((Array.isArray(route.meta.roles) && route.meta?.roles?.length > 0) || route.name === 'not-found') {
           router.removeRoute(route.name as string)
         }
       })
-      router.removeRoute('not-found')
 
       // 添加过滤后的动态路由
       routes.forEach((route) => {
