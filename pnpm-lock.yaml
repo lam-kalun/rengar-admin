@@ -45,9 +45,6 @@ importers:
       '@rengar/unocss':
         specifier: workspace:^
         version: link:packages/unocss
-      '@rengar/vite-plugin-vue-routes':
-        specifier: workspace:^
-        version: link:packages/vite-plugin-vue-routes
       '@rollup/pluginutils':
         specifier: ^5.1.4
         version: 5.1.4(rollup@4.34.8)
