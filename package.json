@@ -31,7 +31,7 @@
     "@iconify/json": "^2.2.310",
     "@iconify/utils": "^2.3.0",
     "@iconify/vue": "^4.3.0",
-    "@rengar/router": "workspace:^",
+    "@rengar/vite-plugin-vue-routes": "workspace:^",
     "@rengar/theme": "workspace:^",
     "@rengar/unocss": "workspace:^",
     "@rollup/pluginutils": "^5.1.4",

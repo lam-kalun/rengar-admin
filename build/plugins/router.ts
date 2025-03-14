@@ -1,4 +1,4 @@
-import { vitePluginRoutes } from '../../packages/router/src'
+import { vitePluginRoutes } from '@rengar/vite-plugin-vue-routes'
 
 export function setupRouter() {
   return vitePluginRoutes({

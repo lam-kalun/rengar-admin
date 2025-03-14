@@ -39,15 +39,15 @@ importers:
       '@iconify/vue':
         specifier: ^4.3.0
         version: 4.3.0(vue@3.5.13(typescript@5.7.3))
-      '@rengar/router':
-        specifier: workspace:^
-        version: link:packages/router
       '@rengar/theme':
         specifier: workspace:^
         version: link:packages/theme
       '@rengar/unocss':
         specifier: workspace:^
         version: link:packages/unocss
+      '@rengar/vite-plugin-vue-routes':
+        specifier: workspace:^
+        version: link:packages/vite-plugin-vue-routes
       '@rollup/pluginutils':
         specifier: ^5.1.4
         version: 5.1.4(rollup@4.34.8)
@@ -135,11 +135,13 @@ importers:
 
   packages/axios: {}
 
-  packages/router: {}
-
   packages/theme: {}
 
   packages/unocss: {}
+
+  packages/vite-plugin-vue-inject-name: {}
+
+  packages/vite-plugin-vue-routes: {}
 
 packages:
 
