@@ -1,25 +1,30 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-export function filterRoutes(routes: RouteRecordRaw[], callBack: (node: RouteRecordRaw) => boolean): RouteRecordRaw[] {
-  const result: RouteRecordRaw[] = []
+export function filterRoutes(
+  routesTree: RouteRecordRaw[],
+  callBack: (node: RouteRecordRaw) => boolean,
+): RouteRecordRaw[] {
+  function traverse(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+    return routes.reduce<RouteRecordRaw[]>((acc, route) => {
+      if (callBack(route)) {
+        const filteredRoute = { ...route }
 
-  function traverse(node: RouteRecordRaw): boolean {
-    if (callBack(node)) {
-      result.push(node)
-      return true
-    }
+        // 如果有子路由，递归过滤
+        if (route.children?.length) {
+          const filteredChildren = traverse(route.children)
+          if (filteredChildren.length) {
+            filteredRoute.children = filteredChildren
+          } else {
+            delete filteredRoute.children
+          }
+        }
 
-    if (node.children) {
-      const children = node.children.filter(traverse)
-      if (children.length > 0) {
-        result.push({ ...node, children })
-        return true
+        acc.push(filteredRoute)
       }
-    }
 
-    return false
+      return acc
+    }, [])
   }
 
-  routes.forEach(traverse)
-  return result
+  return traverse(routesTree)
 }

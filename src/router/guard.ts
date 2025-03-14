@@ -15,8 +15,6 @@ export function setupRouterGuard(router: Router) {
     const isAuthenticated = Boolean(authStore.user.token && authStore.user.id)
     const shouldGetUserInfo = Boolean(authStore.user.token && !authStore.user.id)
 
-    console.log(isAuthenticated, shouldGetUserInfo)
-
     if (to.path === '/login') {
       if (shouldGetUserInfo || isAuthenticated) {
         return '/'
@@ -31,7 +29,11 @@ export function setupRouterGuard(router: Router) {
       if (err) {
         return '/login'
       }
-      const routes = await routerStore.filterRouterByRoles()
+
+      const codes = authStore.user.codes
+      if (!codes) return true
+      const routes = await routerStore.filterRouterByRoles(codes)
+      await routerStore.gernerateMenuTree(codes)
       // 移除所有动态路由
       router.getRoutes().forEach((route) => {
         if ((Array.isArray(route.meta.roles) && route.meta?.roles?.length > 0) || route.name === 'not-found') {

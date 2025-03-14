@@ -13,7 +13,7 @@ export const routes: RouteRecordRaw[] = [
     },
     meta: {
       title: '404',
-      hideMenu: true,
+      hideInMenu: true,
       constant: true,
     },
     children: [
@@ -58,6 +58,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '登录',
       constant: true,
+      hideInMenu: true,
     },
     children: [
       {

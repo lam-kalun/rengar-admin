@@ -13,7 +13,7 @@ const router = createRouter({
       name: 'root',
       redirect: '/home',
     },
-    ...filterRoutes(routes, (node) => !node.meta?.roles || node.meta?.roles.length === 0),
+    ...filterRoutes(routes, (route) => !route.meta?.roles || route.meta?.roles.length === 0),
   ],
 })
 
