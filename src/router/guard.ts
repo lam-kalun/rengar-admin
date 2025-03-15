@@ -18,6 +18,15 @@ export function setupRouterGuard(router: Router) {
       if (isLogin) {
         return '/'
       }
+      if (!isLogin) {
+        return true
+      }
+    }
+
+    // 处理需要登录的页面
+    if (!isLogin) {
+      // 未登录，重定向到登录页
+      return '/login'
     }
 
     if (isLogin && !isUserDetail) {
@@ -52,24 +61,16 @@ export function setupRouterGuard(router: Router) {
       // return { ...to, replace: true }
     }
 
-    // 处理需要登录的页面
-    if (!isLogin) {
-      // 未登录，重定向到登录页
-      return '/login'
-    }
-
     if (to.redirectedFrom) {
-      console.log(to.redirectedFrom)
       const roles = to.redirectedFrom.meta.roles
       if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => authStore.roleMap.has(role))) {
         return '/404'
       }
     }
 
-    if (Array.isArray(to.meta.roles) && to.meta.roles.length > 0) {
-      if (!to.meta.roles.some((role) => authStore.roleMap.has(role))) {
-        return '/404'
-      }
+    const roles = to.meta.roles
+    if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => authStore.roleMap.has(role))) {
+      return '/404'
     }
 
     // 已登录且访问其他页面，允许访问
