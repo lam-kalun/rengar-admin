@@ -1,5 +1,5 @@
-import { authLoginApi, authDetailApi, authLoginOutApi } from '@/api'
-import { to } from '@/utils'
+import { authLoginApi, authDetailApi, authLoginOutApi } from '@/api/common/auth'
+import { to } from '@rengar/utils'
 const saveStorage = import.meta.env.VITE_APP_TOKEN_STORAGE
 const storage = saveStorage === 'sessionStorage' ? sessionStorage : localStorage
 const saveTokenKey = 'token'
@@ -8,7 +8,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<App.Auth.User>({
     token: getToken() || undefined,
   })
-
+  const roleMap = new Map<string, string>()
   function saveToken(token: string) {
     storage.setItem(saveTokenKey, token)
   }
@@ -30,6 +30,9 @@ export const useAuthStore = defineStore('auth', () => {
     const [err, data] = await to(authDetailApi())
     if (err) return Promise.reject(err)
     Object.assign(user.value, data)
+    data.codes.forEach((item) => {
+      roleMap.set(item, item)
+    })
     return true
   }
 
@@ -47,6 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     user,
+    roleMap,
     authLoginAction,
     authDetailAction,
     authLoginOutAction,

@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores'
-import { to } from '@/utils'
-import { useRouterHook } from '@/hooks'
+import { to } from '@rengar/utils'
+import { useRouterHook } from '@rengar/hooks'
 import PasswordModal from './PasswordModal.vue'
 
 const authStore = useAuthStore()
@@ -22,12 +22,12 @@ const authStore = useAuthStore()
 const options = [
   {
     label: '修改密码',
-    key: 'password'
+    key: 'password',
   },
   {
     label: '退出登录',
-    key: 'loginout'
-  }
+    key: 'loginout',
+  },
 ]
 
 function handleSelect(key: string) {
@@ -61,7 +61,7 @@ function handleLoginOut() {
       window.$message.success('退出登录成功')
       replaceLogin()
       return true
-    }
+    },
   })
 }
 </script>

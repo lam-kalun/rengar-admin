@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { setupRouterGuard } from './guard'
 import { routes } from './routes'
-import { filterRoutes } from './utils'
+// import { filterRoutes } from './utils'
 
 import type { App } from 'vue'
 
@@ -13,7 +13,13 @@ const router = createRouter({
       name: 'root',
       redirect: '/home',
     },
-    ...filterRoutes(routes, (route) => !route.meta?.roles || route.meta?.roles.length === 0),
+    ...routes,
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      redirect: '/404',
+    },
+    // ...filterRoutes(routes, (route) => !route.meta?.roles || route.meta?.roles.length === 0),
   ],
 })
 

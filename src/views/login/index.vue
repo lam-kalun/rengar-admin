@@ -47,9 +47,11 @@
 </template>
 
 <script setup lang="ts">
-import { to } from '@/utils'
+import { to } from '@rengar/utils'
 import { useAuthStore } from '@/stores'
-import { useRouterHook, useLoading } from '@/hooks'
+import { useRouterHook } from '@rengar/hooks'
+import { useLoading } from '@rengar/hooks'
+
 import type { FormInst, FormRules } from 'naive-ui'
 import BottomWave from './components/BottomWave.vue'
 import TopWave from './components/TopWave.vue'

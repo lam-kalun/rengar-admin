@@ -1,7 +1,7 @@
 import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
-import { useRouterHook } from '@/hooks'
+import { useRouterHook } from '@rengar/hooks'
 import { useAuthStore } from '@/stores'
 
 function showErrorMessage(message: string) {
@@ -15,7 +15,7 @@ class HttpClient extends BaseHttpClient {
     super({
       baseURL: config.baseURL,
       timeout: config.timeout || 10000,
-      ...config
+      ...config,
     })
     this.instance.defaults.cancelToken = this.cancelTokenSource.token
   }
@@ -32,7 +32,7 @@ class HttpClient extends BaseHttpClient {
       },
       (error) => {
         return Promise.reject(error)
-      }
+      },
     )
   }
 
@@ -69,7 +69,7 @@ class HttpClient extends BaseHttpClient {
         }
         showErrorMessage('请求失败')
         return Promise.reject(error)
-      }
+      },
     )
   }
 
@@ -91,16 +91,16 @@ class HttpClient extends BaseHttpClient {
 
     return this.instance.post<T>(url, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
       },
-      ...config
+      ...config,
     }) as Promise<T>
   }
 }
 
 const baseHttp = new HttpClient({
   baseURL: import.meta.env.VITE_API_URL,
-  timeout: 1000 * 10
+  timeout: 1000 * 10,
 })
 
 export { baseHttp }

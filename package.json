@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@rengar/axios": "workspace:^",
+    "@rengar/hooks": "workspace:^",
+    "@rengar/utils": "workspace:^",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.7.9",
     "es-toolkit": "^1.32.0",

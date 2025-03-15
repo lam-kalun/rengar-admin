@@ -23,27 +23,26 @@
 </template>
 
 <script setup lang="ts">
-import { authPasswordApi } from '@/api'
-import { to } from '@/utils'
-import { useLoading } from '@/hooks'
-import { useRouterHook } from '@/hooks'
+import { authPasswordApi } from '@/api/common/auth'
+import { to } from '@rengar/utils'
+import { useLoading, useRouterHook } from '@rengar/hooks'
 import { useAuthStore } from '@/stores'
 import type { FormInst, FormRules } from 'naive-ui'
 
 const show = defineModel<boolean>('show', {
-  required: true
+  required: true,
 })
 
 const rules: FormRules = {
   oldPassword: {
     required: true,
     message: '请输入旧密码',
-    trigger: ['blur', 'input']
+    trigger: ['blur', 'input'],
   },
   newPassword: {
     required: true,
     message: '请输入新密码',
-    trigger: ['blur', 'input']
+    trigger: ['blur', 'input'],
   },
   confirmPassword: {
     required: true,
@@ -56,14 +55,14 @@ const rules: FormRules = {
       }
       return true
     },
-    trigger: ['blur', 'input']
-  }
+    trigger: ['blur', 'input'],
+  },
 }
 
 const formValue = reactive<Api.Auth.PasswordParams>({
   oldPassword: '',
   newPassword: '',
-  confirmPassword: ''
+  confirmPassword: '',
 })
 const formRef = useTemplateRef<FormInst>('formRef')
 

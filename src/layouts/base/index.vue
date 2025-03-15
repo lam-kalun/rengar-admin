@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 import { useLayoutStore } from '@/stores'
-import { numberToPx } from '@/utils'
+import { numberToPx } from '@/utils/tools'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppLogo from '../components/AppLogo/index.vue'
 import AppTabs from '../components/AppTabs/index.vue'
