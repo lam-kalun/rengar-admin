@@ -1,10 +1,21 @@
 import { useAuthStore } from '@/stores'
 import { to as awaitTo } from '@rengar/utils'
-import type { Router } from 'vue-router'
+import type { RouteLocationGeneric, Router } from 'vue-router'
 
 export function setupRouterGuard(router: Router) {
   const authStore = useAuthStore()
-  // const routerStore = useRouterStore()
+
+  function needPermission(to: RouteLocationGeneric) {
+    return Array.isArray(to.meta.roles) && to.meta.roles.length > 0
+  }
+
+  function hasPerssion(to: RouteLocationGeneric) {
+    const roles = to.meta.roles
+    if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => authStore.roleMap.has(role))) {
+      return false
+    }
+    return true
+  }
 
   router.beforeEach(async (to) => {
     if (to.meta.constant) {
@@ -17,12 +28,9 @@ export function setupRouterGuard(router: Router) {
       return isLogin ? '/' : true
     }
 
-    // 处理需要登录的页面
     if (!isLogin) {
-      // 未登录，重定向到登录页
       return '/login'
     }
-    if (to.name === '404') return true
 
     if (isLogin && !isUserDetail) {
       // 有token但是没有用户信息，重新获取用户信息
@@ -57,18 +65,20 @@ export function setupRouterGuard(router: Router) {
     }
 
     if (to.redirectedFrom) {
-      const roles = to.redirectedFrom.meta.roles
-      if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => authStore.roleMap.has(role))) {
-        return '/404'
+      if (!needPermission(to.redirectedFrom)) {
+        return true
+      } else {
+        return hasPerssion(to.redirectedFrom) ? true : '/404'
       }
     }
 
-    const roles = to.meta.roles
-    if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => authStore.roleMap.has(role))) {
-      return '/404'
+    if (!needPermission(to)) {
+      return true
     }
 
-    // 已登录且访问其他页面，允许访问
+    if (!hasPerssion(to)) {
+      return '/404'
+    }
     return true
   })
 }

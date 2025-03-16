@@ -8,7 +8,6 @@ export interface Layout {
 export interface Option {
   entry: string
   output: string
-  layout: Layout
   typeDir: string
 }
 

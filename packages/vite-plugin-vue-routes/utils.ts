@@ -144,7 +144,7 @@ export function generateRouteString(routes: TreeNode[], routerMap: Map<string, R
   return result
 }
 
-export function generateRoutesTree(dir: string, rootDir: string, layout: string): TreeNode[] {
+export function generateRoutesTree(dir: string, rootDir: string): TreeNode[] {
   const root = process.cwd()
   const result: TreeNode[] = []
   const files = fs.readdirSync(dir)
@@ -157,7 +157,7 @@ export function generateRoutesTree(dir: string, rootDir: string, layout: string)
       const hasIndexVue =
         fs.existsSync(path.join(fullPath, 'index.vue')) ||
         fs.readdirSync(fullPath).some((file) => file.match(/^\[.*?\]\.vue$/))
-      const children = generateRoutesTree(fullPath, rootDir, layout)
+      const children = generateRoutesTree(fullPath, rootDir)
       const relativePath = path.relative(path.join(root, 'src/views'), fullPath)
       const pathSegments = relativePath.split(path.sep)
 
@@ -194,7 +194,6 @@ export function generateRoutesTree(dir: string, rootDir: string, layout: string)
 
         const component = `@${path.relative(root, rootDir).replace('src', '').split(path.sep).join('/')}/${relativePath.split(path.sep).join('/')}/${dynamicParam ? `[${dynamicParam}].vue` : 'index.vue'}`
 
-        // 只有顶层和叶子节点设置component
         if (isLeaf) {
           node.component = component
         }

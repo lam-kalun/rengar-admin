@@ -13,7 +13,7 @@ import {
 import type { Plugin } from 'vite'
 import type { Option, RouterMap } from './types'
 export function vitePluginRoutes(option: Option): Plugin {
-  const { entry, output, layout, typeDir } = option
+  const { entry, output, typeDir } = option
   const root = process.cwd()
   const viewsDir = path.resolve(root, entry)
   const outputPath = path.resolve(root, output)
@@ -23,7 +23,7 @@ export function vitePluginRoutes(option: Option): Plugin {
   function generateFiles() {
     routerMap.clear()
     routerMap = parseExitsRouteFile(outputPath)
-    const routes = generateRoutesTree(viewsDir, viewsDir, layout.base)
+    const routes = generateRoutesTree(viewsDir, viewsDir)
     const routeContent = generateRouteString(routes, routerMap)
     fs.writeFileSync(outputPath, routeContent, 'utf-8')
     // 生成路由名称类型定义
