@@ -58,6 +58,15 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
 }
 
 const route = useRoute()
+watch(
+  route,
+  (val) => {
+    console.log(val.matched)
+  },
+  {
+    immediate: true,
+  },
+)
 const value = ref(route.meta.activeMenu || route.name)
 </script>
 
