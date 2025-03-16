@@ -1,5 +1,8 @@
 import { authLoginApi, authDetailApi, authLoginOutApi } from '@/api/common/auth'
+import { routes } from '@/router/routes'
+import { filterRoutes } from '@/router/utils'
 import { to } from '@rengar/utils'
+import type { RouteRecordRaw } from 'vue-router'
 const saveStorage = import.meta.env.VITE_APP_TOKEN_STORAGE
 const storage = saveStorage === 'sessionStorage' ? sessionStorage : localStorage
 const saveTokenKey = 'token'
@@ -9,6 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
     token: getToken() || undefined,
   })
   const roleMap = new Map<string, string>()
+  const menus = ref<RouteRecordRaw[]>([])
   function saveToken(token: string) {
     storage.setItem(saveTokenKey, token)
   }
@@ -26,13 +30,26 @@ export const useAuthStore = defineStore('auth', () => {
     return true
   }
 
+  function gernerateMenus() {
+    menus.value = filterRoutes(routes, (route) => {
+      if (route.meta?.hideInMenu) return false
+      const roles = route.meta?.role
+      if (Array.isArray(roles) && roles.length > 0) {
+        return roles.some((role) => roleMap.has(role))
+      }
+      return true
+    })
+  }
+
   async function authDetailAction() {
     const [err, data] = await to(authDetailApi())
     if (err) return Promise.reject(err)
-    Object.assign(user.value, data)
+    user.value.id = data.id
+    user.value.username = data.username
     data.codes.forEach((item) => {
       roleMap.set(item, item)
     })
+    gernerateMenus()
     return true
   }
 
@@ -52,6 +69,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     user,
     roleMap,
+    menus,
     authLoginAction,
     authDetailAction,
     authLoginOutAction,

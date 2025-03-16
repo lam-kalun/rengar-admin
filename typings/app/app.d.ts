@@ -13,7 +13,6 @@ declare namespace App {
     interface User {
       username?: string
       id?: number
-      codes?: string[]
       token?: string
     }
   }
