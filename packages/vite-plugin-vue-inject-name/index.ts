@@ -25,10 +25,7 @@ export function injectFolderNamePlugin(entry = 'src/views'): Plugin {
       dirs.pop()
 
       // 将文件夹名称用 - 连接
-      let name = dirs.join('-')
-      if (!name.includes('-')) {
-        name = `${name}-index`
-      }
+      const name = dirs.join('-')
 
       // 处理 <script setup> 的内容
       const scriptSetupContent = descriptor.scriptSetup.content

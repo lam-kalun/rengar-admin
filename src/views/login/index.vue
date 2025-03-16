@@ -77,9 +77,11 @@ const rules: FormRules = {
 
 const authStore = useAuthStore()
 
-const { replaceByRouterName } = useRouterHook()
+const { replaceByRouteName } = useRouterHook()
 
 const { loading, startLoading, endLoading } = useLoading()
+
+const route = useRoute()
 async function handleSubmit() {
   startLoading()
   const [err] = await to(formRef.value!.validate())
@@ -93,8 +95,8 @@ async function handleSubmit() {
     return
   }
   window.$message.success('登录成功')
-  await nextTick()
-  replaceByRouterName('home')
+  const redirect = (route.query.redirect as RouteRecordName) || undefined
+  replaceByRouteName(redirect || 'home')
   endLoading()
 }
 </script>

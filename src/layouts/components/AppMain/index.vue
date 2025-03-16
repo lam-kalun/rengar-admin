@@ -1,6 +1,6 @@
 <template>
   <RouterView v-slot="{ Component }">
-    <KeepAlive :include="['home-index', 'setting-role-list']">
+    <KeepAlive :include="['home']">
       <component :is="Component" />
     </KeepAlive>
   </RouterView>

@@ -64,7 +64,7 @@ export function collectRouteNames(routes: TreeNode[]): string[] {
 export function generateRouteNameType(names: string[]): string {
   return `// 此文件由vite-plugin-routes自动生成，请勿手动修改
 
-type RouterName =
+type RouteRecordName =
   ${names.map((name) => `| '${name}'`).join('\n  ')}
 `
 }
@@ -72,7 +72,7 @@ type RouterName =
 export function generateRouteString(routes: TreeNode[], routerMap: Map<string, RouterMap>): string {
   const indent = '  '
   let result =
-    "// 此文件由vite-plugin-routes自动生成，手动修改的地方受限\n// 假如你想用其他的layout，你可以手动修改一级路由的component属性，不会覆盖\n// 修改所有路由的meta值、新增rediect属性不会覆盖\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
+    "// 此文件由vite-plugin-routes自动生成，仅限meta、redirect属性手动修改\nimport type { RouteRecordRaw } from 'vue-router'\n\nexport const routes: RouteRecordRaw[] = [\n"
 
   function stringifyNode(node: TreeNode, level: number = 1): string {
     const spaces = indent.repeat(level)

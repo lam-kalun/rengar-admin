@@ -2,7 +2,7 @@ import { useRouter } from 'vue-router'
 import type { Option } from './type'
 export function useRouterHook() {
   const router = useRouter()
-  function pushByRouterName(name: RouterName, option?: Option) {
+  function pushByRouteName(name: RouteRecordName, option?: Option) {
     router.push({
       name,
       ...option,
@@ -10,17 +10,17 @@ export function useRouterHook() {
   }
 
   function pushHome() {
-    pushByRouterName('home')
+    pushByRouteName('home')
   }
 
-  function replaceByRouterName(name: RouterName, option?: Option) {
+  function replaceByRouteName(name: RouteRecordName, option?: Option) {
     router.replace({
       name,
       ...option,
     })
   }
 
-  function replaceLogin(routerName?: RouterName) {
+  function replaceLogin(routerName?: RouteRecordName) {
     const params: Recordable = {
       name: 'login',
     }
@@ -33,9 +33,9 @@ export function useRouterHook() {
   }
 
   return {
-    pushByRouterName,
+    pushByRouteName,
     pushHome,
     replaceLogin,
-    replaceByRouterName,
+    replaceByRouteName,
   }
 }

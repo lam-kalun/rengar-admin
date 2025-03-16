@@ -7,7 +7,6 @@ export function setupRouterGuard(router: Router) {
   // const routerStore = useRouterStore()
 
   router.beforeEach(async (to) => {
-    // 常量路由直接通过（除登录页外）
     if (to.meta.constant) {
       return true
     }
@@ -23,6 +22,7 @@ export function setupRouterGuard(router: Router) {
       // 未登录，重定向到登录页
       return '/login'
     }
+    if (to.name === '404') return true
 
     if (isLogin && !isUserDetail) {
       // 有token但是没有用户信息，重新获取用户信息

@@ -9,12 +9,12 @@ import { setupRouter } from './router'
 import App from './App.vue'
 import AppLoading from '@/components/AppLoading/index.vue'
 
-function bootstrap() {
+async function bootstrap() {
   const appLoading = createApp(AppLoading)
   appLoading.mount('#app-loading')
   const app = createApp(App)
   setupPinia(app)
-  setupRouter(app)
+  await setupRouter(app)
   app.mount('#app')
   appLoading.unmount()
 }

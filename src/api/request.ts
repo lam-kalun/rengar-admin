@@ -1,7 +1,7 @@
 import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
-import { useRouterHook } from '@rengar/hooks'
+import router from '@/router'
 import { useAuthStore } from '@/stores'
 
 function showErrorMessage(message: string) {
@@ -46,8 +46,13 @@ class HttpClient extends BaseHttpClient {
     showErrorMessage(message)
     const authStore = useAuthStore()
     authStore.reset()
-    const { replaceLogin } = useRouterHook()
-    replaceLogin()
+    console.log(router.currentRoute.value)
+    router.replace({
+      name: 'login',
+      query: {
+        redirect: router.currentRoute.value.name as string,
+      },
+    })
     return Promise.reject(new Error(message))
   }
 

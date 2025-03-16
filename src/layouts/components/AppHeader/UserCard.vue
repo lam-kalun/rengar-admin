@@ -47,6 +47,8 @@ function handleChangePassword() {
 }
 
 const { replaceLogin } = useRouterHook()
+
+const route = useRoute()
 function handleLoginOut() {
   const dialogInstance = window.$dialog.warning({
     title: '温馨提示',
@@ -59,7 +61,7 @@ function handleLoginOut() {
       dialogInstance.loading = false
       if (err) return false
       window.$message.success('退出登录成功')
-      replaceLogin()
+      replaceLogin(route.name as RouteRecordName)
       return true
     },
   })

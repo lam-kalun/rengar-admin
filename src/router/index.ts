@@ -25,7 +25,8 @@ const router = createRouter({
 
 export default router
 
-export function setupRouter(app: App) {
+export async function setupRouter(app: App) {
   app.use(router)
   setupRouterGuard(router)
+  await router.isReady()
 }
