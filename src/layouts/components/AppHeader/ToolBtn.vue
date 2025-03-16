@@ -1,14 +1,20 @@
 <template>
   <div class="flex items-center gap-3 text-xl">
     <SvgIcon
-      v-if="themeStore.theme === 'light'"
+      v-if="themeStore.themeMode === 'light'"
       icon="line-md:sunny"
       class="cursor-pointer text-amber"
       @click="themeStore.toggleTheme"
     ></SvgIcon>
 
-    <SvgIcon v-else icon="line-md:moon-filled" class="cursor-pointer" @click="themeStore.toggleTheme"></SvgIcon>
-
+    <SvgIcon
+      v-else-if="themeStore.themeMode === 'dark'"
+      icon="line-md:moon-filled"
+      class="cursor-pointer"
+      @click="themeStore.toggleTheme"
+    ></SvgIcon>
+    <SvgIcon v-else icon="material-symbols:hdr-auto" class="cursor-pointer" @click="themeStore.toggleTheme"></SvgIcon>
+    <SvgIcon icon="unjs:theme-colors" class="cursor-pointer"></SvgIcon>
     <SvgIcon
       :icon="isFullscreen ? 'ooui:exit-fullscreen' : 'ooui:full-screen'"
       class="cursor-pointer hover:text-primary"

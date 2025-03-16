@@ -6,4 +6,4 @@ interface Window {
   $notification: import('naive-ui').NotificationProviderInst
 }
 
-type Theme = 'light' | 'dark'
+type ThemeMode = 'light' | 'dark' | 'auto'

@@ -35,6 +35,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '系统设置',
       roles: ['menu001'],
+      order: 1,
     },
     children: [
       {
@@ -44,6 +45,7 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           title: '菜单设置',
           roles: ['menu002'],
+          order: 1,
         },
       },
       {
@@ -51,8 +53,9 @@ export const routes: RouteRecordRaw[] = [
         path: 'role',
         redirect: '/setting/role/list',
         meta: {
-          title: '角色设置',
+          title: '角色配置',
           roles: ['menu003'],
+          order: 2,
         },
         children: [
           {
@@ -61,6 +64,7 @@ export const routes: RouteRecordRaw[] = [
             component: () => import('@/views/setting/role/config/[id].vue'),
             meta: {
               title: '角色配置',
+              hideInMenu: true,
               roles: ['menu004'],
             },
           },
@@ -71,6 +75,7 @@ export const routes: RouteRecordRaw[] = [
             meta: {
               title: '角色列表',
               roles: ['menu005'],
+              hideInMenu: true,
             },
           },
         ],
@@ -80,8 +85,9 @@ export const routes: RouteRecordRaw[] = [
         path: 'user',
         component: () => import('@/views/setting/user/index.vue'),
         meta: {
-          title: 'setting_user',
+          title: '用户管理',
           roles: ['menu006'],
+          order: 3,
         },
       },
     ],
