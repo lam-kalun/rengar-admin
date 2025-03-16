@@ -2,11 +2,8 @@
 
 type RouterName =
   | '404'
-  | '404-index'
   | 'home'
-  | 'home-index'
   | 'login'
-  | 'login-index'
   | 'setting'
   | 'setting-menu'
   | 'setting-role'

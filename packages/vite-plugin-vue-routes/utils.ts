@@ -22,11 +22,10 @@ export function parseExitsRouteFile(filePath: string) {
     // 递归遍历路由配置并加入 routerMap
     function traverseRoutes(routes: TreeNode[]) {
       for (const route of routes) {
-        const { name, component, meta, redirect, children } = route
+        const { name, meta, redirect, children } = route
 
         // 将当前路由节点加入 routerMap
         routerMap.set(name, {
-          component: typeof component === 'string' ? component : undefined,
           meta: meta,
           redirect,
         })
@@ -87,7 +86,7 @@ export function generateRouteString(routes: TreeNode[], routerMap: Map<string, R
 
     // 组件属性
     if (node.component) {
-      str += `${spaces}${indent}component: () => import('${level === 1 ? routerMap.get(node.name)?.component || node.component : node.component}'),\n`
+      str += `${spaces}${indent}component: () => import('${node.component}'),\n`
     }
 
     // redirect属性
@@ -98,22 +97,6 @@ export function generateRouteString(routes: TreeNode[], routerMap: Map<string, R
       } else {
         str += `${spaces}${indent}redirect: {\n`
         for (const [key, value] of Object.entries(routerMap.get(node.name)?.redirect || {})) {
-          const formattedValue =
-            typeof value === 'string'
-              ? `'${value}'`
-              : Array.isArray(value)
-                ? JSON.stringify(value).replace(/"/g, "'")
-                : value
-          str += `${spaces}${indent}${indent}${key}: ${formattedValue},\n`
-        }
-        str += `${spaces}${indent}},\n`
-      }
-    } else if (node.redirect) {
-      if (typeof node.redirect === 'string') {
-        str += `${spaces}${indent}redirect: '${node.redirect}',\n`
-      } else {
-        str += `${spaces}${indent}redirect: {\n`
-        for (const [key, value] of Object.entries(node.redirect || {})) {
           const formattedValue =
             typeof value === 'string'
               ? `'${value}'`
@@ -198,7 +181,6 @@ export function generateRoutesTree(dir: string, rootDir: string, layout: string)
 
       // 只处理有index.vue的叶子节点或者有子节点的目录
       if (hasIndexVue || children.length > 0) {
-        const isFirstLevel = pathSegments.length === 1
         const isLeaf = !children.length
 
         const node: TreeNode = {
@@ -213,30 +195,11 @@ export function generateRoutesTree(dir: string, rootDir: string, layout: string)
         const component = `@${path.relative(root, rootDir).replace('src', '').split(path.sep).join('/')}/${relativePath.split(path.sep).join('/')}/${dynamicParam ? `[${dynamicParam}].vue` : 'index.vue'}`
 
         // 只有顶层和叶子节点设置component
-        if (isFirstLevel || isLeaf) {
-          node.component = isFirstLevel ? layout : component
+        if (isLeaf) {
+          node.component = component
         }
 
-        // 处理一级目录的特殊情况
-        if (isFirstLevel && hasIndexVue) {
-          node.redirect = {
-            name: `${name}-index`,
-          }
-          node.children = [
-            {
-              path: '',
-              name: `${name}-index`,
-              component,
-              level: 2,
-              meta: {
-                title,
-              },
-            },
-            ...children,
-          ]
-        } else if (children.length > 0) {
-          node.children = children
-        }
+        node.children = children
 
         result.push(node)
       }

@@ -10,7 +10,7 @@ export function useRouterHook() {
   }
 
   function pushHome() {
-    pushByRouterName('home-index')
+    pushByRouterName('home')
   }
 
   function replaceByRouterName(name: RouterName, option?: Option) {
@@ -22,7 +22,7 @@ export function useRouterHook() {
 
   function replaceLogin(routerName?: RouterName) {
     const params: Recordable = {
-      name: 'login-index',
+      name: 'login',
     }
     if (routerName) {
       params.query = {

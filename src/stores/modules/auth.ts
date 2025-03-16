@@ -46,6 +46,7 @@ export const useAuthStore = defineStore('auth', () => {
   function reset() {
     user.value = {}
     removeToken()
+    roleMap.clear()
   }
 
   return {

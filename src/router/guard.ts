@@ -8,19 +8,14 @@ export function setupRouterGuard(router: Router) {
 
   router.beforeEach(async (to) => {
     // 常量路由直接通过（除登录页外）
-    if (to.meta.constant && to.path !== '/login') {
+    if (to.meta.constant) {
       return true
     }
 
     const isLogin = Boolean(authStore.user.token)
     const isUserDetail = Boolean(authStore.user.id)
     if (to.path === '/login') {
-      if (isLogin) {
-        return '/'
-      }
-      if (!isLogin) {
-        return true
-      }
+      return isLogin ? '/' : true
     }
 
     // 处理需要登录的页面

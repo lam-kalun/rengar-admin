@@ -7,74 +7,33 @@ export const routes: RouteRecordRaw[] = [
   {
     name: '404',
     path: '/404',
-    component: () => import('@/layouts/base/index.vue'),
-    redirect: {
-      name: '404-index',
-    },
+    component: () => import('@/views/404/index.vue'),
     meta: {
       title: '404',
       hideInMenu: true,
-      constant: true,
     },
-    children: [
-      {
-        name: '404-index',
-        path: '',
-        component: () => import('@/views/404/index.vue'),
-        meta: {
-          title: '404',
-        },
-      },
-    ],
   },
   {
     name: 'home',
     path: '/home',
-    component: () => import('@/layouts/base/index.vue'),
-    redirect: {
-      name: 'home-index',
-    },
+    component: () => import('@/views/home/index.vue'),
     meta: {
       title: '首页',
     },
-    children: [
-      {
-        name: 'home-index',
-        path: '',
-        component: () => import('@/views/home/index.vue'),
-        meta: {
-          title: '首页',
-        },
-      },
-    ],
   },
   {
     name: 'login',
     path: '/login',
-    component: () => import('@/layouts/blank/index.vue'),
-    redirect: {
-      name: 'login-index',
-    },
+    component: () => import('@/views/login/index.vue'),
     meta: {
       title: '登录',
-      constant: true,
+      layout: 'blank',
       hideInMenu: true,
     },
-    children: [
-      {
-        name: 'login-index',
-        path: '',
-        component: () => import('@/views/login/index.vue'),
-        meta: {
-          title: '登录',
-        },
-      },
-    ],
   },
   {
     name: 'setting',
     path: '/setting',
-    component: () => import('@/layouts/base/index.vue'),
     meta: {
       title: '系统设置',
       roles: ['menu001'],
@@ -85,7 +44,7 @@ export const routes: RouteRecordRaw[] = [
         path: 'menu',
         component: () => import('@/views/setting/menu/index.vue'),
         meta: {
-          title: '菜单管理',
+          title: '菜单设置',
           roles: ['menu002'],
         },
       },
@@ -94,7 +53,7 @@ export const routes: RouteRecordRaw[] = [
         path: 'role',
         redirect: '/setting/role/list',
         meta: {
-          title: '角色管理',
+          title: '角色设置',
           roles: ['menu003'],
         },
         children: [
@@ -123,7 +82,7 @@ export const routes: RouteRecordRaw[] = [
         path: 'user',
         component: () => import('@/views/setting/user/index.vue'),
         meta: {
-          title: '用户管理',
+          title: 'setting_user',
           roles: ['menu006'],
         },
       },
