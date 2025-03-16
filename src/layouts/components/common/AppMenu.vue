@@ -1,13 +1,21 @@
 <template>
-  <NMenu :default-value="value" :mode :options="menus"></NMenu>
+  <NMenu
+    :default-value="value"
+    :mode
+    :options="menus"
+    :collapsed="layoutStore.config.asideCollapse"
+    :collapsed-width="64"
+  ></NMenu>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useLayoutStore } from '@/stores'
 import { NEllipsis, type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 const authStore = useAuthStore()
+const layoutStore = useLayoutStore()
+
 const { mode = 'vertical' } = defineProps<{
   mode?: 'horizontal' | 'vertical'
 }>()

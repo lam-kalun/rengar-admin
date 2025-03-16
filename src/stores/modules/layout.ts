@@ -4,10 +4,17 @@ export const useLayoutStore = defineStore('layout', () => {
     headerHeight: 56,
     footerHeight: 46,
     tabHeight: 44,
-    gap: 12
+    gap: 12,
+    asideCollapse: false,
+    asideCollapseWidth: 64,
   })
 
+  function toggleAsideCollapse() {
+    config.asideCollapse = !config.asideCollapse
+  }
+
   return {
-    config
+    config,
+    toggleAsideCollapse,
   }
 })

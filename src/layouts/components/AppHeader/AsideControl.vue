@@ -1,9 +1,23 @@
 <template>
-  <SvgIcon icon="i-line-md:menu-unfold-left" class="cursor-pointer text-2xl text-primary"></SvgIcon>
+  <div class="flex-center p-1 hover:bg-primary-100">
+    <SvgIcon
+      v-if="!layoutStore.config.asideCollapse"
+      icon="i-line-md:menu-unfold-left"
+      class="cursor-pointer text-xl text-primary"
+      @click="layoutStore.toggleAsideCollapse"
+    ></SvgIcon>
+    <SvgIcon
+      v-else
+      icon="i-line-md:menu-unfold-right"
+      class="cursor-pointer text-2xl text-primary"
+      @click="layoutStore.toggleAsideCollapse"
+    ></SvgIcon>
+  </div>
 </template>
 
 <script setup lang="ts">
-// menu-unfold-right
+import { useLayoutStore } from '@/stores'
+const layoutStore = useLayoutStore()
 </script>
 
 <style scoped></style>

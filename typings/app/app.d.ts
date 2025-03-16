@@ -6,6 +6,8 @@ declare namespace App {
       footerHeight: number
       tabHeight: number
       gap: number
+      asideCollapse: boolean
+      asideCollapseWidth: number
     }
   }
 

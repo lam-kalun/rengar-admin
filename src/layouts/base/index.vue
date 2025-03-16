@@ -5,6 +5,8 @@
       :style="{
         width: numberToPx(layoutConfig.asideWidth),
       }"
+      :collapsed="layoutConfig.asideCollapse"
+      :collapsed-width="layoutConfig.asideCollapseWidth"
     >
       <AppAside />
     </NLayoutSider>

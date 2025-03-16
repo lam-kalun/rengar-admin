@@ -1,25 +1,36 @@
 <template>
   <div class="flex items-center gap-3 text-xl">
-    <SvgIcon
+    <div
       v-if="themeStore.themeMode === 'light'"
-      icon="line-md:sunny"
-      class="cursor-pointer text-amber"
+      class="flex-center rounded-sm p-1 hover:bg-amber-100"
       @click="themeStore.toggleTheme"
-    ></SvgIcon>
+    >
+      <SvgIcon icon="line-md:sunny" class="cursor-pointer text-amber"></SvgIcon>
+    </div>
 
-    <SvgIcon
+    <div
       v-else-if="themeStore.themeMode === 'dark'"
-      icon="line-md:moon-filled"
-      class="cursor-pointer"
+      class="flex-center rounded-sm p-1 hover:bg-zinc-700"
       @click="themeStore.toggleTheme"
-    ></SvgIcon>
-    <SvgIcon v-else icon="material-symbols:hdr-auto" class="cursor-pointer" @click="themeStore.toggleTheme"></SvgIcon>
-    <SvgIcon icon="unjs:theme-colors" class="cursor-pointer"></SvgIcon>
-    <SvgIcon
-      :icon="isFullscreen ? 'ooui:exit-fullscreen' : 'ooui:full-screen'"
-      class="cursor-pointer hover:text-primary"
-      @click="toggle"
-    ></SvgIcon>
+    >
+      <SvgIcon icon="line-md:moon-filled" class="cursor-pointer"></SvgIcon>
+    </div>
+
+    <div v-else class="flex-center rounded-sm p-1 hover:bg-zinc-700" @click="themeStore.toggleTheme">
+      <SvgIcon icon="material-symbols:hdr-auto" class="cursor-pointer"></SvgIcon>
+    </div>
+
+    <div class="flex-center rounded-sm p-1 hover:bg-amber-100 dark:hover:bg-zinc-700">
+      <SvgIcon icon="unjs:theme-colors" class="cursor-pointer"></SvgIcon>
+    </div>
+
+    <div class="flex-center rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700">
+      <SvgIcon
+        :icon="isFullscreen ? 'ooui:exit-fullscreen' : 'ooui:full-screen'"
+        class="cursor-pointer"
+        @click="toggle"
+      ></SvgIcon>
+    </div>
   </div>
 </template>
 
