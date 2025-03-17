@@ -1,0 +1,9 @@
+.theme {
+  background-color: var(--n-color);
+  color: var(--n-text);
+  transition:
+    color 0.3s var(--n-bezier),
+    background-color 0.3s var(--n-bezier),
+    box-shadow 0.3s var(--n-bezier),
+    border-color 0.3s var(--n-bezier);
+}

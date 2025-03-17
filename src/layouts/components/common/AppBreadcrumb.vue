@@ -1,6 +1,6 @@
 <template>
   <NBreadcrumb>
-    <NBreadcrumbItem v-for="item in breadcrumb" :key="item.name">
+    <NBreadcrumbItem v-for="item in breadcrumb" :clickable="false" :key="item.name">
       <div class="flex items-center gap-1">
         <NIcon>
           <SvgIcon
@@ -18,9 +18,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
-
 const breadcrumb = computed(() => {
-  console.log(route.matched)
   return route.matched
 })
 </script>
