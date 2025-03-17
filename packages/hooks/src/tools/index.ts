@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 export function useLoading(_loading = false) {
   const loading = ref(_loading)
   function startLoading() {
@@ -9,6 +10,6 @@ export function useLoading(_loading = false) {
   return {
     loading,
     startLoading,
-    endLoading
+    endLoading,
   }
 }

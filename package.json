@@ -22,6 +22,7 @@
     "@rengar/axios": "workspace:^",
     "@rengar/hooks": "workspace:^",
     "@rengar/utils": "workspace:^",
+    "@unocss/reset": "66.1.0-beta.5",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.7.9",
     "es-toolkit": "^1.32.0",

@@ -6,18 +6,23 @@ import path from 'node:path'
 
 const svgFilePath = path.resolve(process.cwd(), 'src/assets/svg-icons')
 export default defineConfig({
+  content: {
+    pipeline: {
+      exclude: ['node_modules', 'dist'],
+    },
+  },
   presets: [
     presetWind3,
     presetIcons({
       scale: 1,
       extraProperties: {
-        display: 'inline-block'
+        display: 'inline-block',
       },
       warn: true,
       collections: {
-        local: FileSystemIconLoader(svgFilePath, (svg) => svg.replace(/^<svg\s/, '<svg width="1em" height="1em" '))
-      }
+        local: FileSystemIconLoader(svgFilePath, (svg) => svg.replace(/^<svg\s/, '<svg width="1em" height="1em" ')),
+      },
     }),
-    presetRengarAdmin()
-  ]
+    presetRengarAdmin(),
+  ],
 })

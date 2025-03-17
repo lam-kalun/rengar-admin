@@ -26,6 +26,11 @@ export function presetRengarAdmin(): Preset {
         'flex-center-y': 'flex justify-center',
         'flex-y': 'flex flex-col',
       },
+      {
+        'absolute-center-x': 'absolute left-1/2 -translate-x-1/2',
+        'absolute-center-y': 'absolute top-1/2 -translate-y-1/2',
+        'absolute-center': 'absolute-center-x absolute-center-y',
+      },
     ],
   }
   return preset

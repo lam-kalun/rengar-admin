@@ -17,6 +17,9 @@ importers:
       '@rengar/utils':
         specifier: workspace:^
         version: link:packages/utils
+      '@unocss/reset':
+        specifier: 66.1.0-beta.5
+        version: 66.1.0-beta.5
       '@vueuse/core':
         specifier: ^12.7.0
         version: 12.7.0(typescript@5.7.3)
@@ -852,6 +855,9 @@ packages:
 
   '@unocss/reset@66.0.0':
     resolution: {integrity: sha512-YLFz/5yT7mFJC8JSmIUA5+bS3CBCJbtztOw+8rWzjQr/BEVSGuihWUUpI2Df6VVxXIXxKanZR6mIl59yvf+GEA==}
+
+  '@unocss/reset@66.1.0-beta.5':
+    resolution: {integrity: sha512-KMRC280hSTo235FdwAmzobLKYWYWVMpUIUuKmtuOXdDg7mXxSjHPbccDW76iwGtRXl8mTt/gL3stVjHgUsfnBA==}
 
   '@unocss/rule-utils@66.0.0':
     resolution: {integrity: sha512-UJ51YHbwxYTGyj35ugsPlOT4gaa7tCbXdywZ3m5Nn0JgywwIqGmBFyiN9ZjHBHfJuDxmmPd6lxojoBscih/WMQ==}
@@ -3238,6 +3244,8 @@ snapshots:
       '@unocss/preset-wind3': 66.0.0
 
   '@unocss/reset@66.0.0': {}
+
+  '@unocss/reset@66.1.0-beta.5': {}
 
   '@unocss/rule-utils@66.0.0':
     dependencies:
