@@ -1,11 +1,9 @@
 <template>
-  <RouterView v-slot="{ Component }">
-    <KeepAlive :include="['home']">
-      <component :is="Component" />
-    </KeepAlive>
-  </RouterView>
+  <RouterViewContent />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RouterViewContent from '../common/RouterViewContent.vue'
+</script>
 
 <style scoped></style>
