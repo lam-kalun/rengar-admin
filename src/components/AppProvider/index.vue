@@ -22,7 +22,7 @@ import { createTextVNode } from 'vue'
 import { useThemeStore } from '@/stores'
 
 defineOptions({
-  name: 'AppProvider'
+  name: 'AppProvider',
 })
 const themeStore = useThemeStore()
 
@@ -34,7 +34,7 @@ const InjectNaiveProvider = defineComponent({
     window.$message = useMessage()
     window.$notification = useNotification()
     return () => createTextVNode()
-  }
+  },
 })
 </script>
 

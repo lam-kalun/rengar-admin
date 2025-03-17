@@ -18,6 +18,7 @@ export function setupRouterGuard(router: Router) {
   }
 
   router.beforeEach(async (to) => {
+    window.$loadingBar?.start()
     if (to.meta.constant) {
       return true
     }
@@ -80,5 +81,13 @@ export function setupRouterGuard(router: Router) {
       return '/404'
     }
     return true
+  })
+
+  router.afterEach(() => {
+    window.$loadingBar?.finish()
+  })
+
+  router.onError(() => {
+    window.$loadingBar?.error()
   })
 }

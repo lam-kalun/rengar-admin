@@ -1,6 +1,5 @@
-import 'virtual:uno.css'
-import '@unocss/reset/tailwind.css'
 import '@unocss/reset/tailwind-compat.css'
+import 'virtual:uno.css'
 
 import './assets/styles/main.css'
 
@@ -11,7 +10,6 @@ import { setupRouter } from './router'
 import AppLoading from './components/AppLoading/index.vue'
 import App from './App.vue'
 
-// setupLoading()
 async function bootstrap() {
   const loadingApp = createApp(AppLoading)
   loadingApp.mount('#app-loading')
