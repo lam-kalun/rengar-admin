@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore, useLayoutStore } from '@/stores'
+import { useMenuStore, useLayoutStore } from '@/stores'
 import { NEllipsis, type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-const authStore = useAuthStore()
+const menuStore = useMenuStore()
 const layoutStore = useLayoutStore()
 
 const { mode = 'vertical' } = defineProps<{
@@ -21,7 +21,7 @@ const { mode = 'vertical' } = defineProps<{
 }>()
 
 const menus = computed(() => {
-  return generateMenus(authStore.menus)
+  return generateMenus(menuStore.menuRoutes)
 })
 
 function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {

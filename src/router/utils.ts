@@ -28,3 +28,16 @@ export function filterRoutes(
 
   return traverse(routesTree)
 }
+
+export function traverseRoutes(routesTree: RouteRecordRaw[], callBack: (route: RouteRecordRaw) => void): void {
+  function traverse(routes: RouteRecordRaw[]): void {
+    routes.forEach((route) => {
+      callBack(route)
+      if (route.children?.length) {
+        traverse(route.children)
+      }
+    })
+  }
+
+  traverse(routesTree)
+}

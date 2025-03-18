@@ -1,27 +1,36 @@
 <template>
   <nav class="h-full flex px-4 pb-0 pt-2 text-sm">
-    <RouterLink
-      v-for="(item, index) in routerStore.tabsList"
+    <div
+      v-for="item in tabStore.tabsList"
       :key="item.fullPath"
-      :to="item.fullPath"
-      class="tab-item flex items-center"
-      :class="[index === routerStore.activeIndex ? 'bg-primary-100 dark:bg-primary-700' : '']"
+      class="tab-item flex items-center gap-2"
+      :class="[
+        item.fullPath === tabStore.activeFullPath
+          ? 'text-primary dark:text-white bg-primary-100 dark:bg-primary-700'
+          : '',
+      ]"
+      @click="handleJump(item.fullPath)"
     >
       <SvgIcon v-if="item.icon || item.localIcon" :icon="item.icon" :local-icon="item.localIcon" />
       <SvgIcon v-else icon="ic:baseline-menu" />
-      <div class="mx-2 w-[60px] overflow-hidden whitespace-nowrap">{{ item.title }}</div>
-      <SvgIcon
-        icon="material-symbols:close-rounded"
-        class="cursor-pointer text-base"
-        @click="routerStore.removeTabsAction(index)"
-      ></SvgIcon>
-    </RouterLink>
+      <div class="w-[60px] overflow-hidden whitespace-nowrap">{{ item.title }}</div>
+      <div
+        v-if="!item.fixedInTab"
+        class="i-material-symbols:close-rounded hover:i-material-symbols:cancel-rounded cursor-pointer text-lg"
+        @click.stop="tabStore.removeTabsAction(item)"
+      ></div>
+    </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { useRouterStore } from '@/stores'
-const routerStore = useRouterStore()
+import { useTabStore } from '@/stores'
+const tabStore = useTabStore()
+
+const router = useRouter()
+function handleJump(fullPath: string) {
+  router.push(fullPath)
+}
 </script>
 
 <style scoped>

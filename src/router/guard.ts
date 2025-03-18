@@ -1,10 +1,11 @@
-import { useAuthStore } from '@/stores'
+import { useAuthStore, useMenuStore, useTabStore } from '@/stores'
 import { to as awaitTo } from '@rengar/utils'
 import type { RouteLocationGeneric, Router } from 'vue-router'
 
 export function setupRouterGuard(router: Router) {
   const authStore = useAuthStore()
-
+  const menuStore = useMenuStore()
+  const tabStore = useTabStore()
   function needPermission(to: RouteLocationGeneric) {
     return Array.isArray(to.meta.roles) && to.meta.roles.length > 0
   }
@@ -40,29 +41,8 @@ export function setupRouterGuard(router: Router) {
         authStore.reset()
         return '/login'
       }
-
-      // const codes = authStore.user.codes
-      // if (!codes) return true
-      // const routes = await routerStore.filterRouterByRoles(codes)
-      // await routerStore.gernerateMenuTree(codes)
-      // // 移除所有动态路由
-      // router.getRoutes().forEach((route) => {
-      //   if ((Array.isArray(route.meta.roles) && route.meta?.roles?.length > 0) || route.name === 'not-found') {
-      //     router.removeRoute(route.name as string)
-      //   }
-      // })
-
-      // 添加过滤后的动态路由
-      // routes.forEach((route) => {
-      //   router.addRoute(route)
-      // })
-      // router.addRoute({
-      //   path: '/:pathMatch(.*)*',
-      //   name: 'not-found',
-      //   redirect: '/404',
-      // })
-      // // 重定向到完整的路由路径
-      // return { ...to, replace: true }
+      menuStore.gernerateMenus()
+      tabStore.initTabs()
     }
 
     if (to.redirectedFrom) {
