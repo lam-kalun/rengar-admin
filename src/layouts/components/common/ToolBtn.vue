@@ -16,7 +16,11 @@
       <SvgIcon icon="line-md:moon-filled" class="cursor-pointer"></SvgIcon>
     </div>
 
-    <div v-else class="flex-center rounded-sm p-1 hover:bg-zinc-700" @click="themeStore.toggleTheme">
+    <div
+      v-else
+      class="flex-center rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
+      @click="themeStore.toggleTheme"
+    >
       <SvgIcon icon="material-symbols:hdr-auto" class="cursor-pointer"></SvgIcon>
     </div>
 

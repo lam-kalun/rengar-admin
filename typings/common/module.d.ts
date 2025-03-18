@@ -14,6 +14,6 @@ declare module 'vue-router' {
     order?: number
     href?: string
     multiTab?: boolean
-    fixedInTab?: number
+    fixedInTab?: boolean
   }
 }

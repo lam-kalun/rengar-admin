@@ -18,6 +18,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '首页',
       icon: 'mingcute:home-2-line',
+      fixedInTab: true,
     },
   },
   {

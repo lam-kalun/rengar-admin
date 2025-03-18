@@ -1,18 +1,11 @@
-import type { RouteLocationNormalizedLoadedGeneric } from 'vue-router'
-
-interface Tab {
-  title: string
-  fullPath: string
-  icon?: string
-  localIcon?: string
-}
-
 export const useRouterStore = defineStore('router', () => {
-  const tabsList = ref<Tab[]>([])
+  const tabsList = ref<App.Store.Tab[]>([])
+  const activeIndex = ref(-1)
   const router = useRouter()
   watch(
     () => router.currentRoute.value,
     (val) => {
+      console.log(val)
       const meta = val.matched.find((item) => item.name === val.name)!.meta
       addTabsAction({
         title: meta.title,
@@ -20,11 +13,11 @@ export const useRouterStore = defineStore('router', () => {
         icon: meta.icon,
         localIcon: meta.localIcon,
       })
+      activeIndex.value = tabsList.value.length - 1
     },
     { immediate: true, deep: true },
   )
-  function addTabsAction(tab: Tab) {
-    console.log(tab)
+  function addTabsAction(tab: App.Store.Tab) {
     const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
     if (index !== -1) {
       return
@@ -32,15 +25,18 @@ export const useRouterStore = defineStore('router', () => {
     tabsList.value.push(tab)
   }
 
-  function removeTabsAction(tab: RouteLocationNormalizedLoadedGeneric) {
-    const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
-    if (index !== -1) {
-      tabsList.value.splice(index, 1)
-    }
+  function removeTabsAction(index: number) {
+    tabsList.value.splice(index, 1)
+    if (index)
+      if (index === activeIndex.value) {
+        activeIndex.value = index - 1
+        router.push(tabsList.value[activeIndex.value].fullPath)
+      }
   }
 
   return {
     tabsList,
+    activeIndex,
     removeTabsAction,
   }
 })

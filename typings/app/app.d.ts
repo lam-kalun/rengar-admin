@@ -18,4 +18,14 @@ declare namespace App {
       token?: string
     }
   }
+
+  namespace Store {
+    interface Tab {
+      title: string
+      fullPath: string
+      icon?: string
+      localIcon?: string
+      fixedInTab?: boolean
+    }
+  }
 }
