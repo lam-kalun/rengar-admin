@@ -17,7 +17,7 @@ export default defineConfig({
       scale: 1,
       extraProperties: {
         display: 'inline-block',
-        verticalAlign: 'middle',
+        'vertical-align': 'middle',
       },
       warn: true,
       collections: {
