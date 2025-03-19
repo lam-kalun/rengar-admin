@@ -10,6 +10,7 @@ export function injectFolderNamePlugin(entry = 'src/views'): Plugin {
   console.log(entryPath)
   return {
     name: 'vite-plugin-vue-inject-name',
+    enforce: 'pre',
     transform(code, id) {
       if (!id.startsWith(entryPath) || !filter(id)) return
 

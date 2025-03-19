@@ -44,6 +44,7 @@ export function vitePluginRoutes(option: Option): Plugin {
 
   return {
     name: 'vite-plugin-vue-routes',
+    enforce: 'pre',
     buildStart() {
       generateFiles()
     },
