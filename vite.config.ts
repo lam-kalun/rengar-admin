@@ -17,5 +17,16 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
+
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ['vue', 'vue-router', 'pinia'],
+            'naive-ui': ['naive-ui'],
+          },
+        },
+      },
+    },
   }
 })
