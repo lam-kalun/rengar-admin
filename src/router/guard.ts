@@ -1,4 +1,4 @@
-import { useAuthStore, useMenuStore, useTabStore } from '@/stores'
+import { useAuthStore, useMenuStore, useTabStore, useKeepAliveStore } from '@/stores'
 import { to as awaitTo } from '@rengar/utils'
 import type { RouteLocationGeneric, Router } from 'vue-router'
 
@@ -6,6 +6,7 @@ export function setupRouterGuard(router: Router) {
   const authStore = useAuthStore()
   const menuStore = useMenuStore()
   const tabStore = useTabStore()
+  const keepAliveStore = useKeepAliveStore()
   function needPermission(to: RouteLocationGeneric) {
     return Array.isArray(to.meta.roles) && to.meta.roles.length > 0
   }
@@ -43,6 +44,7 @@ export function setupRouterGuard(router: Router) {
       }
       menuStore.gernerateMenus()
       tabStore.initTabs()
+      keepAliveStore.initKeepAliveData()
     }
 
     if (to.redirectedFrom) {

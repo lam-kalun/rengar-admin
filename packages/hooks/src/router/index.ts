@@ -2,40 +2,40 @@ import { useRouter } from 'vue-router'
 import type { Option } from './type'
 export function useRouterHook() {
   const router = useRouter()
-  function pushByRouteName(name: RouteRecordName, option?: Option) {
+  function routerPushByName(name: RouteRecordName, option?: Option) {
     router.push({
       name,
       ...option,
     })
   }
 
-  function pushHome() {
-    pushByRouteName('home')
+  function routerPushToHome() {
+    routerPushByName('home')
   }
 
-  function replaceByRouteName(name: RouteRecordName, option?: Option) {
+  function routerReplaceToHome() {
+    routerPushByName('home')
+  }
+
+  function routerReplaceByName(name: RouteRecordName, option?: Option) {
     router.replace({
       name,
       ...option,
     })
   }
-
-  function replaceLogin(routerName?: RouteRecordName) {
-    const params: Recordable = {
+  function routerReplaceToLogin(path?: string) {
+    router.replace({
       name: 'login',
-    }
-    if (routerName) {
-      params.query = {
-        redirect: routerName,
-      }
-    }
-    router.replace(params)
+      query: {
+        redirect: path ? encodeURIComponent(path) : undefined,
+      },
+    })
   }
 
   return {
-    pushByRouteName,
-    pushHome,
-    replaceLogin,
-    replaceByRouteName,
+    routerPushToHome,
+    routerReplaceToHome,
+    routerReplaceToLogin,
+    routerReplaceByName,
   }
 }

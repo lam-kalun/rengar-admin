@@ -67,8 +67,10 @@ const formValue = reactive<Api.Auth.PasswordParams>({
 const formRef = useTemplateRef<FormInst>('formRef')
 
 const { loading, startLoading, endLoading } = useLoading()
-const { replaceLogin } = useRouterHook()
+const { routerReplaceToLogin } = useRouterHook()
 const authStore = useAuthStore()
+
+const router = useRouter()
 async function handleSubmit() {
   startLoading()
   const [err] = await to(formRef.value!.validate())
@@ -82,9 +84,10 @@ async function handleSubmit() {
   if (err1) {
     return false
   }
-  window.$message.success('修改密码成功')
+  window.$message.success('修改密码成功，请重新登录')
   authStore.reset()
-  replaceLogin()
+  routerReplaceToLogin(router.currentRoute.value.fullPath)
+  return true
 }
 </script>
 

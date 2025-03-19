@@ -7,13 +7,13 @@
       :class="[
         item.fullPath === tabStore.activeFullPath
           ? 'text-primary dark:text-white bg-primary-100 dark:bg-primary-700'
-          : '',
+          : 'hover:bg-zinc-100 dark:hover:bg-zinc-700',
       ]"
       @click="handleJump(item.fullPath)"
     >
       <SvgIcon v-if="item.icon || item.localIcon" :icon="item.icon" :local-icon="item.localIcon" />
       <SvgIcon v-else icon="ic:baseline-menu" />
-      <div class="w-[60px] overflow-hidden whitespace-nowrap">{{ item.title }}</div>
+      <div class="w-max-[60px] overflow-hidden whitespace-nowrap">{{ item.title }}</div>
       <div
         v-if="!item.fixedInTab"
         class="i-material-symbols:close-rounded hover:i-material-symbols:cancel-rounded cursor-pointer text-lg"
@@ -36,7 +36,7 @@ function handleJump(fullPath: string) {
 <style scoped>
 .tab-item {
   padding: 8px 24px;
-  margin: 0 -10px;
+  margin: 0 -12px;
   cursor: pointer;
   -webkit-mask-image:
     url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M100 100C44.772 100 0 55.228 0 0v100h100z' fill='%23F8EAE7'/%3E%3C/svg%3E"),

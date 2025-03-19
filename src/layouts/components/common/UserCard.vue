@@ -8,7 +8,7 @@
     </div>
   </NDropdown>
 
-  <PasswordModal v-bind:show="showModal" />
+  <PasswordModal v-model:show="showModal" />
 </template>
 
 <script setup lang="ts">
@@ -46,9 +46,9 @@ function handleChangePassword() {
   showModal.value = true
 }
 
-const { replaceLogin } = useRouterHook()
+const { routerReplaceToLogin } = useRouterHook()
 
-const route = useRoute()
+const router = useRouter()
 function handleLoginOut() {
   const dialogInstance = window.$dialog.warning({
     title: '温馨提示',
@@ -61,7 +61,7 @@ function handleLoginOut() {
       dialogInstance.loading = false
       if (err) return false
       window.$message.success('退出登录成功')
-      replaceLogin(route.name as RouteRecordName)
+      routerReplaceToLogin(router.currentRoute.value.fullPath)
       return true
     },
   })

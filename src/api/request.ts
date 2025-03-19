@@ -42,15 +42,13 @@ class HttpClient extends BaseHttpClient {
     // 创建新的cancelTokenSource用于后续请求
     this.cancelTokenSource = axios.CancelToken.source()
     this.instance.defaults.cancelToken = this.cancelTokenSource.token
-
     showErrorMessage(message)
     const authStore = useAuthStore()
     authStore.reset()
-    console.log(router.currentRoute.value)
     router.replace({
       name: 'login',
       query: {
-        redirect: router.currentRoute.value.name as string,
+        redirect: router.currentRoute.value.fullPath,
       },
     })
     return Promise.reject(new Error(message))

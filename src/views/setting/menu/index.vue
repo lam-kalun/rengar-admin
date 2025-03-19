@@ -1,5 +1,5 @@
 <template>
-  <div>menu</div>
+  <NCard> menu </NCard>
 </template>
 
 <script setup lang="ts"></script>

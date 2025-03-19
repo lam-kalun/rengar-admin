@@ -49,7 +49,6 @@
 <script setup lang="ts">
 import { to } from '@rengar/utils'
 import { useAuthStore } from '@/stores'
-import { useRouterHook } from '@rengar/hooks'
 import { useLoading } from '@rengar/hooks'
 
 import type { FormInst, FormRules } from 'naive-ui'
@@ -77,11 +76,11 @@ const rules: FormRules = {
 
 const authStore = useAuthStore()
 
-const { replaceByRouteName } = useRouterHook()
-
 const { loading, startLoading, endLoading } = useLoading()
 
 const route = useRoute()
+const router = useRouter()
+const redirect = route.query.redirect ? decodeURIComponent(route.query.redirect as string) : undefined
 async function handleSubmit() {
   startLoading()
   const [err] = await to(formRef.value!.validate())
@@ -95,8 +94,7 @@ async function handleSubmit() {
     return
   }
   window.$message.success('登录成功')
-  const redirect = (route.query.redirect as RouteRecordName) || undefined
-  replaceByRouteName(redirect || 'home')
+  router.replace(redirect || '/')
   endLoading()
 }
 </script>

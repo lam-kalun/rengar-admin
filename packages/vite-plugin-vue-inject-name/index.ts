@@ -5,13 +5,14 @@ import type { Plugin } from 'vite'
 import * as path from 'path'
 
 export function injectFolderNamePlugin(entry = 'src/views'): Plugin {
-  const entryPath = path.resolve(process.cwd(), entry)
+  const entryPath = path.resolve(process.cwd(), entry).replace(/\\/g, '/')
   const filter = createFilter(/(index\.vue|\[[^/]+\]\.vue)$/)
+  console.log(entryPath)
   return {
     name: 'vite-plugin-vue-inject-name',
-    enforce: 'pre',
     transform(code, id) {
       if (!id.startsWith(entryPath) || !filter(id)) return
+
       const { descriptor } = parse(code, {
         ignoreEmpty: false,
       })

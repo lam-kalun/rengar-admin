@@ -46,6 +46,7 @@ export const useTabStore = defineStore('tab', () => {
 
   function initTabs() {
     const roleMap = authStore.roleMap
+    const list: App.Store.Tab[] = []
     traverseRoutes(routes, (route) => {
       const roles = route.meta?.role
       if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => roleMap.has(role))) {
@@ -53,7 +54,7 @@ export const useTabStore = defineStore('tab', () => {
       }
       if (!route.meta?.fixedInTab) return
       if (route.meta.layout && route.meta.layout !== 'base') return
-      tabsList.value.push({
+      list.push({
         title: route.meta.title,
         fullPath: route.path,
         icon: route.meta.icon,
@@ -61,6 +62,7 @@ export const useTabStore = defineStore('tab', () => {
         fixedInTab: true,
       })
     })
+    tabsList.value = list
   }
 
   return {
