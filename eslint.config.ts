@@ -34,6 +34,7 @@ export default defineConfigWithVueTs(
   skipFormatting,
   unocss,
 
+  // 配置 Vue 文件支持 JSX
   {
     languageOptions: {
       parserOptions: {
@@ -46,7 +47,7 @@ export default defineConfigWithVueTs(
 
   // 自定义规则
   {
-    name: 'custom-rules',
+    name: 'app/files-custom-rules',
     rules: {
       // 配置 .vue 文件中组件名称的单词数量
       'vue/multi-word-component-names': [
