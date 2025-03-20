@@ -14,10 +14,10 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import { menuTreeApi } from '@/api/setting/menu'
 import { to } from '@/utils/tools'
-import { type TreeOption } from 'naive-ui'
+import { NSpace, NTag, type TreeOption } from 'naive-ui'
 
 const menuTree = ref<Api.Setting.MenuTree[]>([])
 async function getMenuTree() {
@@ -28,12 +28,11 @@ async function getMenuTree() {
 getMenuTree()
 
 function renderSuffix(info: { option: TreeOption; checked: boolean; selected: boolean }) {
-  return h(info.option.code as string)
-  // <NSpace>
-  //   <NButton size="small" type="error">
-  //     删除
-  //   </NButton>
-  // </NSpace>
+  return (
+    <NSpace>
+      <NTag>{info.option.code}</NTag>
+    </NSpace>
+  )
 }
 </script>
 
