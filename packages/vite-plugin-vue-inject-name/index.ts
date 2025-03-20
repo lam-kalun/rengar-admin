@@ -30,14 +30,14 @@ export function injectFolderNamePlugin(entry = 'src/views'): Plugin {
       const name = dirs.join('-')
 
       // 处理 <script setup> 的内容
-      const scriptSetupContent = descriptor.scriptSetup.content
+      const { content } = descriptor.scriptSetup
 
       // 检查是否已经定义了 defineOptions
-      const hasDefineOptions = scriptSetupContent.includes('defineOptions')
+      const hasDefineOptions = content.includes('defineOptions')
 
       if (hasDefineOptions) {
         // 如果已经存在 defineOptions，修改或新增 name 属性
-        const updatedCode = scriptSetupContent.replace(/defineOptions\((\{[\s\S]*?\})\)/, (_, options) => {
+        const updatedCode = content.replace(/defineOptions\((\{[\s\S]*?\})\)/, (_, options) => {
           // 解析 options 对象
           const updatedOptions = options.replace(/(name\s*:\s*)(['"][^'"]*['"]|[\w\.]+)/, `$1'${name}'`)
 
@@ -53,20 +53,25 @@ export function injectFolderNamePlugin(entry = 'src/views'): Plugin {
         })
 
         return {
-          code: code.replace(scriptSetupContent, updatedCode),
+          code: code.replace(content, updatedCode),
           map: null,
         }
       } else {
         // 如果没有 defineOptions，直接注入
+        const scripSartTagtStr = code.match(/<script[\s\S]*?setup[\s\S]*?>/g)
+
+        if (!scripSartTagtStr) {
+          throw new Error('script setup 标签匹配错误')
+        }
         return {
           code: code.replace(
             /<script[\s\S]*?setup[\s\S]*?>([\s\S]*?)<\/script>/,
-            `<script setup lang="ts">
-          ${scriptSetupContent}
-          defineOptions({
-            name: '${name}',
-          });
-          </script>`,
+            `${scripSartTagtStr[0]}
+          ${content}
+defineOptions({
+  name: '${name}',
+});
+</script>`,
           ),
           map: null,
         }
