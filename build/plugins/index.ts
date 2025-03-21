@@ -14,7 +14,6 @@ export function setupVitePlugins() {
     vue(),
     vueJsx(),
     vueDevTools(),
-
     setupRouter(),
     setupUnocssPlugin(),
     ...setupAutoImportPlugin(),

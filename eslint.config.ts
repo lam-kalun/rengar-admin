@@ -16,14 +16,14 @@ export default defineConfigWithVueTs(
     // 配置名称
     name: 'app/files-to-lint',
     // 需要检查的文件类型
-    files: ['**/*.{js,jsx,ts,mts,tsx,vue}']
+    files: ['**/*.{js,jsx,ts,mts,tsx,vue}'],
   },
 
   {
     // 配置名称
     name: 'app/files-to-ignore',
     // 需要忽略的文件或目录
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**']
+    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
   },
 
   // 使用 Vue 的基本配置
@@ -33,6 +33,17 @@ export default defineConfigWithVueTs(
   // 跳过 Prettier 的格式化配置
   skipFormatting,
   unocss,
+
+  {
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+  },
+
   // 自定义规则
   {
     name: 'custom-rules',
@@ -41,26 +52,35 @@ export default defineConfigWithVueTs(
       'vue/multi-word-component-names': [
         'error',
         {
-          ignores: ['index', 'App', 'Register', '[id]', '[url]']
-        }
+          ignores: ['index', 'App', 'Register', '[id]', '[url]'],
+        },
       ],
       // 配置 .vue 文件中组件名称的大小写
       'vue/component-name-in-template-casing': [
         'error',
         'PascalCase',
         {
-          registeredComponentsOnly: false
-        }
+          registeredComponentsOnly: false,
+        },
       ],
       // 配置 .vue 文件中 <template>、<script> 和 <style> 标签的顺序
       'vue/block-order': [
         'error',
         {
-          order: ['template', 'script', 'style']
-        }
+          order: ['template', 'script', 'style'],
+        },
       ],
 
-      '@typescript-eslint/no-explicit-any': 'warn'
-    }
-  }
+      'vue/block-lang': [
+        'error',
+        {
+          script: {
+            lang: ['ts', 'tsx'],
+          },
+        },
+      ],
+
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
 )
