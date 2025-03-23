@@ -1,6 +1,6 @@
 <template>
   <NMenu
-    :default-value="value"
+    v-model:value="value"
     :mode
     :options="menus"
     :collapsed="layoutStore.config.asideCollapse"
@@ -65,8 +65,12 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
   })
 }
 
-const route = useRoute()
-const value = ref(route.meta.activeMenu || route.name)
+const value = ref('')
+const router = useRouter()
+
+watchSyncEffect(() => {
+  value.value = router.currentRoute.value.meta.activeMenu || router.currentRoute.value.name
+})
 </script>
 
 <style scoped></style>
