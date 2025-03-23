@@ -30,10 +30,11 @@ export function menuDeleteApi(id: number) {
   })
 }
 
-export function buttonListApi() {
+export function buttonListApi(parentId: number) {
   return baseHttp.request<Api.Setting.Button[]>({
     url: '/button/list',
     method: 'post',
+    data: { parentId },
   })
 }
 
