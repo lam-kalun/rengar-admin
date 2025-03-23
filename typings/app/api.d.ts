@@ -8,6 +8,11 @@ declare namespace Api {
       total: number
       records: T[]
     }
+    interface PageRequest {
+      current: number
+      size: number
+      [key: string]: any
+    }
   }
 
   namespace Auth {
@@ -49,6 +54,30 @@ declare namespace Api {
       name: string
       status: Commom.EnableStatus
       sort: number
+    }
+
+    interface Role {
+      id: number
+      status: Commom.EnableStatus
+      name: string
+    }
+
+    interface RoleBindMenuReq {
+      id: number
+      codes: string[]
+      halfCodes: string
+    }
+
+    interface User {
+      id: number
+      username: string
+      status: Commom.EnableStatus
+      roleNames?: string[]
+    }
+
+    interface UserBindRoleReq {
+      id: number
+      roleIds: number[]
     }
   }
 }

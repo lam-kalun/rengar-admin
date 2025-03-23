@@ -105,7 +105,7 @@
     </NGrid>
 
     <MenuAddModal v-model:show="showMemuModal" :type="addType" :parent="currentMenu" @success="getMenuTree" />
-    <ButtonAddModal v-model:show="showButtonModal" :parent="currentMenu" @success="getMenuTree" />
+    <ButtonAddModal v-model:show="showButtonModal" :parent="currentMenu" @success="getButtonList" />
   </div>
 </template>
 
@@ -254,7 +254,7 @@ const columns: DataTableColumns<Api.Setting.Button> = [
             {row.code}
           </NText>
           <div
-            class="i-tabler:copy text-base text-primary"
+            class="i-tabler:copy cursor-pointer text-base text-primary"
             onClick={withModifiers(() => {
               handleCopy(row.code)
             }, ['stop'])}
