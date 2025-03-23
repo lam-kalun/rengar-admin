@@ -72,7 +72,7 @@ declare namespace Api {
       id: number
       username: string
       status: Commom.EnableStatus
-      roleNames?: string[]
+      roleIds: string[]
     }
 
     interface UserBindRoleReq {

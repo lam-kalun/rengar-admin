@@ -8,6 +8,13 @@ export function rolePageListApi(data: Api.Commom.PageRequest) {
   })
 }
 
+export function roleListApi() {
+  return baseHttp.request<Api.Setting.Role[]>({
+    url: '/role/list',
+    method: 'post',
+  })
+}
+
 export function roleAddApi(data: Api.Setting.Role) {
   return baseHttp.request<boolean>({
     url: '/role/add',

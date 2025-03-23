@@ -2,7 +2,7 @@
   <NCard>
     <NButton type="primary" @click="handleAdd"> 新增角色 </NButton>
     <NDataTable class="mt-4" :columns :data="tableData" :loading remote :pagination></NDataTable>
-    <AddOrEditModal v-model:show="showModal" :record />
+    <AddOrEditModal v-model:show="showModal" :record @success="getPageList" />
   </NCard>
 </template>
 
