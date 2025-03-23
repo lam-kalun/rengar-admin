@@ -37,5 +37,6 @@ export function useRouterHook() {
     routerReplaceToHome,
     routerReplaceToLogin,
     routerReplaceByName,
+    routerPushByName,
   }
 }

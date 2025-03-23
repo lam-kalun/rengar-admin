@@ -115,9 +115,9 @@ function handleDelete(data: Api.Setting.Role) {
   })
 }
 
-const { routerReplaceByName } = useRouterHook()
+const { routerPushByName } = useRouterHook()
 function handleConfigPermmsion(row: Api.Setting.Role) {
-  routerReplaceByName('setting-role-config', {
+  routerPushByName('setting-role-config', {
     params: {
       id: row.id,
     },
