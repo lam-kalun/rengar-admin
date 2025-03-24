@@ -15,11 +15,11 @@
           :data="menuTree"
           ref="treeRef"
           :pattern
-          block-line
+          
           label-field="name"
           key-field="code"
-          checkable
-          cascade
+          
+           checkable cascade block-line 
           :show-irrelevant-nodes="true"
         ></NTree>
       </NCard>
