@@ -11,19 +11,26 @@
 </template>
 
 <script setup lang="tsx">
-import { useLayoutStore } from '@/stores'
+import { useLayoutStore, useMenuStore } from '@/stores'
 import { NEllipsis, type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 const layoutStore = useLayoutStore()
 
+const { showTopAsideMode } = storeToRefs(layoutStore)
+
 const childrenField = computed(() => {
-  return layoutStore.layoutMode === 'top-aside' ? 'list' : 'children'
+  return showTopAsideMode.value ? 'list' : 'children'
 })
 
-const { mode = 'vertical', data } = defineProps<{
+const {
+  mode = 'vertical',
+  data,
+  isTopMenu,
+} = defineProps<{
   mode?: 'horizontal' | 'vertical'
   data: RouteRecordRaw[]
+  isTopMenu?: boolean
 }>()
 
 const menus = computed(() => {
@@ -67,9 +74,30 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
 const value = ref('')
 const router = useRouter()
 
-watchSyncEffect(() => {
-  value.value = router.currentRoute.value.meta.activeMenu || router.currentRoute.value.name
-})
+watch(
+  () => router.currentRoute.value,
+  (val) => {
+    if (!showTopAsideMode.value || !isTopMenu) {
+      value.value = val.meta.activeMenu || val.name
+    }
+  },
+  {
+    immediate: true,
+  },
+)
+
+const menuStore = useMenuStore()
+watch(
+  value,
+  (val) => {
+    if (!isTopMenu || !showTopAsideMode) return
+    if (!data.some((item) => item.name === val)) return
+    menuStore.topActiveNameChangeAction(val as RouteRecordName)
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <style scoped></style>

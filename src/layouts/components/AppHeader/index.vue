@@ -1,22 +1,16 @@
 <template>
   <header class="h-full flex items-center gap-4 px-4">
     <AppLogo
-      v-if="showTopMode || showTopAsideMode"
+      v-if="showLogo"
       :style="{
         width: numberToPx(config.asideWidth),
       }"
     />
-    <AsideControl v-if="showTopAsideMode" />
+    <AsideControl v-if="showAsideControl" />
     <div class="min-w-0 flex-1">
       <AppBreadcrumb v-if="showAsideMode" />
       <AppMenu v-if="showTopMode" mode="horizontal" :data="menuStore.menuRoutes" />
-      <AppMenu
-        v-if="showTopAsideMode"
-        mode="horizontal"
-        :data="menuStore.menuRoutes"
-        :is-top-menu="true"
-        children-field="list"
-      />
+      <AppMenu v-if="showTopAsideMode" mode="horizontal" :data="menuStore.menuRoutes" :is-top-menu="true" />
     </div>
     <ToolBtn />
     <UserCard />
@@ -36,6 +30,20 @@ const layoutStore = useLayoutStore()
 const { showAsideMode, showTopAsideMode, showTopMode, config } = storeToRefs(layoutStore)
 
 const menuStore = useMenuStore()
+const { subMenuRoutes } = storeToRefs(menuStore)
+
+const showLogo = computed(() => {
+  if (showTopMode.value) return true
+  if (showAsideMode.value) return false
+  if (showTopAsideMode.value && subMenuRoutes.value.length === 0) return true
+  return false
+})
+
+const showAsideControl = computed(() => {
+  if (showAsideMode.value) return true
+  if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
+  return false
+})
 </script>
 
 <style scoped></style>

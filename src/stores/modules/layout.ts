@@ -1,4 +1,5 @@
 export const useLayoutStore = defineStore('layout', () => {
+  const saveKey = 'layoutMode'
   const config = reactive<App.Layout.Config>({
     asideWidth: 220,
     headerHeight: 56,
@@ -18,13 +19,14 @@ export const useLayoutStore = defineStore('layout', () => {
     showConfigDrawer.value = !showConfigDrawer.value
   }
 
-  const layoutMode = ref<App.Layout.LayoutMode>('aside')
+  const layoutMode = ref<App.Layout.LayoutMode>((localStorage.getItem(saveKey) as App.Layout.LayoutMode) || 'aside')
 
   const showAsideMode = computed(() => layoutMode.value === 'aside')
   const showTopMode = computed(() => layoutMode.value === 'top')
   const showTopAsideMode = computed(() => layoutMode.value === 'top-aside')
   function layoutModeChangeAction(mode: App.Layout.LayoutMode) {
     layoutMode.value = mode
+    localStorage.setItem(saveKey, mode)
   }
 
   return {

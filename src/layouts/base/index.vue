@@ -1,7 +1,7 @@
 <template>
   <NLayout embedded has-sider style="height: 100vh">
     <NLayoutSider
-      v-if="showAsideMode"
+      v-if="showAside"
       bordered
       :style="{
         width: numberToPx(layoutConfig.asideWidth),
@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/stores'
+import { useLayoutStore, useMenuStore } from '@/stores'
 import { numberToPx } from '@rengar/utils'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppTabs from '../components/AppTabs/index.vue'
@@ -68,7 +68,14 @@ import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
 import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
 const layoutStore = useLayoutStore()
-const { config: layoutConfig, showConfigDrawer, showAsideMode } = storeToRefs(layoutStore)
+const { config: layoutConfig, showConfigDrawer, showAsideMode, showTopAsideMode } = storeToRefs(layoutStore)
+
+const menuStore = useMenuStore()
+const showAside = computed(() => {
+  if (showAsideMode.value) return true
+  if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
+  return false
+})
 </script>
 
 <style scoped></style>

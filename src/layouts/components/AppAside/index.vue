@@ -15,7 +15,7 @@
         bottom: 0,
       }"
     >
-      <AppMenu :data="menuStore.menuRoutes" />
+      <AppMenu :data="showAsideMode ? menuStore.menuRoutes : menuStore.subMenuRoutes" />
     </NLayoutContent>
   </NLayout>
 </template>
@@ -26,7 +26,7 @@ import { numberToPx } from '@rengar/utils'
 import AppLogo from '../common/AppLogo.vue'
 import AppMenu from '../common/AppMenu.vue'
 const layoutStore = useLayoutStore()
-const { config } = storeToRefs(layoutStore)
+const { config, showAsideMode } = storeToRefs(layoutStore)
 
 const menuStore = useMenuStore()
 </script>

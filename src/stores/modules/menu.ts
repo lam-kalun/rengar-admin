@@ -2,7 +2,6 @@ import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
 import { filterRoutes } from '@/router/utils'
 import type { RouteRecordRaw } from 'vue-router'
-import { cloneDeep } from 'es-toolkit'
 
 export const useMenuStore = defineStore('menu', () => {
   const authStore = useAuthStore()
@@ -39,17 +38,24 @@ export const useMenuStore = defineStore('menu', () => {
     menuRoutes.value = menus
   }
 
-  const topMenusRoutes = computed(() => {
-    return menuRoutes.value.map((item) => {
-      const menu = cloneDeep(item)
-      Reflect.deleteProperty(menu, 'children')
-      return menu
-    })
+  const topActiveName = ref<RouteRecordName>()
+
+  function topActiveNameChangeAction(name: RouteRecordName) {
+    topActiveName.value = name
+  }
+
+  const subMenuRoutes = computed(() => {
+    if (!topActiveName.value) return []
+    const menu = menuRoutes.value.find((menu) => menu.name === topActiveName.value)
+    if (!menu) return []
+    return menu.children || []
   })
 
   return {
     menuRoutes,
-    topMenusRoutes,
+    topActiveName,
+    subMenuRoutes,
     gernerateMenus,
+    topActiveNameChangeAction,
   }
 })
