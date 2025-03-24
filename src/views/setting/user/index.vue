@@ -1,8 +1,9 @@
 <template>
   <NCard>
     <NButton type="primary" @click="handleAdd"> 新增用户</NButton>
-    <NDataTable class="mt-4" :columns :data="tableData" :loading remote :pagination></NDataTable>
+    <NDataTable class="mt-4" :columns :data="tableData" :loading remote :pagination :scroll-x="620"></NDataTable>
     <AddOrEditModal v-model:show="showModal" :record @success="getPageList" />
+    <PasswordModal v-model:show="showPasswordModal" :record @success="getPageList" />
   </NCard>
 </template>
 
@@ -11,6 +12,7 @@ import { NButton, NSpace, NTag, type DataTableColumns } from 'naive-ui'
 import { userPageListApi, userDeleteApi } from '@/api/setting/user'
 import { to } from 'await-to-js'
 import AddOrEditModal from './components/AddOrEditModal.vue'
+import PasswordModal from './components/PasswordModal.vue'
 
 const loading = ref(false)
 const tableData = ref<Api.Setting.User[]>([])
@@ -35,12 +37,16 @@ const columns: DataTableColumns<Api.Setting.User> = [
   {
     title: '操作',
     key: 'operation',
-    width: 200,
+    width: 260,
+    fixed: 'right',
     render(row) {
       return (
         <NSpace>
           <NButton type="primary" onClick={() => handleEdit(row)}>
             编辑
+          </NButton>
+          <NButton type="primary" onClick={() => handlePassword(row)}>
+            修改密码
           </NButton>
           <NButton type="error" onClick={() => handleDelete(row)}>
             删除
@@ -109,6 +115,12 @@ function handleDelete(data: Api.Setting.User) {
       return true
     },
   })
+}
+
+const showPasswordModal = ref(false)
+function handlePassword(data: Api.Setting.User) {
+  record.value = data
+  showPasswordModal.value = true
 }
 </script>
 

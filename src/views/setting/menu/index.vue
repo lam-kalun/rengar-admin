@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NGrid :cols="3" :x-gap="16" :y-gap="16">
+    <NGrid cols="1 800:2 1200:3" :x-gap="16" :y-gap="16">
       <NGridItem>
         <NSpin :show="menuLoading">
           <NCard title="菜单管理" size="small">

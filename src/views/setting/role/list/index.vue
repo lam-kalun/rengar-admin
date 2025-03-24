@@ -1,7 +1,7 @@
 <template>
   <NCard>
     <NButton type="primary" @click="handleAdd"> 新增角色 </NButton>
-    <NDataTable class="mt-4" :columns :data="tableData" :loading remote :pagination></NDataTable>
+    <NDataTable class="mt-4" :columns :data="tableData" :loading remote :pagination :scroll-x="620"></NDataTable>
     <AddOrEditModal v-model:show="showModal" :record @success="getPageList" />
   </NCard>
 </template>
@@ -37,6 +37,7 @@ const columns: DataTableColumns<Api.Setting.Role> = [
     title: '操作',
     key: 'operation',
     width: 260,
+    fixed: 'right',
     render(row) {
       return (
         <NSpace>
