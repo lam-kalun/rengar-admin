@@ -21,11 +21,22 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'example-href',
+        path: 'href',
+        component: () => import('@/views/example/href/index.vue'),
+        meta: {
+          title: '外部链接',
+          href: 'https://www.naiveui.com/zh-CN/os-theme',
+          order: 2,
+        },
+      },
+      {
         name: 'example-keep-alive',
         path: 'keep-alive',
         component: () => import('@/views/example/keep-alive/index.vue'),
         meta: {
           title: 'keep-alive',
+          order: 1,
         },
       },
     ],

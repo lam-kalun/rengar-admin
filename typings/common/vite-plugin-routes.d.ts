@@ -3,6 +3,7 @@
 type RouteRecordName =
   | '404'
   | 'example'
+  | 'example-href'
   | 'example-keep-alive'
   | 'home'
   | 'login'

@@ -1,16 +1,18 @@
 <template>
   <NLayout embedded has-sider style="height: 100vh">
-    <NLayoutSider
-      v-if="showAside"
-      bordered
-      :style="{
-        width: numberToPx(layoutConfig.asideWidth),
-      }"
-      :collapsed="layoutConfig.asideCollapse"
-      :collapsed-width="layoutConfig.asideCollapseWidth"
-    >
-      <AppAside />
-    </NLayoutSider>
+    <Transition name="slide">
+      <NLayoutSider
+        v-if="showAside"
+        bordered
+        :style="{
+          width: numberToPx(layoutConfig.asideWidth),
+        }"
+        :collapsed="layoutConfig.asideCollapse"
+        :collapsed-width="layoutConfig.asideCollapseWidth"
+      >
+        <AppAside />
+      </NLayoutSider>
+    </Transition>
     <NLayout>
       <NLayoutHeader
         bordered
@@ -78,4 +80,13 @@ const showAside = computed(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+}
+</style>

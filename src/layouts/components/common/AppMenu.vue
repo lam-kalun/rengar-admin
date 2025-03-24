@@ -39,6 +39,13 @@ const menus = computed(() => {
 })
 
 function renderLable(route: RouteRecordRaw) {
+  if (route.meta?.href) {
+    return (
+      <a href={route.meta.href} target="_blank">
+        <NEllipsis>{route.meta?.title}</NEllipsis>
+      </a>
+    )
+  }
   return !route.children ? (
     <RouterLink to={{ name: route.name }}>
       <NEllipsis>{route.meta?.title}</NEllipsis>
