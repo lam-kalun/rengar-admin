@@ -1,1 +1,1 @@
-export { to, numberToPx } from './src/tools'
+export { numberToPx } from './src/tools'

@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '@/stores'
-import { to } from '@rengar/utils'
+import { to } from 'await-to-js'
 import { useRouterHook } from '@rengar/hooks'
 import PasswordModal from './PasswordModal.vue'
 

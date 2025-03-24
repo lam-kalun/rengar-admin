@@ -39,7 +39,7 @@ import { userAddApi, userEditApi } from '@/api/setting/user'
 import { roleListApi } from '@/api/setting/role'
 
 import { type FormRules, type FormInst } from 'naive-ui'
-import { to } from '@/utils/tools'
+import { to } from 'await-to-js'
 
 const show = defineModel<boolean>('show', {
   required: true,

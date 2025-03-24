@@ -1,5 +1,5 @@
 import { authLoginApi, authDetailApi, authLoginOutApi } from '@/api/common/auth'
-import { to } from '@rengar/utils'
+import { to } from 'await-to-js'
 const saveStorage = import.meta.env.VITE_APP_TOKEN_STORAGE
 const storage = saveStorage === 'sessionStorage' ? sessionStorage : localStorage
 const saveTokenKey = 'token'

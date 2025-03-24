@@ -34,7 +34,7 @@
 <script setup lang="tsx">
 import { buttonAddApi, buttonEditApi } from '@/api/setting/menu'
 import { type FormRules, type FormInst } from 'naive-ui'
-import { to } from '@/utils/tools'
+import { to } from 'await-to-js'
 
 const show = defineModel<boolean>('show', {
   required: true,

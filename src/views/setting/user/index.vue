@@ -9,7 +9,7 @@
 <script setup lang="tsx">
 import { NButton, NSpace, NTag, type DataTableColumns } from 'naive-ui'
 import { userPageListApi, userDeleteApi } from '@/api/setting/user'
-import { to } from '@/utils/tools'
+import { to } from 'await-to-js'
 import AddOrEditModal from './components/AddOrEditModal.vue'
 
 const loading = ref(false)

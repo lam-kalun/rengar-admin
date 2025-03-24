@@ -7,6 +7,13 @@ export function menuTreeApi() {
   })
 }
 
+export function menuButtonTreeApi() {
+  return baseHttp.request<Api.Setting.MenuTree[]>({
+    url: '/menu/tree/all',
+    method: 'post',
+  })
+}
+
 export function menuAddApi(data: Api.Setting.Menu) {
   return baseHttp.request<Api.Setting.Menu>({
     url: '/menu/add',

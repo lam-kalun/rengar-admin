@@ -62,10 +62,10 @@ declare namespace Api {
       name: string
     }
 
-    interface RoleBindMenuReq {
+    interface RoleConfigReq {
       id: number
       codes: string[]
-      halfCodes: string
+      halfCodes: string[]
     }
 
     interface User {

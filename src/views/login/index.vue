@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { to } from '@rengar/utils'
+import { to } from 'await-to-js'
 import { useAuthStore } from '@/stores'
 import { useLoading } from '@rengar/hooks'
 

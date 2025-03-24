@@ -9,7 +9,7 @@
 <script setup lang="tsx">
 import { NButton, NSpace, NTag, type DataTableColumns } from 'naive-ui'
 import { rolePageListApi, roleDeleteApi } from '@/api/setting/role'
-import { to } from '@/utils/tools'
+import { to } from 'await-to-js'
 import AddOrEditModal from './components/AddOrEditModal.vue'
 import { useRouterHook } from '@rengar/hooks'
 

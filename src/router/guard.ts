@@ -1,5 +1,5 @@
 import { useAuthStore, useMenuStore, useTabStore, useKeepAliveStore } from '@/stores'
-import { to as awaitTo } from '@rengar/utils'
+import { to as awaitTo } from 'await-to-js'
 import type { RouteLocationGeneric, Router } from 'vue-router'
 
 export function setupRouterGuard(router: Router) {

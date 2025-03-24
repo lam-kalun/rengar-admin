@@ -31,17 +31,25 @@ export function roleEditApi(data: Api.Setting.Role) {
 }
 
 export function roleDeleteApi(id: number) {
-  return baseHttp.request<Api.Setting.Role>({
+  return baseHttp.request<boolean>({
     url: '/role/delete',
     method: 'post',
     data: { id },
   })
 }
 
-export function roleBindMenuApi(data: Api.Setting.RoleBindMenuReq) {
-  return baseHttp.request({
-    url: '/role/bindMenu',
+export function roleConfigApi(data: Api.Setting.RoleConfigReq) {
+  return baseHttp.request<boolean>({
+    url: '/role/config',
     method: 'post',
     data,
+  })
+}
+
+export function roleConfigDetailApi(id: number) {
+  return baseHttp.request<Api.Setting.RoleConfigReq>({
+    url: '/role/config/detail',
+    method: 'post',
+    data: { id },
   })
 }

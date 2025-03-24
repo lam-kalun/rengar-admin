@@ -123,7 +123,7 @@ import {
 } from 'naive-ui'
 import { withModifiers } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import { to } from '@/utils/tools'
+import { to } from 'await-to-js'
 import { cloneDeep } from 'es-toolkit'
 import MenuAddModal from './components/MenuAddModal.vue'
 import ButtonAddModal from './components/ButtonAddModal.vue'

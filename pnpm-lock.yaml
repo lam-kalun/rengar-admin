@@ -23,6 +23,9 @@ importers:
       '@vueuse/core':
         specifier: ^12.7.0
         version: 12.7.0(typescript@5.7.3)
+      await-to-js:
+        specifier: ^3.0.0
+        version: 3.0.0
       axios:
         specifier: ^1.7.9
         version: 1.7.9
@@ -1064,6 +1067,10 @@ packages:
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+
+  await-to-js@3.0.0:
+    resolution: {integrity: sha512-zJAaP9zxTcvTHRlejau3ZOY4V7SRpiByf3/dxx2uyKxxor19tpmpV2QRsTKikckwhaPmr2dVpxxMr7jOCYVp5g==}
+    engines: {node: '>=6.0.0'}
 
   axios@1.7.9:
     resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
@@ -3533,6 +3540,8 @@ snapshots:
   async@3.2.6: {}
 
   asynckit@0.4.0: {}
+
+  await-to-js@3.0.0: {}
 
   axios@1.7.9:
     dependencies:
