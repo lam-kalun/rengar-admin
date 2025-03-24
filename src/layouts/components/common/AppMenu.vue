@@ -16,6 +16,7 @@ import { NEllipsis, type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 const layoutStore = useLayoutStore()
+const menuStore = useMenuStore()
 
 const { showTopAsideMode } = storeToRefs(layoutStore)
 
@@ -71,27 +72,32 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
   })
 }
 
-const value = ref('')
+const value = ref<RouteRecordName>()
 const router = useRouter()
+const route = useRoute()
 
 watch(
   () => router.currentRoute.value,
   (val) => {
     if (!showTopAsideMode.value || !isTopMenu) {
       value.value = val.meta.activeMenu || val.name
+      return
     }
+    const name = route.matched[0]?.name as RouteRecordName
+    if (name === menuStore.topActiveName) return
+    value.value = name
   },
   {
     immediate: true,
   },
 )
 
-const menuStore = useMenuStore()
 watch(
   value,
   (val) => {
     if (!isTopMenu || !showTopAsideMode) return
     if (!data.some((item) => item.name === val)) return
+    if (val === menuStore.topActiveName) return
     menuStore.topActiveNameChangeAction(val as RouteRecordName)
   },
   {

@@ -9,7 +9,26 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '404',
       hideInMenu: true,
+      hideInTab: true,
     },
+  },
+  {
+    name: 'example',
+    path: '/example',
+    meta: {
+      title: '示例',
+      order: 2,
+    },
+    children: [
+      {
+        name: 'example-keep-alive',
+        path: 'keep-alive',
+        component: () => import('@/views/example/keep-alive/index.vue'),
+        meta: {
+          title: 'keep-alive',
+        },
+      },
+    ],
   },
   {
     name: 'home',

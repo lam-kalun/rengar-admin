@@ -9,6 +9,7 @@ declare module 'vue-router' {
     localIcon?: string
     keepAlive?: boolean
     hideInMenu?: boolean
+    hideInTab?: boolean
     activeMenu?: RouterName
     constant?: boolean
     order?: number
