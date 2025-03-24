@@ -1,6 +1,7 @@
 <template>
   <NLayout embedded has-sider style="height: 100vh">
     <NLayoutSider
+      v-if="showAsideMode"
       bordered
       :style="{
         width: numberToPx(layoutConfig.asideWidth),
@@ -67,7 +68,7 @@ import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
 import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
 const layoutStore = useLayoutStore()
-const { config: layoutConfig, showConfigDrawer } = storeToRefs(layoutStore)
+const { config: layoutConfig, showConfigDrawer, showAsideMode } = storeToRefs(layoutStore)
 </script>
 
 <style scoped></style>

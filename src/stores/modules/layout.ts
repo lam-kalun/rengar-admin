@@ -19,6 +19,10 @@ export const useLayoutStore = defineStore('layout', () => {
   }
 
   const layoutMode = ref<App.Layout.LayoutMode>('aside')
+
+  const showAsideMode = computed(() => layoutMode.value === 'aside')
+  const showTopMode = computed(() => layoutMode.value === 'top')
+  const showTopAsideMode = computed(() => layoutMode.value === 'top-aside')
   function layoutModeChangeAction(mode: App.Layout.LayoutMode) {
     layoutMode.value = mode
   }
@@ -27,6 +31,9 @@ export const useLayoutStore = defineStore('layout', () => {
     config,
     showConfigDrawer,
     layoutMode,
+    showAsideMode,
+    showTopMode,
+    showTopAsideMode,
     toggleAsideCollapse,
     toggleConfigDrawer,
     layoutModeChangeAction,

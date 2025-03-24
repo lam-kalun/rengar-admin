@@ -5,54 +5,53 @@
     :options="menus"
     :collapsed="layoutStore.config.asideCollapse"
     :collapsed-width="64"
+    :children-field="childrenField"
+    responsive
   ></NMenu>
 </template>
 
-<script setup lang="ts">
-import { useMenuStore, useLayoutStore } from '@/stores'
+<script setup lang="tsx">
+import { useLayoutStore } from '@/stores'
 import { NEllipsis, type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-const menuStore = useMenuStore()
 const layoutStore = useLayoutStore()
 
-const { mode = 'vertical' } = defineProps<{
+const childrenField = computed(() => {
+  return layoutStore.layoutMode === 'top-aside' ? 'list' : 'children'
+})
+
+const { mode = 'vertical', data } = defineProps<{
   mode?: 'horizontal' | 'vertical'
+  data: RouteRecordRaw[]
 }>()
 
 const menus = computed(() => {
-  return generateMenus(menuStore.menuRoutes)
+  return generateMenus(data)
 })
+
+function renderLable(route: RouteRecordRaw) {
+  return !route.children ? (
+    <RouterLink to={{ name: route.name }}>
+      <NEllipsis>{route.meta?.title}</NEllipsis>
+    </RouterLink>
+  ) : (
+    <NEllipsis>{route.meta?.title}</NEllipsis>
+  )
+}
 
 function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
   return routes.map((route) => {
     const menuOption: MenuOption = {
-      label: () =>
-        !route.children
-          ? h(
-              RouterLink,
-              {
-                to: {
-                  name: route.name,
-                },
-              },
-              { default: () => h(NEllipsis, null, { default: () => route.meta?.title }) },
-            )
-          : h(NEllipsis, null, { default: () => route.meta?.title }),
+      label: () => renderLable(route),
       key: route.meta?.activeMenu || route.name,
       icon: () => {
         if (route.meta?.icon) {
-          return h(SvgIcon, {
-            icon: route.meta?.icon,
-          })
+          return <SvgIcon icon={route.meta?.icon}></SvgIcon>
         } else if (route.meta?.localIcon) {
-          return h(SvgIcon, {
-            localIcon: route.meta?.localIcon,
-          })
+          return <SvgIcon localIcon={route.meta?.localIcon}></SvgIcon>
         } else {
-          return h(SvgIcon, {
-            icon: 'ic:baseline-menu',
-          })
+          return <SvgIcon icon="ic:baseline-menu"></SvgIcon>
         }
       },
     }

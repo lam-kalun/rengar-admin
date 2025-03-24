@@ -2,6 +2,7 @@ import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
 import { filterRoutes } from '@/router/utils'
 import type { RouteRecordRaw } from 'vue-router'
+import { cloneDeep } from 'es-toolkit'
 
 export const useMenuStore = defineStore('menu', () => {
   const authStore = useAuthStore()
@@ -34,10 +35,21 @@ export const useMenuStore = defineStore('menu', () => {
       }
       return true
     })
-    menuRoutes.value = sortMenus(filterMenus)
+    const menus = sortMenus(filterMenus)
+    menuRoutes.value = menus
   }
+
+  const topMenusRoutes = computed(() => {
+    return menuRoutes.value.map((item) => {
+      const menu = cloneDeep(item)
+      Reflect.deleteProperty(menu, 'children')
+      return menu
+    })
+  })
+
   return {
     menuRoutes,
+    topMenusRoutes,
     gernerateMenus,
   }
 })
