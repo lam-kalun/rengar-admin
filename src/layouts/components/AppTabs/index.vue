@@ -1,5 +1,5 @@
 <template>
-  <nav class="h-full flex px-4 pb-0 pt-2 text-sm">
+  <nav class="no-scrollbar h-full flex overflow-x-auto px-4 pb-0 pt-2 text-sm">
     <div
       v-for="item in tabStore.tabsList"
       :key="item.fullPath"

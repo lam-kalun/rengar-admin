@@ -31,6 +31,9 @@ export function presetRengarAdmin(): Preset {
         'absolute-center-y': 'absolute top-1/2 -translate-y-1/2',
         'absolute-center': 'absolute-center-x absolute-center-y',
       },
+      {
+        'no-scrollbar': '[&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]',
+      },
     ],
   }
   return preset
