@@ -4,5 +4,3 @@ interface Window {
   $message: import('naive-ui').MessageProviderInst
   $notification: import('naive-ui').NotificationProviderInst
 }
-
-type ThemeMode = 'light' | 'dark' | 'auto'

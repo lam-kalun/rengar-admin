@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center gap-3 text-xl">
     <div
-      v-if="themeStore.themeMode === 'light'"
+      v-if="themeStore.themoMode === 'light'"
       class="flex-center rounded-sm p-1 hover:bg-amber-100"
       @click="themeStore.toggleTheme"
     >
@@ -9,7 +9,7 @@
     </div>
 
     <div
-      v-else-if="themeStore.themeMode === 'dark'"
+      v-else-if="themeStore.themoMode === 'dark'"
       class="flex-center rounded-sm p-1 hover:bg-zinc-700"
       @click="themeStore.toggleTheme"
     >
@@ -24,7 +24,10 @@
       <SvgIcon icon="material-symbols:hdr-auto" class="cursor-pointer"></SvgIcon>
     </div>
 
-    <div class="flex-center rounded-sm p-1 hover:bg-amber-100 dark:hover:bg-zinc-700">
+    <div
+      class="flex-center rounded-sm p-1 hover:bg-amber-100 dark:hover:bg-zinc-700"
+      @click="layoutStore.toggleConfigDrawer"
+    >
       <SvgIcon icon="unjs:theme-colors" class="cursor-pointer"></SvgIcon>
     </div>
 
@@ -40,10 +43,11 @@
 
 <script setup lang="ts">
 import { useFullscreen } from '@vueuse/core'
-import { useThemeStore } from '@/stores'
+import { useThemeStore, useLayoutStore } from '@/stores'
 const { isFullscreen, toggle } = useFullscreen()
 
 const themeStore = useThemeStore()
+const layoutStore = useLayoutStore()
 </script>
 
 <style scoped></style>

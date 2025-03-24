@@ -52,6 +52,8 @@
         <AppFooter />
       </NLayoutFooter>
     </NLayout>
+
+    <AppLayoutDrawer v-model:show="showConfigDrawer" />
   </NLayout>
 </template>
 
@@ -63,8 +65,9 @@ import AppTabs from '../components/AppTabs/index.vue'
 import AppHeader from '../components/AppHeader/index.vue'
 import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
+import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
 const layoutStore = useLayoutStore()
-const { config: layoutConfig } = storeToRefs(layoutStore)
+const { config: layoutConfig, showConfigDrawer } = storeToRefs(layoutStore)
 </script>
 
 <style scoped></style>

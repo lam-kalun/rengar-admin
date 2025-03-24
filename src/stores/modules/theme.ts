@@ -4,10 +4,10 @@ import type { GlobalThemeOverrides } from 'naive-ui'
 const themeStorageKey = 'theme'
 export const useThemeStore = defineStore('theme', () => {
   const osTheme = useOsTheme()
-  const themeMode = ref<ThemeMode>((localStorage.getItem(themeStorageKey) as ThemeMode) || 'light')
+  const themoMode = ref<App.Theme.ThemeMode>((localStorage.getItem(themeStorageKey) as App.Theme.ThemeMode) || 'light')
   const theme = computed(() => {
-    if (themeMode.value === 'light') return 'light'
-    if (themeMode.value === 'dark') return 'dark'
+    if (themoMode.value === 'light') return 'light'
+    if (themoMode.value === 'dark') return 'dark'
     return osTheme.value || 'light'
   })
 
@@ -26,14 +26,14 @@ export const useThemeStore = defineStore('theme', () => {
   )
 
   function toggleTheme() {
-    if (themeMode.value === 'auto') {
-      themeMode.value = 'light'
-    } else if (themeMode.value === 'light') {
-      themeMode.value = 'dark'
+    if (themoMode.value === 'auto') {
+      themoMode.value = 'light'
+    } else if (themoMode.value === 'light') {
+      themoMode.value = 'dark'
     } else {
-      themeMode.value = 'auto'
+      themoMode.value = 'auto'
     }
-    localStorage.setItem(themeStorageKey, themeMode.value)
+    localStorage.setItem(themeStorageKey, themoMode.value)
   }
 
   const themeOverrides = computed<GlobalThemeOverrides>(() => {
@@ -53,7 +53,7 @@ export const useThemeStore = defineStore('theme', () => {
 
   return {
     themeOverrides,
-    themeMode,
+    themoMode,
     theme,
     toggleTheme,
   }

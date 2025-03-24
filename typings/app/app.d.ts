@@ -9,6 +9,16 @@ declare namespace App {
       asideCollapse: boolean
       asideCollapseWidth: number
     }
+
+    interface Tab {
+      title: string
+      fullPath: string
+      icon?: string
+      localIcon?: string
+      fixedInTab?: boolean
+    }
+
+    type LayoutMode = 'aside' | 'top' | 'top-aside'
   }
 
   namespace Auth {
@@ -19,13 +29,7 @@ declare namespace App {
     }
   }
 
-  namespace Store {
-    interface Tab {
-      title: string
-      fullPath: string
-      icon?: string
-      localIcon?: string
-      fixedInTab?: boolean
-    }
+  namespace Theme {
+    type ThemeMode = 'light' | 'dark' | 'auto'
   }
 }

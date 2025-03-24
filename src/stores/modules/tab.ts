@@ -3,7 +3,7 @@ import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
 export const useTabStore = defineStore('tab', () => {
   const authStore = useAuthStore()
-  const tabsList = ref<App.Store.Tab[]>([])
+  const tabsList = ref<App.Layout.Tab[]>([])
   const activeFullPath = ref('')
   const router = useRouter()
   watch(
@@ -21,7 +21,7 @@ export const useTabStore = defineStore('tab', () => {
       activeFullPath.value = val.fullPath
     },
   )
-  function addTabsAction(tab: App.Store.Tab) {
+  function addTabsAction(tab: App.Layout.Tab) {
     const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
     if (index !== -1) {
       return
@@ -29,7 +29,7 @@ export const useTabStore = defineStore('tab', () => {
     tabsList.value.push(tab)
   }
 
-  function removeTabsAction(tab: App.Store.Tab) {
+  function removeTabsAction(tab: App.Layout.Tab) {
     const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
     const isLast = tabsList.value.length === index + 1
     if (index === -1) return
@@ -46,7 +46,7 @@ export const useTabStore = defineStore('tab', () => {
 
   function initTabs() {
     const roleMap = authStore.roleMap
-    const list: App.Store.Tab[] = []
+    const list: App.Layout.Tab[] = []
     traverseRoutes(routes, (route) => {
       const roles = route.meta?.role
       if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => roleMap.has(role))) {

@@ -13,8 +13,22 @@ export const useLayoutStore = defineStore('layout', () => {
     config.asideCollapse = !config.asideCollapse
   }
 
+  const showConfigDrawer = ref(false)
+  function toggleConfigDrawer() {
+    showConfigDrawer.value = !showConfigDrawer.value
+  }
+
+  const layoutMode = ref<App.Layout.LayoutMode>('aside')
+  function layoutModeChangeAction(mode: App.Layout.LayoutMode) {
+    layoutMode.value = mode
+  }
+
   return {
     config,
+    showConfigDrawer,
+    layoutMode,
     toggleAsideCollapse,
+    toggleConfigDrawer,
+    layoutModeChangeAction,
   }
 })
