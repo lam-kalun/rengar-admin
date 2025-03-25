@@ -79,5 +79,11 @@ declare namespace Api {
       id: number
       roleIds: number[]
     }
+
+    interface PasswordParams {
+      id: number
+      newPassword: string
+      confirmPassword: string
+    }
   }
 }

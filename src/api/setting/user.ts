@@ -30,3 +30,11 @@ export function userDeleteApi(id: number) {
     data: { id },
   })
 }
+
+export function userPasswordApi(data: Api.Setting.PasswordParams) {
+  return baseHttp.request<boolean>({
+    url: '/user/password',
+    method: 'post',
+    data,
+  })
+}

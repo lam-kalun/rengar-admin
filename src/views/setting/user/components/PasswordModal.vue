@@ -2,7 +2,7 @@
   <NModal
     v-model:show="show"
     preset="dialog"
-    :title="record ? '编辑用户' : '新增用户'"
+    title="修改密码"
     positive-text="确定"
     negative-text="取消"
     :loading
@@ -10,33 +10,19 @@
     @after-leave="handleClose"
     @positive-click="handleSubmit"
   >
-    <NForm ref="formRef" :model="formData" :rules class="my-8" size="small" label-placement="left" label-width="auto">
-      <NFormItem label="账户名" path="username">
-        <NInput v-model:value="formData.username" placeholder="账户名" />
+    <NForm ref="formRef" :model="formValue" :rules class="my-8" size="small" label-placement="left" label-width="auto">
+      <NFormItem path="newPassword" label="新密码">
+        <NInput v-model:value="formValue.newPassword" type="password" placeholder="请输入新密码" />
       </NFormItem>
-      <NFormItem label="角色绑定" path="roleIds">
-        <NSelect
-          v-model:value="formData.roleIds"
-          :options="roleList"
-          multiple
-          label-field="name"
-          value-field="id"
-          placeholder="请绑定角色"
-        />
-      </NFormItem>
-      <NFormItem label="状态" path="status">
-        <NRadioGroup v-model:value="formData.status">
-          <NRadio :value="1">启用</NRadio>
-          <NRadio :value="0">禁用</NRadio>
-        </NRadioGroup>
+      <NFormItem path="confirmPassword" label="确认密码">
+        <NInput v-model:value="formValue.confirmPassword" type="password" placeholder="请再次输入新密码" />
       </NFormItem>
     </NForm>
   </NModal>
 </template>
 
 <script setup lang="tsx">
-import { userAddApi, userEditApi } from '@/api/setting/user'
-import { roleListApi } from '@/api/setting/role'
+import { userPasswordApi } from '@/api/setting/user'
 
 import { type FormRules, type FormInst } from 'naive-ui'
 import { to } from 'await-to-js'
@@ -49,48 +35,44 @@ const { record } = defineProps<{
   record?: Api.Setting.User
 }>()
 
-const emit = defineEmits<{
-  success: []
-}>()
-
-const formData = ref<Api.Setting.User>({
+const formValue = ref<Api.Setting.PasswordParams>({
   id: 0,
-  username: '',
-  status: 1,
-  roleIds: [],
+  newPassword: '',
+  confirmPassword: '',
 })
-
 const formRef = useTemplateRef<FormInst>('formRef')
 const rules: FormRules = {
-  username: [{ required: true, message: '请输入账户名', trigger: ['blur', 'input'] }],
-  roleIds: [{ required: true, type: 'array', message: '请绑定角色', trigger: ['blur', 'change'] }],
-  status: [{ required: true, message: '请选择状态', type: 'number', trigger: ['blur', 'change'] }],
-}
-
-const roleList = ref<Api.Setting.Role[]>([])
-
-async function getRoleList() {
-  const [err, data] = await to(roleListApi())
-  if (err) {
-    roleList.value = []
-    return
-  }
-  roleList.value = data
-}
-
-function handleOpen() {
-  getRoleList()
-  if (record) {
-    formData.value = record
-  }
+  newPassword: {
+    required: true,
+    message: '请输入新密码',
+    trigger: ['blur', 'input'],
+  },
+  confirmPassword: {
+    required: true,
+    validator: (_, value: string) => {
+      if (!value) {
+        return new Error('请再次输入新密码')
+      }
+      if (value !== formValue.value.newPassword) {
+        return new Error('两次输入的密码不一致')
+      }
+      return true
+    },
+    trigger: ['blur', 'input'],
+  },
 }
 
 function handleClose() {
-  formData.value = {
+  formValue.value = {
     id: 0,
-    username: '',
-    status: 1,
-    roleIds: [],
+    newPassword: '',
+    confirmPassword: '',
+  }
+}
+
+function handleOpen() {
+  if (record) {
+    formValue.value.id = record.id
   }
 }
 
@@ -99,11 +81,10 @@ async function handleSubmit() {
   const [validErr] = await to(formRef.value!.validate())
   if (validErr) return false
   loading.value = true
-  const [err] = await to(record ? userEditApi(unref(formData)) : userAddApi(unref(formData)))
+  const [err] = await to(userPasswordApi(unref(formValue)))
   loading.value = false
   if (err) return
-  window.$message?.success(`${record ? '编辑' : '新增'}成功`)
-  emit('success')
+  window.$message?.success('修改密码成功')
   return true
 }
 </script>
