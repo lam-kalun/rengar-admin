@@ -11,7 +11,7 @@ export const tailwindColors: TailWindColor = {
     700: '#334155',
     800: '#1e293b',
     900: '#0f172a',
-    950: '#020617'
+    950: '#020617',
   },
   gray: {
     DEFAULT: '#6b7280',
@@ -25,7 +25,7 @@ export const tailwindColors: TailWindColor = {
     700: '#374151',
     800: '#1f2937',
     900: '#111827',
-    950: '#030712'
+    950: '#030712',
   },
   zinc: {
     DEFAULT: '#71717a',
@@ -39,7 +39,7 @@ export const tailwindColors: TailWindColor = {
     700: '#3f3f46',
     800: '#27272a',
     900: '#18181b',
-    950: '#09090b'
+    950: '#09090b',
   },
   neutral: {
     DEFAULT: '#737373',
@@ -53,7 +53,7 @@ export const tailwindColors: TailWindColor = {
     700: '#404040',
     800: '#262626',
     900: '#171717',
-    950: '#0a0a0a'
+    950: '#0a0a0a',
   },
   stone: {
     DEFAULT: '#78716c',
@@ -67,7 +67,7 @@ export const tailwindColors: TailWindColor = {
     700: '#44403c',
     800: '#292524',
     900: '#1c1917',
-    950: '#0c0a09'
+    950: '#0c0a09',
   },
   red: {
     DEFAULT: '#ef4444',
@@ -81,7 +81,7 @@ export const tailwindColors: TailWindColor = {
     700: '#b91c1c',
     800: '#991b1b',
     900: '#7f1d1d',
-    950: '#450a0a'
+    950: '#450a0a',
   },
   orange: {
     DEFAULT: '#f97316',
@@ -95,7 +95,7 @@ export const tailwindColors: TailWindColor = {
     700: '#c2410c',
     800: '#9a3412',
     900: '#7c2d12',
-    950: '#431407'
+    950: '#431407',
   },
   amber: {
     DEFAULT: '#f59e0b',
@@ -109,7 +109,7 @@ export const tailwindColors: TailWindColor = {
     700: '#b45309',
     800: '#92400e',
     900: '#78350f',
-    950: '#451a03'
+    950: '#451a03',
   },
   yellow: {
     DEFAULT: '#eab308',
@@ -123,7 +123,7 @@ export const tailwindColors: TailWindColor = {
     700: '#a16207',
     800: '#854d0e',
     900: '#713f12',
-    950: '#422006'
+    950: '#422006',
   },
   lime: {
     DEFAULT: '#84cc16',
@@ -137,7 +137,7 @@ export const tailwindColors: TailWindColor = {
     700: '#4d7c0f',
     800: '#3f6212',
     900: '#365314',
-    950: '#1a2e05'
+    950: '#1a2e05',
   },
   green: {
     DEFAULT: '#22c55e',
@@ -151,7 +151,7 @@ export const tailwindColors: TailWindColor = {
     700: '#15803d',
     800: '#166534',
     900: '#14532d',
-    950: '#052e16'
+    950: '#052e16',
   },
   emerald: {
     DEFAULT: '#10b981',
@@ -165,7 +165,7 @@ export const tailwindColors: TailWindColor = {
     700: '#047857',
     800: '#065f46',
     900: '#064e3b',
-    950: '#022c22'
+    950: '#022c22',
   },
   teal: {
     DEFAULT: '#14b8a6',
@@ -179,7 +179,7 @@ export const tailwindColors: TailWindColor = {
     700: '#0f766e',
     800: '#115e59',
     900: '#134e4a',
-    950: '#042f2e'
+    950: '#042f2e',
   },
   cyan: {
     DEFAULT: '#06b6d4',
@@ -193,7 +193,7 @@ export const tailwindColors: TailWindColor = {
     700: '#0e7490',
     800: '#155e75',
     900: '#164e63',
-    950: '#083344'
+    950: '#083344',
   },
   sky: {
     DEFAULT: '#0ea5e9',
@@ -207,7 +207,7 @@ export const tailwindColors: TailWindColor = {
     700: '#0369a1',
     800: '#075985',
     900: '#0c4a6e',
-    950: '#082f49'
+    950: '#082f49',
   },
   blue: {
     DEFAULT: '#3b82f6',
@@ -221,7 +221,7 @@ export const tailwindColors: TailWindColor = {
     700: '#1d4ed8',
     800: '#1e40af',
     900: '#1e3a8a',
-    950: '#172554'
+    950: '#172554',
   },
   indigo: {
     DEFAULT: '#6366f1',
@@ -235,7 +235,7 @@ export const tailwindColors: TailWindColor = {
     700: '#4338ca',
     800: '#3730a3',
     900: '#312e81',
-    950: '#1e1b4b'
+    950: '#1e1b4b',
   },
   violet: {
     DEFAULT: '#8b5cf6',
@@ -249,7 +249,7 @@ export const tailwindColors: TailWindColor = {
     700: '#6d28d9',
     800: '#5b21b6',
     900: '#4c1d95',
-    950: '#2e1065'
+    950: '#2e1065',
   },
   purple: {
     DEFAULT: '#a855f7',
@@ -263,7 +263,7 @@ export const tailwindColors: TailWindColor = {
     700: '#7e22ce',
     800: '#6b21a8',
     900: '#581c87',
-    950: '#3b0764'
+    950: '#3b0764',
   },
   fuchsia: {
     DEFAULT: '#d946ef',
@@ -277,7 +277,7 @@ export const tailwindColors: TailWindColor = {
     700: '#a21caf',
     800: '#86198f',
     900: '#701a75',
-    950: '#4a044e'
+    950: '#4a044e',
   },
   pink: {
     DEFAULT: '#ec4899',
@@ -291,7 +291,7 @@ export const tailwindColors: TailWindColor = {
     700: '#be185d',
     800: '#9d174d',
     900: '#831843',
-    950: '#500724'
+    950: '#500724',
   },
   rose: {
     DEFAULT: '#f43f5e',
@@ -305,6 +305,6 @@ export const tailwindColors: TailWindColor = {
     700: '#be123c',
     800: '#9f1239',
     900: '#881337',
-    950: '#4c0519'
-  }
+    950: '#4c0519',
+  },
 }

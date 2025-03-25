@@ -7,6 +7,6 @@ export const themeColors = generateThemeColor()
 function generateThemeColor() {
   return {
     ...tailwindColors,
-    primary: tailwindColors[primaryColorKey]
+    primary: tailwindColors[primaryColorKey],
   }
 }

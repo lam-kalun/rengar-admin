@@ -11,7 +11,7 @@ abstract class BaseHttpClient {
     this.cancelTokenSource = axios.CancelToken.source()
     this.instance = axios.create({
       ...config,
-      cancelToken: this.cancelTokenSource.token
+      cancelToken: this.cancelTokenSource.token,
     })
     this.requestInterceptor = this.initializeRequestInterceptor()
     this.responseInterceptor = this.initializeResponseInterceptor()
@@ -38,9 +38,9 @@ abstract class BaseHttpClient {
 
     return this.instance.post<T>(url, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
       },
-      ...config
+      ...config,
     }) as Promise<T>
   }
 }

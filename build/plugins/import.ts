@@ -11,16 +11,16 @@ export function setupAutoImportPlugin(): Plugin[] {
         'vue-router',
         'pinia',
         {
-          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar']
-        }
+          'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
+        },
       ],
-      dts: path.resolve(process.cwd(), 'typings/app/auto-imports.d.ts')
+      dts: path.resolve(process.cwd(), 'typings/app/auto-imports.d.ts'),
     }),
     Components({
       resolvers: [NaiveUiResolver()],
       dts: path.resolve(process.cwd(), 'typings/app/components.d.ts'),
-      directoryAsNamespace: true
-    })
+      directoryAsNamespace: true,
+    }),
   ]
   return plugins
 }

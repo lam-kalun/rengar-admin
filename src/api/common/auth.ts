@@ -4,21 +4,21 @@ export function authLoginApi(data: Api.Auth.LoginParams) {
   return baseHttp.request<string>({
     url: '/auth/login',
     method: 'POST',
-    data
+    data,
   })
 }
 
 export function authDetailApi() {
   return baseHttp.request<Api.Auth.DetailResponse>({
     url: '/auth/detail',
-    method: 'post'
+    method: 'post',
   })
 }
 
 export function authLoginOutApi() {
   return baseHttp.request<boolean>({
     url: '/auth/loginOut',
-    method: 'post'
+    method: 'post',
   })
 }
 
@@ -26,6 +26,6 @@ export function authPasswordApi(data: Api.Auth.PasswordParams) {
   return baseHttp.request<boolean>({
     url: '/auth/password',
     method: 'post',
-    data
+    data,
   })
 }
