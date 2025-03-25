@@ -28,7 +28,7 @@
       </NScrollbar>
     </div>
 
-    <div class="flex items-center gap-4 pr-4 text-lg">
+    <div class="flex items-center gap-4 px-4 text-lg">
       <NTooltip placement="bottom">
         <template #trigger>
           <div class="flex-center cursor-pointer rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700">
