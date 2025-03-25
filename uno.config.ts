@@ -15,13 +15,10 @@ export default defineConfig({
     presetWind3,
     presetIcons({
       scale: 1,
-      extraProperties: {
-        display: 'inline-block',
-        'vertical-align': 'middle',
-      },
+      extraProperties: {},
       warn: true,
       collections: {
-        local: FileSystemIconLoader(svgFilePath, (svg) => svg.replace(/^<svg\s/, '<svg width="1em" height="1em" ')),
+        local: FileSystemIconLoader(svgFilePath),
       },
     }),
     presetRengarAdmin(),

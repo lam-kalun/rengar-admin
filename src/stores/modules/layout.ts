@@ -56,7 +56,13 @@ export const useLayoutStore = defineStore(
 
     const showHeaderMenu = computed(() => {
       if (isMobile.value) return false
-      if (showAsideMode.value) return false
+      if (!showTopMode.value) return false
+      return true
+    })
+
+    const showHeaderTopMenu = computed(() => {
+      if (isMobile.value) return false
+      if (!showTopAsideMode.value) return false
       return true
     })
 
@@ -101,6 +107,7 @@ export const useLayoutStore = defineStore(
       showHeaderLogo,
       showAsideControl,
       showHeaderMenu,
+      showHeaderTopMenu,
       toggleAsideCollapse,
       toggleConfigDrawer,
       layoutModeChangeAction,

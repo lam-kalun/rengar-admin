@@ -45,7 +45,7 @@ const menus = computed(() => {
   return generateMenus(data)
 })
 
-function renderLable(route: RouteRecordRaw) {
+function renderLabel(route: RouteRecordRaw) {
   if (route.meta?.href) {
     return (
       <a href={route.meta.href} target="_blank">
@@ -65,7 +65,7 @@ function renderLable(route: RouteRecordRaw) {
 function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
   return routes.map((route) => {
     const menuOption: MenuOption = {
-      label: () => renderLable(route),
+      label: () => renderLabel(route),
       key: route.meta?.activeMenu || route.name,
       icon: () => {
         if (route.meta?.icon) {

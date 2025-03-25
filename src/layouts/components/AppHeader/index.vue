@@ -5,7 +5,8 @@
     <AsideControl v-if="showAsideControl" />
     <div class="min-w-0 flex-1">
       <AppBreadcrumb v-if="showAppBreadcrumb" />
-      <AppMenu v-if="showHeaderMenu" mode="horizontal" :data="menuStore.menuRoutes" :is-top-menu="showTopAsideMode" />
+      <AppMenu v-if="showHeaderMenu" mode="horizontal" :data="menuStore.menuRoutes" />
+      <AppMenu v-if="showHeaderTopMenu" mode="horizontal" :data="menuStore.menuRoutes" :is-top-menu="true" />
     </div>
     <ToolBtn />
     <UserCard />
@@ -22,7 +23,7 @@ import AppMenu from '../common/AppMenu.vue'
 import AppLogo from '../common/AppLogo.vue'
 import MobieMenuControl from '../common/MobieMenuControl.vue'
 const layoutStore = useLayoutStore()
-const { showTopAsideMode, showAppBreadcrumb, showHeaderLogo, showAsideControl, isMobile, showHeaderMenu } =
+const { showAppBreadcrumb, showHeaderLogo, showAsideControl, isMobile, showHeaderMenu, showHeaderTopMenu } =
   storeToRefs(layoutStore)
 
 const menuStore = useMenuStore()
