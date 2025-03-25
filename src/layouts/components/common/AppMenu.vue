@@ -7,6 +7,7 @@
     :collapsed-width="64"
     :children-field="childrenField"
     responsive
+    :indent="20"
     @update:value="handleValueChange"
   ></NMenu>
 </template>
@@ -48,15 +49,18 @@ const menus = computed(() => {
 function renderLabel(route: RouteRecordRaw) {
   if (route.meta?.href) {
     return (
-      <a href={route.meta.href} target="_blank">
-        <NEllipsis>{route.meta?.title}</NEllipsis>
-      </a>
+      <NEllipsis>
+        {' '}
+        <a href={route.meta.href} target="_blank">
+          {route.meta?.title}
+        </a>
+      </NEllipsis>
     )
   }
   return !route.children ? (
-    <RouterLink to={{ name: route.name }}>
-      <NEllipsis>{route.meta?.title}</NEllipsis>
-    </RouterLink>
+    <NEllipsis>
+      <RouterLink to={{ name: route.name }}>{route.meta?.title}</RouterLink>
+    </NEllipsis>
   ) : (
     <NEllipsis>{route.meta?.title}</NEllipsis>
   )

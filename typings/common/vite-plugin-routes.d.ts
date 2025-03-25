@@ -2,6 +2,15 @@
 
 type RouteRecordName =
   | '404'
+  | 'docs'
+  | 'docs-es-toolkit'
+  | 'docs-naive-ui'
+  | 'docs-naive-ui-components'
+  | 'docs-pinia'
+  | 'docs-pnpm'
+  | 'docs-vite'
+  | 'docs-vue'
+  | 'docs-vueuse'
   | 'example'
   | 'example-href'
   | 'example-keep-alive'

@@ -13,6 +13,89 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
+    name: 'docs',
+    path: '/docs',
+    meta: {
+      title: '文档地址',
+      order: 3,
+    },
+    children: [
+      {
+        name: 'docs-es-toolkit',
+        path: 'es-toolkit',
+        component: () => import('@/views/docs/es-toolkit/index.vue'),
+        meta: {
+          title: 'es-toolkit',
+          order: 7,
+        },
+      },
+      {
+        name: 'docs-naive-ui',
+        path: 'naive-ui',
+        component: () => import('@/views/docs/naive-ui/index.vue'),
+        meta: {
+          title: 'naive-ui',
+          order: 2,
+        },
+      },
+      {
+        name: 'docs-naive-ui-components',
+        path: 'naive-ui-components',
+        component: () => import('@/views/docs/naive-ui-components/index.vue'),
+        meta: {
+          title: 'naive-ui-components',
+          order: 6,
+        },
+      },
+      {
+        name: 'docs-pinia',
+        path: 'pinia',
+        component: () => import('@/views/docs/pinia/index.vue'),
+        meta: {
+          title: 'pinia',
+          order: 5,
+        },
+      },
+      {
+        name: 'docs-pnpm',
+        path: 'pnpm',
+        component: () => import('@/views/docs/pnpm/index.vue'),
+        meta: {
+          title: 'pnpm',
+          order: 4,
+        },
+      },
+      {
+        name: 'docs-vite',
+        path: 'vite',
+        component: () => import('@/views/docs/vite/index.vue'),
+        meta: {
+          title: 'vite',
+          order: 3,
+        },
+      },
+      {
+        name: 'docs-vue',
+        path: 'vue',
+        component: () => import('@/views/docs/vue/index.vue'),
+        meta: {
+          title: 'vue（外链）',
+          href: 'https://cn.vuejs.org/',
+          order: 1,
+        },
+      },
+      {
+        name: 'docs-vueuse',
+        path: 'vueuse',
+        component: () => import('@/views/docs/vueuse/index.vue'),
+        meta: {
+          title: 'vueuse',
+          order: 8,
+        },
+      },
+    ],
+  },
+  {
     name: 'example',
     path: '/example',
     meta: {
