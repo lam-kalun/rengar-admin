@@ -90,6 +90,12 @@ export const useLayoutStore = defineStore(
       showMenuDrawer.value = val
     }
 
+    const layoutContentRef = ref<HTMLElement>()
+
+    function setLayoutContentRef(el: HTMLElement) {
+      layoutContentRef.value = el
+    }
+
     return {
       config,
       showConfigDrawer,
@@ -108,10 +114,12 @@ export const useLayoutStore = defineStore(
       showAsideControl,
       showHeaderMenu,
       showHeaderTopMenu,
+      layoutContentRef,
       toggleAsideCollapse,
       toggleConfigDrawer,
       layoutModeChangeAction,
       toggleMenuDrawer,
+      setLayoutContentRef,
     }
   },
   {

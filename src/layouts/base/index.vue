@@ -41,6 +41,7 @@
           bottom: numberToPx(layoutConfig.footerHeight),
           padding: numberToPx(layoutConfig.gap),
         }"
+        :ref="(el) => el && layoutStore.setLayoutContentRef(el as HTMLElement)"
       >
         <AppMain />
       </NLayoutContent>
@@ -70,6 +71,7 @@ import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
 import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
 import AppMenuDrawer from '../components/common/AppMenuDrawer.vue'
+
 const layoutStore = useLayoutStore()
 const { config: layoutConfig, showConfigDrawer, showAppAside, showMenuDrawer } = storeToRefs(layoutStore)
 </script>
