@@ -96,6 +96,15 @@ export const useLayoutStore = defineStore(
       layoutContentRef.value = el
     }
 
+    const showRouterView = ref(true)
+
+    function refreshRouterView() {
+      showRouterView.value = false
+      nextTick(() => {
+        showRouterView.value = true
+      })
+    }
+
     return {
       config,
       showConfigDrawer,
@@ -115,11 +124,13 @@ export const useLayoutStore = defineStore(
       showHeaderMenu,
       showHeaderTopMenu,
       layoutContentRef,
+      showRouterView,
       toggleAsideCollapse,
       toggleConfigDrawer,
       layoutModeChangeAction,
       toggleMenuDrawer,
       setLayoutContentRef,
+      refreshRouterView,
     }
   },
   {

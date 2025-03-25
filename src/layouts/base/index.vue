@@ -43,7 +43,7 @@
         }"
         :ref="(el) => el && layoutStore.setLayoutContentRef(el as HTMLElement)"
       >
-        <AppMain />
+        <AppMain v-if="showRouterView" />
       </NLayoutContent>
       <NLayoutFooter
         bordered
@@ -73,7 +73,13 @@ import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
 import AppMenuDrawer from '../components/common/AppMenuDrawer.vue'
 
 const layoutStore = useLayoutStore()
-const { config: layoutConfig, showConfigDrawer, showAppAside, showMenuDrawer } = storeToRefs(layoutStore)
+const {
+  config: layoutConfig,
+  showConfigDrawer,
+  showAppAside,
+  showMenuDrawer,
+  showRouterView,
+} = storeToRefs(layoutStore)
 </script>
 
 <style scoped></style>

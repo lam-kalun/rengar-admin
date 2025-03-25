@@ -31,7 +31,10 @@
     <div class="flex items-center gap-4 px-4 text-lg">
       <NTooltip placement="bottom">
         <template #trigger>
-          <div class="flex-center cursor-pointer rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700">
+          <div
+            class="flex-center cursor-pointer rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
+            @click="layoutStore.refreshRouterView"
+          >
             <SvgIcon icon="ooui:reload"></SvgIcon>
           </div>
         </template>

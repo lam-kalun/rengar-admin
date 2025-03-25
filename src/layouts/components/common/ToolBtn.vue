@@ -35,7 +35,7 @@
           class="cursor-pointe flex-center rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
           @click="layoutStore.toggleConfigDrawer"
         >
-          <SvgIcon icon="line-md:cog-filled-loop"></SvgIcon>
+          <SvgIcon icon="clarity:settings-line"></SvgIcon>
         </div>
       </template>
       <span>系统配置</span>
