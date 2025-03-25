@@ -19,7 +19,7 @@
           label-field="name"
           key-field="code"
           
-           checkable cascade block-line 
+                 checkable cascade block-line   
           :show-irrelevant-nodes="true"
         ></NTree>
       </NCard>
