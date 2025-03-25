@@ -1,7 +1,7 @@
 <template>
   <NLayout embedded has-sider style="height: 100vh">
     <NLayoutSider
-      v-if="showAside"
+      v-if="showAppAside"
       bordered
       :style="{
         width: numberToPx(layoutConfig.asideWidth),
@@ -28,6 +28,7 @@
       >
         <AppTabs />
       </NLayoutHeader>
+
       <NLayoutContent
         embedded
         :native-scrollbar="false"
@@ -55,11 +56,12 @@
     </NLayout>
 
     <AppLayoutDrawer v-model:show="showConfigDrawer" />
+    <AppMenuDrawer v-model:show="showMenuDrawer" />
   </NLayout>
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore, useMenuStore } from '@/stores'
+import { useLayoutStore } from '@/stores'
 import { numberToPx } from '@rengar/utils'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppTabs from '../components/AppTabs/index.vue'
@@ -67,16 +69,9 @@ import AppHeader from '../components/AppHeader/index.vue'
 import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
 import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
+import AppMenuDrawer from '../components/common/AppMenuDrawer.vue'
 const layoutStore = useLayoutStore()
-const { config: layoutConfig, showConfigDrawer, showAsideMode, showTopAsideMode, isMobile } = storeToRefs(layoutStore)
-
-const menuStore = useMenuStore()
-const showAside = computed(() => {
-  if (isMobile.value) return false
-  if (showAsideMode.value) return true
-  if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
-  return false
-})
+const { config: layoutConfig, showConfigDrawer, showAppAside, showMenuDrawer } = storeToRefs(layoutStore)
 </script>
 
 <style scoped></style>

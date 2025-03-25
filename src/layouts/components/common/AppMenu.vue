@@ -3,10 +3,11 @@
     v-model:value="value"
     :mode
     :options="menus"
-    :collapsed="layoutStore.config.asideCollapse"
+    :collapsed
     :collapsed-width="64"
     :children-field="childrenField"
     responsive
+    @update:value="handleValueChange"
   ></NMenu>
 </template>
 
@@ -24,14 +25,20 @@ const childrenField = computed(() => {
   return showTopAsideMode.value ? 'list' : 'children'
 })
 
+const emit = defineEmits<{
+  change: []
+}>()
+
 const {
   mode = 'vertical',
   data,
   isTopMenu,
+  collapsed,
 } = defineProps<{
   mode?: 'horizontal' | 'vertical'
   data: RouteRecordRaw[]
   isTopMenu?: boolean
+  collapsed?: boolean
 }>()
 
 const menus = computed(() => {
@@ -111,6 +118,10 @@ watch(
     immediate: true,
   },
 )
+
+function handleValueChange() {
+  emit('change')
+}
 </script>
 
 <style scoped></style>

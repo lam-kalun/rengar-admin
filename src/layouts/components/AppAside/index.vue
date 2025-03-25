@@ -5,7 +5,7 @@
         height: numberToPx(config.headerHeight),
       }"
     >
-      <AppLogo />
+      <AppLogo :show-title="!config.asideCollapse" />
     </NLayoutHeader>
     <NLayoutContent
       :native-scrollbar="false"
@@ -15,7 +15,10 @@
         bottom: 0,
       }"
     >
-      <AppMenu :data="showAsideMode ? menuStore.menuRoutes : menuStore.subMenuRoutes" />
+      <AppMenu
+        :data="showAsideMode ? menuStore.menuRoutes : menuStore.subMenuRoutes"
+        :collapsed="config.asideCollapse"
+      />
     </NLayoutContent>
   </NLayout>
 </template>

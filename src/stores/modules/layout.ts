@@ -1,10 +1,10 @@
 import { useMediaQuery } from '@vueuse/core'
-
+import { useMenuStore } from './menu'
 export const useLayoutStore = defineStore(
   'layout',
   () => {
+    const menuStore = useMenuStore()
     const layoutMode = ref<App.Layout.LayoutMode>('aside')
-
     const showAsideMode = computed(() => layoutMode.value === 'aside')
     const showTopMode = computed(() => layoutMode.value === 'top')
     const showTopAsideMode = computed(() => layoutMode.value === 'top-aside')
@@ -28,22 +28,47 @@ export const useLayoutStore = defineStore(
       asideCollapseWidth: 64,
     })
 
-    watch(
-      [isPc, isPad, isMobile],
-      ([isPcVal, isPadVal, isMobileVal]) => {
-        if (isPcVal) {
-          config.asideCollapse = false
-        }
-        if (isPadVal) {
-          config.asideCollapse = true
-        }
+    const showAppAside = computed(() => {
+      if (isMobile.value) return false
+      if (showAsideMode.value) return true
+      if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
+      return false
+    })
 
-        console.log(isMobileVal)
-      },
-      {
-        immediate: true,
-      },
-    )
+    const showAppBreadcrumb = computed(() => {
+      if (isMobile.value) return false
+      if (showAsideMode.value) return true
+      return false
+    })
+
+    const showHeaderLogo = computed(() => {
+      if (showAsideMode.value && !isMobile.value) return false
+      if (!isMobile.value && showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return false
+      return true
+    })
+
+    const showAsideControl = computed(() => {
+      if (!isPc.value) return false
+      if (showAsideMode.value) return true
+      if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
+      return false
+    })
+
+    const showHeaderMenu = computed(() => {
+      if (isMobile.value) return false
+      if (showAsideMode.value) return false
+      return true
+    })
+
+    watch([isPad, isPc], ([padVal, pcVal]) => {
+      if (padVal && showAppAside.value) {
+        config.asideCollapse = true
+      }
+
+      if (pcVal) {
+        config.asideCollapse = false
+      }
+    })
 
     function toggleAsideCollapse() {
       config.asideCollapse = !config.asideCollapse
@@ -54,9 +79,15 @@ export const useLayoutStore = defineStore(
       showConfigDrawer.value = !showConfigDrawer.value
     }
 
+    const showMenuDrawer = ref(false)
+    function toggleMenuDrawer(val: boolean) {
+      showMenuDrawer.value = val
+    }
+
     return {
       config,
       showConfigDrawer,
+      showMenuDrawer,
       layoutMode,
       showAsideMode,
       showTopMode,
@@ -64,9 +95,16 @@ export const useLayoutStore = defineStore(
       isPc,
       isMobile,
       isPad,
+
+      showAppAside,
+      showAppBreadcrumb,
+      showHeaderLogo,
+      showAsideControl,
+      showHeaderMenu,
       toggleAsideCollapse,
       toggleConfigDrawer,
       layoutModeChangeAction,
+      toggleMenuDrawer,
     }
   },
   {

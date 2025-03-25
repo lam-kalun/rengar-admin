@@ -1,6 +1,6 @@
 <template>
   <NDrawer v-model:show="show" :width="400" :native-scrollbar="true" :auto-focus="false">
-    <NDrawerContent title="主题配置" :native-scrollbar="false">
+    <NDrawerContent title="主题配置" :native-scrollbar="false" closable>
       <div>
         <NDivider>布局模式</NDivider>
 
