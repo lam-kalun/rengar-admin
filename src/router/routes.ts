@@ -16,7 +16,7 @@ export const routes: RouteRecordRaw[] = [
     name: 'docs',
     path: '/docs',
     meta: {
-      title: '文档地址',
+      title: '文档',
       order: 3,
     },
     children: [
