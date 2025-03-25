@@ -68,10 +68,11 @@ import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
 import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
 const layoutStore = useLayoutStore()
-const { config: layoutConfig, showConfigDrawer, showAsideMode, showTopAsideMode } = storeToRefs(layoutStore)
+const { config: layoutConfig, showConfigDrawer, showAsideMode, showTopAsideMode, isMobile } = storeToRefs(layoutStore)
 
 const menuStore = useMenuStore()
 const showAside = computed(() => {
+  if (isMobile.value) return false
   if (showAsideMode.value) return true
   if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
   return false

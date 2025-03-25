@@ -27,12 +27,13 @@ import AppMenu from '../common/AppMenu.vue'
 import AppLogo from '../common/AppLogo.vue'
 import { numberToPx } from '@rengar/utils'
 const layoutStore = useLayoutStore()
-const { showAsideMode, showTopAsideMode, showTopMode, config } = storeToRefs(layoutStore)
+const { showAsideMode, showTopAsideMode, showTopMode, config, isPc, isMobile } = storeToRefs(layoutStore)
 
 const menuStore = useMenuStore()
 const { subMenuRoutes } = storeToRefs(menuStore)
 
 const showLogo = computed(() => {
+  if (isMobile.value) return false
   if (showTopMode.value) return true
   if (showAsideMode.value) return false
   if (showTopAsideMode.value && subMenuRoutes.value.length === 0) return true
@@ -40,6 +41,7 @@ const showLogo = computed(() => {
 })
 
 const showAsideControl = computed(() => {
+  if (!isPc.value) return false
   if (showAsideMode.value) return true
   if (showTopAsideMode.value && menuStore.subMenuRoutes.length > 0) return true
   return false

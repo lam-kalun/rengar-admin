@@ -8,12 +8,21 @@
     <div class="text-2xl text-primary">22222222222222</div>
     <NButton type="primary" @click="count++">增加</NButton>
     {{ count }}
+
+    <div>
+      <div>{{ layoutStore.isPc }}</div>
+      <div>{{ layoutStore.isPad }}</div>
+      <div>{{ layoutStore.isMobile }}</div>
+    </div>
   </NCard>
 </template>
 
 <script setup lang="ts">
+import { useLayoutStore } from '@/stores'
 const router = useRouter()
 const count = ref(0)
+
+const layoutStore = useLayoutStore()
 function handleClick() {
   router.push('/setting/role')
 }
