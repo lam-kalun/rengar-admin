@@ -11,12 +11,6 @@ importers:
       '@rengar/axios':
         specifier: workspace:^
         version: link:packages/axios
-      '@rengar/hooks':
-        specifier: workspace:^
-        version: link:packages/hooks
-      '@rengar/utils':
-        specifier: workspace:^
-        version: link:packages/utils
       '@unocss/reset':
         specifier: 66.1.0-beta.5
         version: 66.1.0-beta.5
@@ -147,13 +141,9 @@ importers:
 
   packages/axios: {}
 
-  packages/hooks: {}
-
   packages/theme: {}
 
   packages/unocss: {}
-
-  packages/utils: {}
 
   packages/vite-plugin-vue-inject-name: {}
 

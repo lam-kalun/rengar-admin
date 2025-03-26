@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useLayoutStore, useMenuStore } from '@/stores'
-import { numberToPx } from '@rengar/utils'
+import { numberToPx } from '@/utils'
 import AppLogo from '../common/AppLogo.vue'
 import AppMenu from '../common/AppMenu.vue'
 const layoutStore = useLayoutStore()

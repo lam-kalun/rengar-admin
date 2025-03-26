@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { to } from 'await-to-js'
 import { useAuthStore } from '@/stores'
-import { useLoading } from '@rengar/hooks'
+import { useLoading } from '@/hooks'
 
 import type { FormInst, FormRules } from 'naive-ui'
 import BottomWave from './components/BottomWave.vue'

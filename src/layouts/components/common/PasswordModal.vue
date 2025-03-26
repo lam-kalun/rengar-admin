@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { authPasswordApi } from '@/api/common/auth'
 import { to } from 'await-to-js'
-import { useLoading, useRouterHook } from '@rengar/hooks'
+import { useLoading, useRouterHook } from '@/hooks'
 import { useAuthStore } from '@/stores'
 import type { FormInst, FormRules } from 'naive-ui'
 
