@@ -27,6 +27,7 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           title: 'es-toolkit',
           order: 7,
+          fixedInTab: true,
         },
       },
       {
@@ -44,6 +45,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/docs/naive-ui-components/index.vue'),
         meta: {
           title: 'naive-ui-components',
+          href: 'https://ashuicoder.github.io/naive-ui-components/',
           order: 6,
         },
       },

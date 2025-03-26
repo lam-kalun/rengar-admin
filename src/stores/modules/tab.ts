@@ -1,11 +1,14 @@
 import { traverseRoutes } from '@/router/utils'
 import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
+import { cloneDeep, uniqBy } from 'es-toolkit'
+
 export const useTabStore = defineStore(
   'tab',
   () => {
     const authStore = useAuthStore()
     const tabsList = ref<App.Layout.Tab[]>([])
+    const fixedTabList: App.Layout.Tab[] = []
     const activeFullPath = ref('')
     const router = useRouter()
     watch(
@@ -50,6 +53,34 @@ export const useTabStore = defineStore(
       }
     }
 
+    function closeOtherTabsAction(tab: App.Layout.Tab) {
+      tabsList.value = [...fixedTabList, tab]
+      router.replace(tab.fullPath)
+    }
+    function closeLeftTabsAction(tab: App.Layout.Tab) {
+      const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
+      if (index === -1) return
+      tabsList.value = uniqBy(
+        [...fixedTabList, ...tabsList.value.slice(index)],
+        (item: App.Layout.Tab) => item.fullPath,
+      )
+      if (activeFullPath.value === tab.fullPath) return
+      router.replace(tab.fullPath)
+    }
+    function closeRightTabsAction(tab: App.Layout.Tab) {
+      const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
+      if (index === -1) return
+      tabsList.value = uniqBy(
+        [...fixedTabList, ...tabsList.value.slice(0, index + 1)],
+        (item: App.Layout.Tab) => item.fullPath,
+      )
+      router.replace(tab.fullPath)
+    }
+    function closeAllTabsAction() {
+      tabsList.value = cloneDeep(fixedTabList)
+      router.replace('/')
+    }
+
     function initTabs() {
       const roleMap = authStore.roleMap
       const list: App.Layout.Tab[] = []
@@ -68,12 +99,8 @@ export const useTabStore = defineStore(
           fixedInTab: true,
         })
       })
-      list.forEach((item) => {
-        const index = tabsList.value.findIndex((item) => item.fullPath === item.fullPath)
-        if (index === -1) {
-          tabsList.value.push(item)
-        }
-      })
+      tabsList.value = uniqBy([...list, ...tabsList.value], (item: App.Layout.Tab) => item.fullPath)
+      fixedTabList.push(...list)
     }
 
     return {
@@ -81,11 +108,16 @@ export const useTabStore = defineStore(
       activeFullPath,
       removeTabsAction,
       initTabs,
+      closeOtherTabsAction,
+      closeLeftTabsAction,
+      closeRightTabsAction,
+      closeAllTabsAction,
     }
   },
   {
     persist: {
       storage: sessionStorage,
+      pick: ['tabsList'],
     },
   },
 )

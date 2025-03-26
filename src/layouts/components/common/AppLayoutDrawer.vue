@@ -54,7 +54,7 @@
         </NGrid>
       </div>
       <div>
-        <NDivider>布局模式</NDivider>
+        <NDivider>颜色设置</NDivider>
 
         <div>1111</div>
       </div>
@@ -64,6 +64,7 @@
 
 <script setup lang="ts">
 import { useLayoutStore } from '@/stores'
+import {} from '@rengar/theme'
 const show = defineModel<boolean>('show', {
   required: true,
 })
