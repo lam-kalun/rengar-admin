@@ -8,6 +8,9 @@ declare namespace App {
       gap: number
       asideCollapse: boolean
       asideCollapseWidth: number
+      showTabs: boolean
+      showBreadcrumb: boolean
+      showFooter: boolean
     }
 
     interface Tab {

@@ -147,7 +147,7 @@ getMenuTree()
 function renderSuffix(info: { option: TreeOption; checked: boolean; selected: boolean }) {
   return (
     <NSpace align="center">
-      <NText class="text-sm" type="info">
+      <NText class="text-sm" type="primary">
         {info.option.code}
       </NText>
       <div

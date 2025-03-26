@@ -1,6 +1,8 @@
 import { useOsTheme } from 'naive-ui'
 import { themeColors, primaryColorKey } from '@rengar/theme'
 import type { GlobalThemeOverrides } from 'naive-ui'
+
+const bgColor = '#f8fafc'
 const themeStorageKey = 'theme'
 export const useThemeStore = defineStore('theme', () => {
   const osTheme = useOsTheme()
@@ -11,13 +13,30 @@ export const useThemeStore = defineStore('theme', () => {
     return osTheme.value || 'light'
   })
 
+  const themeOverrides = reactive<GlobalThemeOverrides>({
+    Layout: {
+      colorEmbedded: theme.value === 'light' ? bgColor : 'transparent',
+      footerColor: theme.value === 'light' ? bgColor : 'transparent',
+    },
+    common: {
+      primaryColor: themeColors[primaryColorKey].DEFAULT,
+      primaryColorHover: themeColors[primaryColorKey]['400'],
+      primaryColorPressed: themeColors[primaryColorKey]['700'],
+      primaryColorSuppl: themeColors[primaryColorKey]['400'],
+    },
+  })
+
   watch(
     theme,
     (val) => {
       if (val === 'dark') {
         document.documentElement.classList.add('dark')
+        themeOverrides.Layout!.colorEmbedded = 'transparent'
+        themeOverrides.Layout!.footerColor = 'transparent'
       } else {
         document.documentElement.classList.remove('dark')
+        themeOverrides.Layout!.colorEmbedded = bgColor
+        themeOverrides.Layout!.footerColor = bgColor
       }
     },
     {
@@ -35,21 +54,6 @@ export const useThemeStore = defineStore('theme', () => {
     }
     localStorage.setItem(themeStorageKey, themoMode.value)
   }
-
-  const themeOverrides = computed<GlobalThemeOverrides>(() => {
-    return {
-      Layout: {
-        colorEmbedded: theme.value === 'light' ? '#f8fafc' : 'transparent',
-        footerColor: theme.value === 'light' ? '#f8fafc' : 'transparent',
-      },
-      common: {
-        primaryColor: themeColors[primaryColorKey].DEFAULT,
-        primaryColorHover: themeColors[primaryColorKey]['400'],
-        primaryColorPressed: themeColors[primaryColorKey]['700'],
-        primaryColorSuppl: themeColors[primaryColorKey]['400'],
-      },
-    }
-  })
 
   return {
     themeOverrides,

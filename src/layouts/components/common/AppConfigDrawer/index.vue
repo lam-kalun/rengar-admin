@@ -53,18 +53,53 @@
           </NGridItem>
         </NGrid>
       </div>
-      <div>
-        <NDivider>颜色设置</NDivider>
 
-        <div>1111</div>
+      <ColorSelect v-model:value="primaryColorValue" name="主题色设置" @change="handlePrimaryColorChange" />
+
+      <div>
+        <NDivider>网站配置</NDivider>
+        <NSpace vertical :size="20">
+          <div class="flex items-center justify-between">
+            <div>头部高度</div>
+            <NInputNumber v-model:value="layoutStore.config.headerHeight" :precision="0" />
+          </div>
+          <div class="flex items-center justify-between">
+            <div>标签栏高度</div>
+            <NInputNumber v-model:value="layoutStore.config.tabHeight" :precision="0" />
+          </div>
+          <div class="flex items-center justify-between">
+            <div>侧边栏宽度</div>
+            <NInputNumber v-model:value="layoutStore.config.asideWidth" :precision="0" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>底部高度</div>
+            <NInputNumber v-model:value="layoutStore.config.footerHeight" :precision="0" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>显示面包屑</div>
+            <NSwitch v-model:value="layoutStore.config.showBreadcrumb" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>显示标签栏</div>
+            <NSwitch v-model:value="layoutStore.config.showTabs" />
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>显示底部</div>
+            <NSwitch v-model:value="layoutStore.config.showFooter" />
+          </div>
+        </NSpace>
       </div>
     </NDrawerContent>
   </NDrawer>
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/stores'
-import {} from '@rengar/theme'
+import { useLayoutStore, useThemeStore } from '@/stores'
+import ColorSelect from './ColorSelect.vue'
 const show = defineModel<boolean>('show', {
   required: true,
 })
@@ -73,6 +108,26 @@ const layoutStore = useLayoutStore()
 
 function handleChangeLayout(layoutMode: App.Layout.LayoutMode) {
   layoutStore.layoutModeChangeAction(layoutMode)
+}
+
+const themeStore = useThemeStore()
+
+const primaryColorValue = ref(themeStore.themeOverrides.common!.primaryColor as string)
+function handlePrimaryColorChange(colors: ThemeColorItem) {
+  themeStore.themeOverrides.common = {
+    primaryColor: colors.DEFAULT,
+    primaryColorHover: colors['400'],
+    primaryColorPressed: colors['700'],
+    primaryColorSuppl: colors['400'],
+  }
+
+  const root = document.documentElement
+  for (const colorKey in colors) {
+    root.style.setProperty(
+      `--color-primary${colorKey === 'DEFAULT' ? '' : `-${colorKey}`}`,
+      colors[colorKey as ThemeColorValue],
+    )
+  }
 }
 </script>
 

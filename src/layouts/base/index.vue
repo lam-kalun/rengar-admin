@@ -21,6 +21,7 @@
         <AppHeader />
       </NLayoutHeader>
       <NLayoutHeader
+        v-if="layoutConfig.showTabs"
         bordered
         :style="{
           height: numberToPx(layoutConfig.tabHeight),
@@ -36,16 +37,13 @@
           height: '100%',
         }"
         position="absolute"
-        :style="{
-          top: `calc(${numberToPx(layoutConfig.headerHeight)} + ${numberToPx(layoutConfig.tabHeight)})`,
-          bottom: numberToPx(layoutConfig.footerHeight),
-          padding: numberToPx(layoutConfig.gap),
-        }"
+        :style="layoutContentStyle"
         :ref="(el) => el && layoutStore.setLayoutContentRef(el as HTMLElement)"
       >
         <AppMain v-if="showRouterView" />
       </NLayoutContent>
       <NLayoutFooter
+        v-if="layoutConfig.showFooter"
         bordered
         position="absolute"
         :style="{
@@ -56,7 +54,7 @@
       </NLayoutFooter>
     </NLayout>
 
-    <AppLayoutDrawer v-model:show="showConfigDrawer" />
+    <AppConfigDrawer v-model:show="showConfigDrawer" />
     <AppMenuDrawer v-model:show="showMenuDrawer" />
   </NLayout>
 </template>
@@ -69,7 +67,7 @@ import AppTabs from '../components/AppTabs/index.vue'
 import AppHeader from '../components/AppHeader/index.vue'
 import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
-import AppLayoutDrawer from '../components/common/AppLayoutDrawer.vue'
+import AppConfigDrawer from '../components/common/AppConfigDrawer/index.vue'
 import AppMenuDrawer from '../components/common/AppMenuDrawer.vue'
 
 const layoutStore = useLayoutStore()
@@ -80,6 +78,15 @@ const {
   showMenuDrawer,
   showRouterView,
 } = storeToRefs(layoutStore)
+
+const layoutContentStyle = computed(() => {
+  const style = {
+    top: `calc(${numberToPx(layoutConfig.value.headerHeight)} + ${layoutConfig.value.showTabs ? numberToPx(layoutConfig.value.tabHeight) : '0px'})`,
+    bottom: layoutConfig.value.showFooter ? numberToPx(layoutConfig.value.footerHeight) : '0px',
+    padding: numberToPx(layoutConfig.value.gap),
+  }
+  return style
+})
 </script>
 
 <style scoped></style>

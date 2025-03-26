@@ -26,6 +26,9 @@ export const useLayoutStore = defineStore(
       gap: 12,
       asideCollapse: isPad.value,
       asideCollapseWidth: 64,
+      showTabs: true,
+      showBreadcrumb: true,
+      showFooter: true,
     })
 
     const showAppAside = computed(() => {
@@ -36,6 +39,7 @@ export const useLayoutStore = defineStore(
     })
 
     const showAppBreadcrumb = computed(() => {
+      if (!config.showBreadcrumb) return false
       if (isMobile.value) return false
       if (showAsideMode.value) return true
       return false
@@ -80,7 +84,7 @@ export const useLayoutStore = defineStore(
       config.asideCollapse = !config.asideCollapse
     }
 
-    const showConfigDrawer = ref(false)
+    const showConfigDrawer = ref(true)
     function toggleConfigDrawer() {
       showConfigDrawer.value = !showConfigDrawer.value
     }
