@@ -1,8 +1,9 @@
 import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
-import router from '@/router'
+import { useRouterHook } from '@/hooks'
 import { useAuthStore } from '@/stores'
+import router from '@/router'
 
 function showErrorMessage(message: string) {
   window.$message.error(message)
@@ -37,6 +38,7 @@ class HttpClient extends BaseHttpClient {
   }
 
   private handleUnauthorized(message: string = '未授权，请重新登录') {
+    const { routerReplaceToLogin } = useRouterHook(false)
     // 取消所有正在进行的请求
     this.cancelTokenSource.cancel(message)
     // 创建新的cancelTokenSource用于后续请求
@@ -45,12 +47,8 @@ class HttpClient extends BaseHttpClient {
     showErrorMessage(message)
     const authStore = useAuthStore()
     authStore.reset()
-    router.replace({
-      name: 'login',
-      query: {
-        redirect: router.currentRoute.value.fullPath,
-      },
-    })
+    routerReplaceToLogin(router.currentRoute.value.fullPath)
+
     return Promise.reject(new Error(message))
   }
 

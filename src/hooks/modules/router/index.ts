@@ -1,7 +1,7 @@
-import { useRouter } from 'vue-router'
+import vueRouter from '@/router'
 import type { Option } from './type'
-export function useRouterHook() {
-  const router = useRouter()
+export function useRouterHook(setup = true) {
+  const router = setup ? useRouter() : vueRouter
   function routerPushByName(name: RouteRecordName, option?: Option) {
     router.push({
       name,
