@@ -140,8 +140,7 @@ export const useLayoutStore = defineStore(
   {
     persist: {
       storage: localStorage,
-      pick: ['layoutMode', 'config'],
-      omit: ['config.asideCollapse'],
+      pick: ['layoutMode'],
     },
   },
 )

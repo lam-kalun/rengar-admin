@@ -1,4 +1,15 @@
 declare namespace App {
+  namespace Common {
+    interface Config {
+      layout: {
+        config: Partial<App.Layout.Config>
+        layoutMode: App.Layout.LayoutMode
+      }
+      theme: {
+        primaryColor?: string
+      }
+    }
+  }
   namespace Layout {
     interface Config {
       asideWidth: number
