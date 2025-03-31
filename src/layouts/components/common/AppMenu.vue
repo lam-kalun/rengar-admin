@@ -13,14 +13,14 @@
 </template>
 
 <script setup lang="tsx">
-import { useLayoutStore, useMenuStore } from '@/stores'
+import { useAppStore, useMenuStore } from '@/stores'
 import { NEllipsis, type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 const menuStore = useMenuStore()
 
-const { showTopAsideMode } = storeToRefs(layoutStore)
+const { showTopAsideMode } = storeToRefs(appStore)
 
 const childrenField = computed(() => {
   return showTopAsideMode.value ? 'list' : 'children'

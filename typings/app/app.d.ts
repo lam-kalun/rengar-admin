@@ -7,6 +7,7 @@ declare namespace App {
       }
       theme: {
         primaryColor?: string
+        themeMode: App.Theme.ThemeMode
       }
     }
   }

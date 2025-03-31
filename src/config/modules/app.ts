@@ -12,7 +12,9 @@ const appConig: App.Common.Config = {
       showFooter: true,
     },
   },
-  theme: {},
+  theme: {
+    themeMode: 'light',
+  },
 }
 
 export { appConig }

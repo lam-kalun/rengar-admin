@@ -24,12 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore, useMenuStore } from '@/stores'
+import { useAppStore, useMenuStore } from '@/stores'
 import { numberToPx } from '@/utils'
 import AppLogo from '../common/AppLogo.vue'
 import AppMenu from '../common/AppMenu.vue'
-const layoutStore = useLayoutStore()
-const { config, showAsideMode } = storeToRefs(layoutStore)
+const appStore = useAppStore()
+const { config, showAsideMode } = storeToRefs(appStore)
 
 const menuStore = useMenuStore()
 </script>

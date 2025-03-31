@@ -10,19 +10,19 @@
     {{ count }}
 
     <div>
-      <div>{{ layoutStore.isPc }}</div>
-      <div>{{ layoutStore.isPad }}</div>
-      <div>{{ layoutStore.isMobile }}</div>
+      <div>{{ appStore.isPc }}</div>
+      <div>{{ appStore.isPad }}</div>
+      <div>{{ appStore.isMobile }}</div>
     </div>
   </NCard>
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 const router = useRouter()
 const count = ref(0)
 
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 function handleClick() {
   router.push('/setting/role')
 }

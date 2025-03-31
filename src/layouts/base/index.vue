@@ -38,7 +38,7 @@
         }"
         position="absolute"
         :style="layoutContentStyle"
-        :ref="(el) => el && layoutStore.setLayoutContentRef(el as HTMLElement)"
+        :ref="(el) => el && appStore.setLayoutContentRef(el as HTMLElement)"
       >
         <AppMain v-if="showRouterView" />
       </NLayoutContent>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import { numberToPx } from '@/utils'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppTabs from '../components/AppTabs/index.vue'
@@ -70,14 +70,8 @@ import AppAside from '../components/AppAside/index.vue'
 import AppConfigDrawer from '../components/common/AppConfigDrawer/index.vue'
 import AppMenuDrawer from '../components/common/AppMenuDrawer.vue'
 
-const layoutStore = useLayoutStore()
-const {
-  config: layoutConfig,
-  showConfigDrawer,
-  showAppAside,
-  showMenuDrawer,
-  showRouterView,
-} = storeToRefs(layoutStore)
+const appStore = useAppStore()
+const { config: layoutConfig, showConfigDrawer, showAppAside, showMenuDrawer, showRouterView } = storeToRefs(appStore)
 
 const layoutContentStyle = computed(() => {
   const style = {

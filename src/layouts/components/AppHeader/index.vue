@@ -18,13 +18,13 @@ import AsideControl from '../common/AsideControl.vue'
 import ToolBtn from '../common/ToolBtn.vue'
 import UserCard from '../common/UserCard.vue'
 import AppBreadcrumb from '../common/AppBreadcrumb.vue'
-import { useLayoutStore, useMenuStore } from '@/stores'
+import { useAppStore, useMenuStore } from '@/stores'
 import AppMenu from '../common/AppMenu.vue'
 import AppLogo from '../common/AppLogo.vue'
 import MobieMenuControl from '../common/MobieMenuControl.vue'
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 const { showAppBreadcrumb, showHeaderLogo, showAsideControl, isMobile, showHeaderMenu, showHeaderTopMenu } =
-  storeToRefs(layoutStore)
+  storeToRefs(appStore)
 
 const menuStore = useMenuStore()
 </script>
