@@ -1,39 +1,37 @@
 declare namespace App {
-  namespace Common {
-    interface Config {
-      layout: {
-        config: Partial<App.Layout.Config>
-        layoutMode: App.Layout.LayoutMode
-      }
-      theme: {
-        primaryColor?: string
-        themeMode: App.Theme.ThemeMode
-      }
-    }
+  type ThemeMode = 'light' | 'dark' | 'auto'
+
+  type LayoutMode = 'aside' | 'top' | 'top-aside'
+  interface LayoutConfig {
+    asideWidth: number
+    headerHeight: number
+    footerHeight: number
+    tabHeight: number
+    gap: number
+    asideCollapse: boolean
+    asideCollapseWidth: number
+    showTabs: boolean
+    showBreadcrumb: boolean
+    showFooter: boolean
   }
-  namespace Layout {
-    interface Config {
-      asideWidth: number
-      headerHeight: number
-      footerHeight: number
-      tabHeight: number
-      gap: number
-      asideCollapse: boolean
-      asideCollapseWidth: number
-      showTabs: boolean
-      showBreadcrumb: boolean
-      showFooter: boolean
-    }
 
-    interface Tab {
-      title: string
-      fullPath: string
-      icon?: string
-      localIcon?: string
-      fixedInTab?: boolean
-    }
+  interface Tab {
+    title: string
+    fullPath: string
+    icon?: string
+    localIcon?: string
+    fixedInTab?: boolean
+  }
 
-    type LayoutMode = 'aside' | 'top' | 'top-aside'
+  interface BaseConfig {
+    layout: {
+      config: Partial<App.LayoutConfig>
+      layoutMode: App.LayoutMode
+    }
+    theme: {
+      primaryColor?: string
+      themeMode: App.App.ThemeMode
+    }
   }
 
   namespace Auth {
@@ -42,9 +40,5 @@ declare namespace App {
       id?: number
       token?: string
     }
-  }
-
-  namespace Theme {
-    type ThemeMode = 'light' | 'dark' | 'auto'
   }
 }

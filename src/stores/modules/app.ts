@@ -8,11 +8,11 @@ export const useAppStore = defineStore(
   'app',
   () => {
     const menuStore = useMenuStore()
-    const layoutMode = ref<App.Layout.LayoutMode>('aside')
+    const layoutMode = ref<App.LayoutMode>('aside')
     const showAsideMode = computed(() => layoutMode.value === 'aside')
     const showTopMode = computed(() => layoutMode.value === 'top')
     const showTopAsideMode = computed(() => layoutMode.value === 'top-aside')
-    function layoutModeChangeAction(mode: App.Layout.LayoutMode) {
+    function layoutModeChangeAction(mode: App.LayoutMode) {
       layoutMode.value = mode
       localStorage.setItem(saveKey, mode)
     }
@@ -22,7 +22,7 @@ export const useAppStore = defineStore(
     const isMobile = useMediaQuery('(max-width: 767px)')
 
     const saveKey = 'layoutMode'
-    const config = reactive<App.Layout.Config>({
+    const config = reactive<App.LayoutConfig>({
       asideWidth: 220,
       headerHeight: 56,
       footerHeight: 46,
@@ -114,7 +114,7 @@ export const useAppStore = defineStore(
     }
 
     const osTheme = useOsTheme()
-    const themoMode = ref<App.Theme.ThemeMode>('light')
+    const themoMode = ref<App.ThemeMode>('light')
     const theme = computed(() => {
       if (themoMode.value === 'light') return 'light'
       if (themoMode.value === 'dark') return 'dark'

@@ -7,8 +7,8 @@ export const useTabStore = defineStore(
   'tab',
   () => {
     const authStore = useAuthStore()
-    const tabsList = ref<App.Layout.Tab[]>([])
-    const fixedTabList: App.Layout.Tab[] = []
+    const tabsList = ref<App.Tab[]>([])
+    const fixedTabList: App.Tab[] = []
     const activeFullPath = ref('')
     const router = useRouter()
     watch(
@@ -30,7 +30,7 @@ export const useTabStore = defineStore(
         activeFullPath.value = val.fullPath
       },
     )
-    function addTabsAction(tab: App.Layout.Tab) {
+    function addTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
       if (index !== -1) {
         return
@@ -38,7 +38,7 @@ export const useTabStore = defineStore(
       tabsList.value.push(tab)
     }
 
-    function removeTabsAction(tab: App.Layout.Tab) {
+    function removeTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
       const isLast = tabsList.value.length === index + 1
       if (index === -1) return
@@ -53,26 +53,23 @@ export const useTabStore = defineStore(
       }
     }
 
-    function closeOtherTabsAction(tab: App.Layout.Tab) {
+    function closeOtherTabsAction(tab: App.Tab) {
       tabsList.value = [...fixedTabList, tab]
       router.replace(tab.fullPath)
     }
-    function closeLeftTabsAction(tab: App.Layout.Tab) {
+    function closeLeftTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
       if (index === -1) return
-      tabsList.value = uniqBy(
-        [...fixedTabList, ...tabsList.value.slice(index)],
-        (item: App.Layout.Tab) => item.fullPath,
-      )
+      tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(index)], (item: App.Tab) => item.fullPath)
       if (activeFullPath.value === tab.fullPath) return
       router.replace(tab.fullPath)
     }
-    function closeRightTabsAction(tab: App.Layout.Tab) {
+    function closeRightTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.fullPath === tab.fullPath)
       if (index === -1) return
       tabsList.value = uniqBy(
         [...fixedTabList, ...tabsList.value.slice(0, index + 1)],
-        (item: App.Layout.Tab) => item.fullPath,
+        (item: App.Tab) => item.fullPath,
       )
       router.replace(tab.fullPath)
     }
@@ -83,7 +80,7 @@ export const useTabStore = defineStore(
 
     function initTabs() {
       const roleMap = authStore.roleMap
-      const list: App.Layout.Tab[] = []
+      const list: App.Tab[] = []
       traverseRoutes(routes, (route) => {
         const roles = route.meta?.role
         if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => roleMap.has(role))) {
@@ -99,7 +96,7 @@ export const useTabStore = defineStore(
           fixedInTab: true,
         })
       })
-      tabsList.value = uniqBy([...list, ...tabsList.value], (item: App.Layout.Tab) => item.fullPath)
+      tabsList.value = uniqBy([...list, ...tabsList.value], (item: App.Tab) => item.fullPath)
       fixedTabList.push(...list)
     }
 

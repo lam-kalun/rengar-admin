@@ -113,7 +113,7 @@ const show = defineModel<boolean>('show', {
 
 const appStore = useAppStore()
 
-function handleChangeLayout(layoutMode: App.Layout.LayoutMode) {
+function handleChangeLayout(layoutMode: App.LayoutMode) {
   appStore.layoutModeChangeAction(layoutMode)
 }
 

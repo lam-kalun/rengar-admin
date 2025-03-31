@@ -1,4 +1,4 @@
-const appConig: App.Common.Config = {
+const appConig: App.BaseConfig = {
   layout: {
     layoutMode: 'aside',
     config: {

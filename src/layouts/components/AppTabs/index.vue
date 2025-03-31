@@ -77,7 +77,7 @@ const tabStore = useTabStore()
 const { tabsList, activeFullPath } = storeToRefs(tabStore)
 const router = useRouter()
 
-function renderOptions(tab: App.Layout.Tab, index: number): DropdownOption[] {
+function renderOptions(tab: App.Tab, index: number): DropdownOption[] {
   return [
     {
       label: '关闭',
@@ -126,7 +126,7 @@ function handleRightClick(fullPath: string) {
   dropdownVisible[fullPath] = true
 }
 
-function handleSelect(key: string, tab: App.Layout.Tab) {
+function handleSelect(key: string, tab: App.Tab) {
   handleCloseDropdown()
   switch (key) {
     case 'closeCurrent':
