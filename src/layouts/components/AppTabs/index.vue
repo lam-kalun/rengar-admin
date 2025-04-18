@@ -42,7 +42,7 @@
         <template #trigger>
           <div
             class="flex-center cursor-pointer rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-            @click="layoutStore.refreshRouterView"
+            @click="appStore.refreshRouterView"
           >
             <SvgIcon icon="ooui:reload"></SvgIcon>
           </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="tsx">
-import { useTabStore, useLayoutStore } from '@/stores'
+import { useTabStore, useAppStore } from '@/stores'
 import { useWindowSize, useDebounceFn, useFullscreen } from '@vueuse/core'
 import { ref, reactive, watch, nextTick } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
@@ -77,7 +77,7 @@ const tabStore = useTabStore()
 const { tabsList, activeRouteName } = storeToRefs(tabStore)
 const router = useRouter()
 
-function renderOptions(tab: App.Layout.Tab, index: number): DropdownOption[] {
+function renderOptions(tab: App.Tab, index: number): DropdownOption[] {
   return [
     {
       label: '关闭',
@@ -126,7 +126,7 @@ function handleRightClick(fullPath: string) {
   dropdownVisible[fullPath] = true
 }
 
-function handleSelect(key: string, tab: App.Layout.Tab) {
+function handleSelect(key: string, tab: App.Tab) {
   handleCloseDropdown()
   switch (key) {
     case 'closeCurrent':
@@ -179,8 +179,8 @@ function handleJump(name: string) {
 }
 watch(width, () => scrollIntoView())
 
-const layoutStore = useLayoutStore()
-const { layoutContentRef } = storeToRefs(layoutStore)
+const appStore = useAppStore()
+const { layoutContentRef } = storeToRefs(appStore)
 const { isFullscreen, toggle } = useFullscreen(layoutContentRef)
 </script>
 <style scoped>

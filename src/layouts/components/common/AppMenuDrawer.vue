@@ -15,16 +15,16 @@
 
 <script setup lang="ts">
 import AppMenu from './AppMenu.vue'
-import { useMenuStore, useLayoutStore } from '@/stores'
+import { useMenuStore, useAppStore } from '@/stores'
 const show = defineModel<boolean>('show', {
   required: true,
 })
 
 const menuStore = useMenuStore()
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 
 function handleMenuChange() {
-  layoutStore.toggleMenuDrawer(false)
+  appStore.toggleMenuDrawer(false)
 }
 </script>
 

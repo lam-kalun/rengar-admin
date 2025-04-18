@@ -3,17 +3,17 @@
     <NTooltip placement="bottom">
       <template #trigger>
         <div
-          v-if="themeStore.themoMode === 'light'"
+          v-if="appStore.themoMode === 'light'"
           class="flex-center cursor-pointer rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-          @click="themeStore.toggleTheme"
+          @click="appStore.toggleTheme"
         >
           <SvgIcon icon="line-md:sunny"></SvgIcon>
         </div>
 
         <div
-          v-else-if="themeStore.themoMode === 'dark'"
+          v-else-if="appStore.themoMode === 'dark'"
           class="flex-center cursor-pointer rounded-sm p-1 hover:bg-zinc-700"
-          @click="themeStore.toggleTheme"
+          @click="appStore.toggleTheme"
         >
           <SvgIcon icon="line-md:moon-filled"></SvgIcon>
         </div>
@@ -21,7 +21,7 @@
         <div
           v-else
           class="cursor-pointe flex-center rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-          @click="themeStore.toggleTheme"
+          @click="appStore.toggleTheme"
         >
           <SvgIcon icon="material-symbols:hdr-auto"></SvgIcon>
         </div>
@@ -33,7 +33,7 @@
       <template #trigger>
         <div
           class="cursor-pointe flex-center rounded-sm p-1 hover:bg-zinc-100 dark:hover:bg-zinc-700"
-          @click="layoutStore.toggleConfigDrawer"
+          @click="appStore.toggleConfigDrawer"
         >
           <SvgIcon icon="clarity:settings-line"></SvgIcon>
         </div>
@@ -54,11 +54,10 @@
 
 <script setup lang="ts">
 import { useFullscreen } from '@vueuse/core'
-import { useThemeStore, useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 const { isFullscreen, toggle } = useFullscreen()
 
-const themeStore = useThemeStore()
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 </script>
 
 <style scoped></style>

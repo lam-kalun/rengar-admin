@@ -8,7 +8,7 @@
           <NGridItem>
             <div
               class="flex flex-col cursor-pointer items-center gap-4 rounded p-2"
-              :class="[layoutStore.layoutMode === 'aside' ? ' border border-primary' : '']"
+              :class="[appStore.layoutMode === 'aside' ? ' border border-primary' : '']"
               @click="handleChangeLayout('aside')"
             >
               <div class="h-[80px] w-full flex gap-2">
@@ -24,7 +24,7 @@
           <NGridItem>
             <div
               class="flex flex-col cursor-pointer items-center gap-4 rounded p-2"
-              :class="[layoutStore.layoutMode === 'top' ? ' border border-primary' : '']"
+              :class="[appStore.layoutMode === 'top' ? ' border border-primary' : '']"
               @click="handleChangeLayout('top')"
             >
               <div class="h-[80px] w-full flex flex-col gap-2">
@@ -38,7 +38,7 @@
           <NGridItem>
             <div
               class="flex flex-col cursor-pointer items-center gap-4 rounded p-2"
-              :class="[layoutStore.layoutMode === 'top-aside' ? ' border border-primary' : '']"
+              :class="[appStore.layoutMode === 'top-aside' ? ' border border-primary' : '']"
               @click="handleChangeLayout('top-aside')"
             >
               <div class="h-[80px] w-full flex gap-2">
@@ -61,60 +61,65 @@
         <NSpace vertical :size="20">
           <div class="flex items-center justify-between">
             <div>头部高度</div>
-            <NInputNumber v-model:value="layoutStore.config.headerHeight" :precision="0" />
+            <NInputNumber v-model:value="appStore.config.headerHeight" :precision="0" />
           </div>
           <div class="flex items-center justify-between">
             <div>标签栏高度</div>
-            <NInputNumber v-model:value="layoutStore.config.tabHeight" :precision="0" />
+            <NInputNumber v-model:value="appStore.config.tabHeight" :precision="0" />
           </div>
           <div class="flex items-center justify-between">
             <div>侧边栏宽度</div>
-            <NInputNumber v-model:value="layoutStore.config.asideWidth" :precision="0" />
+            <NInputNumber v-model:value="appStore.config.asideWidth" :precision="0" />
           </div>
 
           <div class="flex items-center justify-between">
             <div>底部高度</div>
-            <NInputNumber v-model:value="layoutStore.config.footerHeight" :precision="0" />
+            <NInputNumber v-model:value="appStore.config.footerHeight" :precision="0" />
           </div>
 
           <div class="flex items-center justify-between">
             <div>显示面包屑</div>
-            <NSwitch v-model:value="layoutStore.config.showBreadcrumb" />
+            <NSwitch v-model:value="appStore.config.showBreadcrumb" />
           </div>
 
           <div class="flex items-center justify-between">
             <div>显示标签栏</div>
-            <NSwitch v-model:value="layoutStore.config.showTabs" />
+            <NSwitch v-model:value="appStore.config.showTabs" />
           </div>
 
           <div class="flex items-center justify-between">
             <div>显示底部</div>
-            <NSwitch v-model:value="layoutStore.config.showFooter" />
+            <NSwitch v-model:value="appStore.config.showFooter" />
           </div>
         </NSpace>
       </div>
+
+      <template #footer>
+        <div class="w-full flex justify-between">
+          <NButton type="primary">复制</NButton>
+          <NButton type="primary" ghost>重置</NButton>
+        </div>
+      </template>
     </NDrawerContent>
   </NDrawer>
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore, useThemeStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import ColorSelect from './ColorSelect.vue'
 const show = defineModel<boolean>('show', {
   required: true,
 })
 
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 
-function handleChangeLayout(layoutMode: App.Layout.LayoutMode) {
-  layoutStore.layoutModeChangeAction(layoutMode)
+function handleChangeLayout(layoutMode: App.LayoutMode) {
+  appStore.layoutModeChangeAction(layoutMode)
 }
 
-const themeStore = useThemeStore()
-
-const primaryColorValue = ref(themeStore.themeOverrides.common!.primaryColor as string)
+const primaryColorValue = ref(appStore.themeOverrides.common!.primaryColor as string)
 function handlePrimaryColorChange(colors: ThemeColorItem) {
-  themeStore.themeOverrides.common = {
+  appStore.themeOverrides.common = {
     primaryColor: colors.DEFAULT,
     primaryColorHover: colors['400'],
     primaryColorPressed: colors['700'],

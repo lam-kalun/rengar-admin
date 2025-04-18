@@ -1,8 +1,7 @@
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import type { App } from 'vue'
 
-export { useLayoutStore } from './modules/layout'
-export { useThemeStore } from './modules/theme'
+export { useAppStore } from './modules/app'
 export { useAuthStore } from './modules/auth'
 export { useTabStore } from './modules/tab'
 export { useMenuStore } from './modules/menu'

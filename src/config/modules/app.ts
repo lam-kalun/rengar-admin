@@ -1,4 +1,4 @@
-const appConig: App.Common.Config = {
+const appConig: App.BaseConfig = {
   layout: {
     layoutMode: 'aside',
     config: {
@@ -12,7 +12,9 @@ const appConig: App.Common.Config = {
       showFooter: true,
     },
   },
-  theme: {},
+  theme: {
+    themeMode: 'light',
+  },
 }
 
 export { appConig }
