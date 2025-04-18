@@ -5,23 +5,23 @@
         <nav class="h-full flex px-4 pb-0 pt-2 text-sm">
           <NDropdown
             v-for="(item, index) in tabsList"
-            :key="item.fullPath"
+            :key="item.name"
             trigger="manual"
             :options="renderOptions(item, index)"
-            :show="dropdownVisible[item.fullPath]"
+            :show="dropdownVisible[item.name]"
             :on-clickoutside="handleCloseDropdown"
             @select="(key) => handleSelect(key, item)"
           >
             <div
-              :ref="(el) => setItemRef(el as HTMLElement, item.fullPath)"
+              :ref="(el) => setItemRef(el as HTMLElement, item.name)"
               class="tab-item flex items-center gap-2"
               :class="[
-                item.fullPath === activeFullPath
+                item.name === activeRouteName
                   ? 'text-primary dark:text-white bg-primary-100 dark:bg-primary-700'
                   : 'hover:bg-zinc-100 dark:hover:bg-zinc-700',
               ]"
-              @click="handleJump(item.fullPath)"
-              @contextmenu.prevent="handleRightClick(item.fullPath)"
+              @click="handleJump(item.name)"
+              @contextmenu.prevent="handleRightClick(item.name)"
             >
               <SvgIcon v-if="item.icon || item.localIcon" :icon="item.icon" :local-icon="item.localIcon" />
               <SvgIcon v-else icon="ic:baseline-menu" />
@@ -74,7 +74,7 @@ import SvgIcon from '@/components/SvgIcon/index.vue'
 import type { DropdownOption } from 'naive-ui'
 
 const tabStore = useTabStore()
-const { tabsList, activeFullPath } = storeToRefs(tabStore)
+const { tabsList, activeRouteName } = storeToRefs(tabStore)
 const router = useRouter()
 
 function renderOptions(tab: App.Layout.Tab, index: number): DropdownOption[] {
@@ -156,7 +156,7 @@ function setItemRef(el: HTMLElement | null, path: string) {
 
 function scrollIntoView() {
   nextTick(() => {
-    const element = tabRefs.value[activeFullPath.value]
+    const element = tabRefs.value[activeRouteName.value]
     if (!element) return
     element.scrollIntoView({
       behavior: 'smooth',
@@ -167,13 +167,15 @@ function scrollIntoView() {
 
 const debouncedScrollIntoView = useDebounceFn(scrollIntoView, 400)
 
-watch(activeFullPath, () => debouncedScrollIntoView(), {
+watch(activeRouteName, () => debouncedScrollIntoView(), {
   immediate: true,
 })
 
 const { width } = useWindowSize()
-function handleJump(fullPath: string) {
-  router.push(fullPath)
+function handleJump(name: string) {
+  router.push({
+    name,
+  })
 }
 watch(width, () => scrollIntoView())
 

@@ -26,7 +26,7 @@ declare namespace App {
 
     interface Tab {
       title: string
-      fullPath: string
+      name: string
       icon?: string
       localIcon?: string
       fixedInTab?: boolean

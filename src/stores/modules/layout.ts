@@ -84,7 +84,7 @@ export const useLayoutStore = defineStore(
       config.asideCollapse = !config.asideCollapse
     }
 
-    const showConfigDrawer = ref(true)
+    const showConfigDrawer = ref(false)
     function toggleConfigDrawer() {
       showConfigDrawer.value = !showConfigDrawer.value
     }
