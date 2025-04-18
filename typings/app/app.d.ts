@@ -25,11 +25,11 @@ declare namespace App {
 
   interface BaseConfig {
     layout: {
-      config: Partial<App.LayoutConfig>
+      config: Omit<App.LayoutConfig, 'asideCollapse'>
       layoutMode: App.LayoutMode
     }
     theme: {
-      primaryColor?: string
+      primaryColor: string
       themeMode: App.App.ThemeMode
     }
   }

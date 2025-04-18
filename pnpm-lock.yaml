@@ -51,9 +51,9 @@ importers:
       '@iconify/vue':
         specifier: ^4.3.0
         version: 4.3.0(vue@3.5.13(typescript@5.7.3))
-      '@rengar/theme':
+      '@rengar/color':
         specifier: workspace:^
-        version: link:packages/theme
+        version: link:packages/color
       '@rengar/unocss':
         specifier: workspace:^
         version: link:packages/unocss
@@ -140,6 +140,8 @@ importers:
         version: 2.2.2(typescript@5.7.3)
 
   packages/axios: {}
+
+  packages/color: {}
 
   packages/theme: {}
 

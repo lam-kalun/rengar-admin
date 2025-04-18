@@ -7,6 +7,7 @@ const appConig: App.BaseConfig = {
       footerHeight: 46,
       tabHeight: 44,
       gap: 12,
+      asideCollapseWidth: 64,
       showTabs: true,
       showBreadcrumb: true,
       showFooter: true,
@@ -14,6 +15,7 @@ const appConig: App.BaseConfig = {
   },
   theme: {
     themeMode: 'light',
+    primaryColor: '#8b5cf6',
   },
 }
 

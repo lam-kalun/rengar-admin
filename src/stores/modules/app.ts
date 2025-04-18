@@ -1,14 +1,17 @@
 import { useMediaQuery } from '@vueuse/core'
 import { useMenuStore } from './menu'
 import { useOsTheme } from 'naive-ui'
-import { themeColors, primaryColorKey } from '@rengar/theme'
+import { appConig } from '@/config'
+import { generateAndInjectPrimaryColor } from '@/utils'
+
 import type { GlobalThemeOverrides } from 'naive-ui'
+import { cloneDeep } from 'es-toolkit'
 const bgColor = '#f8fafc'
 export const useAppStore = defineStore(
   'app',
   () => {
     const menuStore = useMenuStore()
-    const layoutMode = ref<App.LayoutMode>('aside')
+    const layoutMode = ref<App.LayoutMode>(appConig.layout.layoutMode)
     const showAsideMode = computed(() => layoutMode.value === 'aside')
     const showTopMode = computed(() => layoutMode.value === 'top')
     const showTopAsideMode = computed(() => layoutMode.value === 'top-aside')
@@ -23,16 +26,8 @@ export const useAppStore = defineStore(
 
     const saveKey = 'layoutMode'
     const config = reactive<App.LayoutConfig>({
-      asideWidth: 220,
-      headerHeight: 56,
-      footerHeight: 46,
-      tabHeight: 44,
-      gap: 12,
+      ...cloneDeep(appConig.layout.config),
       asideCollapse: isPad.value,
-      asideCollapseWidth: 64,
-      showTabs: true,
-      showBreadcrumb: true,
-      showFooter: true,
     })
 
     const showAppAside = computed(() => {
@@ -114,23 +109,24 @@ export const useAppStore = defineStore(
     }
 
     const osTheme = useOsTheme()
-    const themoMode = ref<App.ThemeMode>('light')
+    const themoMode = ref<App.ThemeMode>(appConig.theme.themeMode)
     const theme = computed(() => {
       if (themoMode.value === 'light') return 'light'
       if (themoMode.value === 'dark') return 'dark'
       return osTheme.value || 'light'
     })
 
+    const primaryColors = generateAndInjectPrimaryColor(appConig.theme.primaryColor)
     const themeOverrides = reactive<GlobalThemeOverrides>({
       Layout: {
         colorEmbedded: theme.value === 'light' ? bgColor : 'transparent',
         footerColor: theme.value === 'light' ? bgColor : 'transparent',
       },
       common: {
-        primaryColor: themeColors[primaryColorKey].DEFAULT,
-        primaryColorHover: themeColors[primaryColorKey]['400'],
-        primaryColorPressed: themeColors[primaryColorKey]['700'],
-        primaryColorSuppl: themeColors[primaryColorKey]['400'],
+        primaryColor: primaryColors.DEFAULT,
+        primaryColorHover: primaryColors['400'],
+        primaryColorPressed: primaryColors['700'],
+        primaryColorSuppl: primaryColors['400'],
       },
     })
 

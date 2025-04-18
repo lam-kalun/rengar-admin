@@ -54,7 +54,7 @@
         </NGrid>
       </div>
 
-      <ColorSelect v-model:value="primaryColorValue" name="主题色设置" @change="handlePrimaryColorChange" />
+      <!-- <ColorSelect v-model:value="primaryColorValue" name="主题色设置" @change="handlePrimaryColorChange" /> -->
 
       <div>
         <NDivider>网站配置</NDivider>
@@ -106,7 +106,6 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores'
-import ColorSelect from './ColorSelect.vue'
 const show = defineModel<boolean>('show', {
   required: true,
 })
@@ -115,24 +114,6 @@ const appStore = useAppStore()
 
 function handleChangeLayout(layoutMode: App.LayoutMode) {
   appStore.layoutModeChangeAction(layoutMode)
-}
-
-const primaryColorValue = ref(appStore.themeOverrides.common!.primaryColor as string)
-function handlePrimaryColorChange(colors: ThemeColorItem) {
-  appStore.themeOverrides.common = {
-    primaryColor: colors.DEFAULT,
-    primaryColorHover: colors['400'],
-    primaryColorPressed: colors['700'],
-    primaryColorSuppl: colors['400'],
-  }
-
-  const root = document.documentElement
-  for (const colorKey in colors) {
-    root.style.setProperty(
-      `--color-primary${colorKey === 'DEFAULT' ? '' : `-${colorKey}`}`,
-      colors[colorKey as ThemeColorValue],
-    )
-  }
 }
 </script>
 

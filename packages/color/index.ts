@@ -1,4 +1,4 @@
-export const tailwindColors: TailWindColor = {
+export const tailWindColor: TailWindColor = {
   slate: {
     DEFAULT: '#64748b',
     50: '#f8fafc',

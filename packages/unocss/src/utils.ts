@@ -1,4 +1,4 @@
-export function generateColorVariables(colors: ThemeColor) {
+export function generateCssColorVariables(colors: TailWindColor) {
   let cssVariables = ''
   for (const [colorName, colorShades] of Object.entries(colors)) {
     for (const [shade, value] of Object.entries(colorShades)) {
