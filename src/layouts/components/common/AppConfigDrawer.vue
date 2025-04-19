@@ -57,7 +57,7 @@
       <div>
         <NDivider>主题色</NDivider>
         <NColorPicker
-          v-model:value="themeOverrides.common!.primaryColor"
+          v-model:value="appStore.themeOverrides.common!.primaryColor"
           :show-alpha="false"
           @update:value="handleChangePrimaryColor"
         />
@@ -119,8 +119,6 @@ const show = defineModel<boolean>('show', {
 })
 
 const appStore = useAppStore()
-
-const { themeOverrides } = storeToRefs(appStore)
 
 function handleChangeLayout(layoutMode: App.LayoutMode) {
   appStore.layoutModeChangeAction(layoutMode)
