@@ -2,7 +2,7 @@ import { useMediaQuery } from '@vueuse/core'
 import { useMenuStore } from './menu'
 import { useOsTheme } from 'naive-ui'
 import { appConig } from '@/config'
-import { generateAndInjectPrimaryColor } from '@/utils'
+import { themeColor } from '@rengar/color'
 
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { cloneDeep } from 'es-toolkit'
@@ -116,17 +116,16 @@ export const useAppStore = defineStore(
       return osTheme.value || 'light'
     })
 
-    const primaryColors = generateAndInjectPrimaryColor(appConig.theme.primaryColor)
     const themeOverrides = reactive<GlobalThemeOverrides>({
       Layout: {
         colorEmbedded: theme.value === 'light' ? bgColor : 'transparent',
         footerColor: theme.value === 'light' ? bgColor : 'transparent',
       },
       common: {
-        primaryColor: primaryColors.DEFAULT,
-        primaryColorHover: primaryColors['400'],
-        primaryColorPressed: primaryColors['700'],
-        primaryColorSuppl: primaryColors['400'],
+        primaryColor: themeColor.primary.DEFAULT,
+        primaryColorHover: themeColor.primary['400'],
+        primaryColorPressed: themeColor.primary['700'],
+        primaryColorSuppl: themeColor.primary['400'],
       },
     })
 

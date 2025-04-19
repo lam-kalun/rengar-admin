@@ -1,13 +1,12 @@
-import { getColors } from 'theme-colors'
+import { generateTailwindColorByColor } from '@rengar/color'
 
-export function generateAndInjectPrimaryColor(color: string) {
-  const colors = getColors(color) as ThemeColorItem
-  colors.DEFAULT = colors[500]
+export function injectTailwindCssVarToGlobal(color: string, key = 'primary') {
+  const colors = generateTailwindColorByColor(color)
 
   const root = document.documentElement
   for (const colorKey in colors) {
     root.style.setProperty(
-      `--color-primary${colorKey === 'DEFAULT' ? '' : `-${colorKey}`}`,
+      `--color-${key}${colorKey === 'DEFAULT' ? '' : `-${colorKey}`}`,
       colors[colorKey as ThemeColorValue],
     )
   }

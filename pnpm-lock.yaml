@@ -143,8 +143,6 @@ importers:
 
   packages/color: {}
 
-  packages/theme: {}
-
   packages/unocss: {}
 
   packages/vite-plugin-vue-inject-name: {}
