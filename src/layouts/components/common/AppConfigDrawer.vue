@@ -54,7 +54,14 @@
         </NGrid>
       </div>
 
-      <!-- <ColorSelect v-model:value="primaryColorValue" name="主题色设置" @change="handlePrimaryColorChange" /> -->
+      <div>
+        <NDivider>主题色</NDivider>
+        <NColorPicker
+          v-model:value="themeOverrides.common!.primaryColor"
+          :show-alpha="false"
+          @update:value="handleChangePrimaryColor"
+        />
+      </div>
 
       <div>
         <NDivider>网站配置</NDivider>
@@ -106,14 +113,21 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores'
+import { injectTailwindCssVarToGlobal } from '@/utils'
 const show = defineModel<boolean>('show', {
   required: true,
 })
 
 const appStore = useAppStore()
 
+const { themeOverrides } = storeToRefs(appStore)
+
 function handleChangeLayout(layoutMode: App.LayoutMode) {
   appStore.layoutModeChangeAction(layoutMode)
+}
+
+function handleChangePrimaryColor(color: string) {
+  injectTailwindCssVarToGlobal(color, 'primary')
 }
 </script>
 

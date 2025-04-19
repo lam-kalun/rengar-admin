@@ -67,7 +67,7 @@ import AppTabs from '../components/AppTabs/index.vue'
 import AppHeader from '../components/AppHeader/index.vue'
 import AppMain from '../components/AppMain/index.vue'
 import AppAside from '../components/AppAside/index.vue'
-import AppConfigDrawer from '../components/common/AppConfigDrawer/index.vue'
+import AppConfigDrawer from '../components/common/AppConfigDrawer.vue'
 import AppMenuDrawer from '../components/common/AppMenuDrawer.vue'
 
 const appStore = useAppStore()
