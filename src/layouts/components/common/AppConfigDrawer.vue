@@ -85,6 +85,11 @@
           </div>
 
           <div class="flex items-center justify-between">
+            <div>间隙</div>
+            <NInputNumber v-model:value="appStore.config.gap" :precision="0" />
+          </div>
+
+          <div class="flex items-center justify-between">
             <div>显示面包屑</div>
             <NSwitch v-model:value="appStore.config.showBreadcrumb" />
           </div>
@@ -103,8 +108,8 @@
 
       <template #footer>
         <div class="w-full flex justify-between">
-          <NButton type="primary">复制</NButton>
-          <NButton type="primary" ghost>重置</NButton>
+          <NButton type="primary" @click="handleCopy">复制</NButton>
+          <NButton type="primary" ghost @click="handleReset">重置</NButton>
         </div>
       </template>
     </NDrawerContent>
@@ -114,6 +119,8 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores'
 import { injectTailwindCssVarToGlobal } from '@/utils'
+import { useClipboard } from '@vueuse/core'
+
 const show = defineModel<boolean>('show', {
   required: true,
 })
@@ -126,6 +133,40 @@ function handleChangeLayout(layoutMode: App.LayoutMode) {
 
 function handleChangePrimaryColor(color: string) {
   injectTailwindCssVarToGlobal(color, 'primary')
+}
+
+const { copy } = useClipboard()
+
+function handleCopy() {
+  const copyStr = `
+  const appConig = {
+    layout: {
+      layoutMode: '${appStore.layoutMode}',
+      asideWidth: ${appStore.config.asideWidth},
+      headerHeight: ${appStore.config.headerHeight},
+      footerHeight: ${appStore.config.footerHeight},
+      tabHeight: ${appStore.config.tabHeight},
+      gap: ${appStore.config.gap},
+      showTabs: ${appStore.config.showTabs},
+      showBreadcrumb: ${appStore.config.showBreadcrumb},
+      showFooter: ${appStore.config.showFooter},
+    },
+    theme: {
+      primaryColor: '${appStore.themeOverrides.common!.primaryColor!}',
+    }
+  }
+  `
+  copy(copyStr.trim())
+
+  window.$dialog.success({
+    title: '复制成功',
+    content: '请手动粘贴到 src/config/modules/app.ts 中',
+    positiveText: '我知道了',
+  })
+}
+
+function handleReset() {
+  appStore.resetLayoutAndTheme()
 }
 </script>
 

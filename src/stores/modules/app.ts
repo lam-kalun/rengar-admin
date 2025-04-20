@@ -3,31 +3,32 @@ import { useMenuStore } from './menu'
 import { useOsTheme } from 'naive-ui'
 import { appConig } from '@/config'
 import { themeColor } from '@rengar/color'
+import { injectTailwindCssVarToGlobal } from '@/utils'
 
 import type { GlobalThemeOverrides } from 'naive-ui'
-import { cloneDeep } from 'es-toolkit'
+import { omit } from 'es-toolkit'
+
 const bgColor = '#f8fafc'
 export const useAppStore = defineStore(
   'app',
   () => {
     const menuStore = useMenuStore()
-    const layoutMode = ref<App.LayoutMode>(appConig.layout.layoutMode)
+    const layoutMode = ref<App.LayoutMode>('aside')
     const showAsideMode = computed(() => layoutMode.value === 'aside')
     const showTopMode = computed(() => layoutMode.value === 'top')
     const showTopAsideMode = computed(() => layoutMode.value === 'top-aside')
     function layoutModeChangeAction(mode: App.LayoutMode) {
       layoutMode.value = mode
-      localStorage.setItem(saveKey, mode)
     }
 
     const isPc = useMediaQuery('(min-width: 1025px)')
     const isPad = useMediaQuery('(min-width: 768px) and (max-width: 1024px)')
     const isMobile = useMediaQuery('(max-width: 767px)')
 
-    const saveKey = 'layoutMode'
     const config = reactive<App.LayoutConfig>({
-      ...cloneDeep(appConig.layout.config),
+      ...omit(appConig.layout, ['layoutMode']),
       asideCollapse: isPad.value,
+      asideCollapseWidth: 64,
     })
 
     const showAppAside = computed(() => {
@@ -109,7 +110,7 @@ export const useAppStore = defineStore(
     }
 
     const osTheme = useOsTheme()
-    const themoMode = ref<App.ThemeMode>(appConig.theme.themeMode)
+    const themoMode = ref<App.ThemeMode>('light')
     const theme = computed(() => {
       if (themoMode.value === 'light') return 'light'
       if (themoMode.value === 'dark') return 'dark'
@@ -157,6 +158,12 @@ export const useAppStore = defineStore(
       }
     }
 
+    function resetLayoutAndTheme() {
+      themeOverrides.common!.primaryColor = appConig.theme.primaryColor
+      Object.assign(config, omit(appConig.layout, ['layoutMode']))
+      injectTailwindCssVarToGlobal(appConig.theme.primaryColor, 'primary')
+    }
+
     return {
       config,
       showConfigDrawer,
@@ -188,12 +195,14 @@ export const useAppStore = defineStore(
       themoMode,
       theme,
       toggleTheme,
+      resetLayoutAndTheme,
     }
   },
+
   {
     persist: {
       storage: localStorage,
-      pick: ['layoutMode'],
+      pick: ['layoutMode', 'themoMode', 'themeOverrides', 'config'],
     },
   },
 )

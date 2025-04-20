@@ -15,6 +15,10 @@ declare namespace App {
     showFooter: boolean
   }
 
+  interface BaseLayoutConfig extends Omit<LayoutConfig, 'asideCollapse' | 'asideCollapseWidth'> {
+    layoutMode: LayoutMode
+  }
+
   interface Tab {
     title: string
     name: string
@@ -24,13 +28,9 @@ declare namespace App {
   }
 
   interface BaseConfig {
-    layout: {
-      config: Omit<App.LayoutConfig, 'asideCollapse'>
-      layoutMode: App.LayoutMode
-    }
+    layout: BaseLayoutConfig
     theme: {
       primaryColor: string
-      themeMode: App.App.ThemeMode
     }
   }
 

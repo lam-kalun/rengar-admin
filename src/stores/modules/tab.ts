@@ -5,8 +5,8 @@ import { cloneDeep, uniqBy } from 'es-toolkit'
 
 export const useTabStore = defineStore('tab', () => {
   const authStore = useAuthStore()
-  const tabsList = ref<App.Layout.Tab[]>([])
-  const fixedTabList: App.Layout.Tab[] = []
+  const tabsList = ref<App.Tab[]>([])
+  const fixedTabList: App.Tab[] = []
   const activeRouteName = ref('')
   const router = useRouter()
   watch(
@@ -28,7 +28,7 @@ export const useTabStore = defineStore('tab', () => {
       activeRouteName.value = val.name as string
     },
   )
-  function addTabsAction(tab: App.Layout.Tab) {
+  function addTabsAction(tab: App.Tab) {
     const index = tabsList.value.findIndex((item) => item.name === tab.name)
     if (index !== -1) {
       return
@@ -36,7 +36,7 @@ export const useTabStore = defineStore('tab', () => {
     tabsList.value.push(tab)
   }
 
-  function removeTabsAction(tab: App.Layout.Tab) {
+  function removeTabsAction(tab: App.Tab) {
     const index = tabsList.value.findIndex((item) => item.name === tab.name)
     const isLast = tabsList.value.length === index + 1
     if (index === -1) return
@@ -51,24 +51,21 @@ export const useTabStore = defineStore('tab', () => {
     }
   }
 
-  function closeOtherTabsAction(tab: App.Layout.Tab) {
-    tabsList.value = uniqBy([...fixedTabList, tab], (item: App.Layout.Tab) => item.name)
+  function closeOtherTabsAction(tab: App.Tab) {
+    tabsList.value = uniqBy([...fixedTabList, tab], (item: App.Tab) => item.name)
     router.replace({ name: tab.name })
   }
-  function closeLeftTabsAction(tab: App.Layout.Tab) {
+  function closeLeftTabsAction(tab: App.Tab) {
     const index = tabsList.value.findIndex((item) => item.name === tab.name)
     if (index === -1) return
-    tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(index)], (item: App.Layout.Tab) => item.name)
+    tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(index)], (item: App.Tab) => item.name)
     if (activeRouteName.value === tab.name) return
     router.replace({ name: tab.name })
   }
-  function closeRightTabsAction(tab: App.Layout.Tab) {
+  function closeRightTabsAction(tab: App.Tab) {
     const index = tabsList.value.findIndex((item) => item.name === tab.name)
     if (index === -1) return
-    tabsList.value = uniqBy(
-      [...fixedTabList, ...tabsList.value.slice(0, index + 1)],
-      (item: App.Layout.Tab) => item.name,
-    )
+    tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(0, index + 1)], (item: App.Tab) => item.name)
     router.replace({ name: tab.name })
   }
   function closeAllTabsAction() {
@@ -78,7 +75,7 @@ export const useTabStore = defineStore('tab', () => {
 
   function initTabs() {
     const roleMap = authStore.roleMap
-    const list: App.Layout.Tab[] = []
+    const list: App.Tab[] = []
     traverseRoutes(routes, (route) => {
       const roles = route.meta?.role
       if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => roleMap.has(role))) {
@@ -94,7 +91,7 @@ export const useTabStore = defineStore('tab', () => {
         fixedInTab: true,
       })
     })
-    tabsList.value = uniqBy([...list, ...tabsList.value], (item: App.Layout.Tab) => item.name)
+    tabsList.value = uniqBy([...list, ...tabsList.value], (item: App.Tab) => item.name)
     fixedTabList.push(...list)
   }
 
