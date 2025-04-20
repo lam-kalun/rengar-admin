@@ -203,6 +203,9 @@ export const useAppStore = defineStore(
     persist: {
       storage: localStorage,
       pick: ['layoutMode', 'themoMode', 'themeOverrides', 'config'],
+      afterHydrate(ctx) {
+        injectTailwindCssVarToGlobal(ctx.store.themeOverrides.common.primaryColor, 'primary')
+      },
     },
   },
 )
