@@ -1,1 +1,1 @@
-export { appConig } from './modules/app'
+export { appConfig } from './modules/app'

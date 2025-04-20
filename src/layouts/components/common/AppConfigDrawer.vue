@@ -139,7 +139,7 @@ const { copy } = useClipboard()
 
 function handleCopy() {
   const copyStr = `
-  const appConig = {
+  const appConfig = {
     layout: {
       layoutMode: '${appStore.layoutMode}',
       asideWidth: ${appStore.config.asideWidth},

@@ -1,4 +1,4 @@
-const appConig: App.BaseConfig = {
+const appConfig: App.BaseConfig = {
   layout: {
     layoutMode: 'aside',
     asideWidth: 220,
@@ -15,4 +15,4 @@ const appConig: App.BaseConfig = {
   },
 }
 
-export { appConig }
+export { appConfig }

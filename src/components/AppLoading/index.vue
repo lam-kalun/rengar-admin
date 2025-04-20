@@ -1,5 +1,10 @@
 <template>
-  <div class="relative relative size-screen text-primary">
+  <div
+    class="relative relative size-screen"
+    :style="{
+      color: primaryColor,
+    }"
+  >
     <div class="absolute-center">
       <SvgIcon local-icon="i-local-loading" class="text-[60px]"></SvgIcon>
     </div>
@@ -10,6 +15,16 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { appConfig } from '@/config'
+let primaryColor = ''
+const appStr = localStorage.getItem('app')
+if (appStr) {
+  const app = JSON.parse(appStr)
+  primaryColor = app.themeOverrides.common.primaryColor
+} else {
+  primaryColor = appConfig.theme.primaryColor
+}
+</script>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@vueuse/core'
 import { useMenuStore } from './menu'
 import { useOsTheme } from 'naive-ui'
-import { appConig } from '@/config'
+import { appConfig } from '@/config'
 import { themeColor } from '@rengar/color'
 import { injectTailwindCssVarToGlobal } from '@/utils'
 
@@ -26,7 +26,7 @@ export const useAppStore = defineStore(
     const isMobile = useMediaQuery('(max-width: 767px)')
 
     const config = reactive<App.LayoutConfig>({
-      ...omit(appConig.layout, ['layoutMode']),
+      ...omit(appConfig.layout, ['layoutMode']),
       asideCollapse: isPad.value,
       asideCollapseWidth: 64,
     })
@@ -159,9 +159,9 @@ export const useAppStore = defineStore(
     }
 
     function resetLayoutAndTheme() {
-      themeOverrides.common!.primaryColor = appConig.theme.primaryColor
-      Object.assign(config, omit(appConig.layout, ['layoutMode']))
-      injectTailwindCssVarToGlobal(appConig.theme.primaryColor, 'primary')
+      themeOverrides.common!.primaryColor = appConfig.theme.primaryColor
+      Object.assign(config, omit(appConfig.layout, ['layoutMode']))
+      injectTailwindCssVarToGlobal(appConfig.theme.primaryColor, 'primary')
     }
 
     return {
