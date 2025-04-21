@@ -154,7 +154,7 @@ export function generateRoutesTree(dir: string, rootDir: string): TreeNode[] {
     const stat = fs.statSync(fullPath)
 
     if (stat.isDirectory()) {
-      const hasIndexVue =
+      const hasValidVueFile =
         fs.existsSync(path.join(fullPath, 'index.vue')) ||
         fs.readdirSync(fullPath).some((file) => file.match(/^\[.*?\]\.vue$/))
       const children = generateRoutesTree(fullPath, rootDir)
@@ -180,7 +180,7 @@ export function generateRoutesTree(dir: string, rootDir: string): TreeNode[] {
       const title = cleanPathSegments.join('_')
 
       // 只处理有index.vue的叶子节点或者有子节点的目录
-      if (hasIndexVue || children.length > 0) {
+      if (hasValidVueFile || children.length > 0) {
         const isLeaf = !children.length
 
         const node: TreeNode = {
@@ -194,7 +194,7 @@ export function generateRoutesTree(dir: string, rootDir: string): TreeNode[] {
 
         const component = `@${path.relative(root, rootDir).replace('src', '').split(path.sep).join('/')}/${relativePath.split(path.sep).join('/')}/${dynamicParam ? `[${dynamicParam}].vue` : 'index.vue'}`
 
-        if (isLeaf) {
+        if (isLeaf || hasValidVueFile) {
           node.component = component
         }
 
