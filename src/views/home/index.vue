@@ -1,31 +1,35 @@
 <template>
   <NCard class="h-full">
-    <div class="i-mdi-ab-testing text-2xl text-red"></div>
-    <!-- <div class="i-local-logo" style="font-size: 40px; color: #f40"></div> -->
-    <SvgIcon icon="i-local-logo" class="text-2xl text-red"></SvgIcon>
-    <div class="text-red">222</div>
-    <NButton type="primary" @click="handleClick">跳转</NButton>
-    <div class="text-2xl text-primary">22222222222222</div>
-    <NButton type="primary" @click="count++">增加</NButton>
-    {{ count }}
+    <NGrid :cols="3">
+      <NGridItem>
+        <Vue3Lottie
+          animation-link="https://assets7.lottiefiles.com/packages/lf20_Yc2PU8DdfX.json"
+          :height="300"
+          :width="300"
+        />
+      </NGridItem>
 
-    <div>
-      <div>{{ appStore.isPc }}</div>
-      <div>{{ appStore.isPad }}</div>
-      <div>{{ appStore.isMobile }}</div>
-    </div>
+      <NGridItem>
+        <Vue3Lottie
+          animation-link="https://assets10.lottiefiles.com/packages/lf20_swnrn2oy.json"
+          :height="300"
+          :width="300"
+        />
+      </NGridItem>
+
+      <NGridItem>
+        <Vue3Lottie
+          animation-link="https://assets4.lottiefiles.com/datafiles/i0DrGl1AyhF4rvhqpBUbia6zUEekgKoxRociBzZy/stopwatch.json"
+          :height="300"
+          :width="300"
+        />
+      </NGridItem>
+    </NGrid>
   </NCard>
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/stores'
-const router = useRouter()
-const count = ref(0)
-
-const appStore = useAppStore()
-function handleClick() {
-  router.push('/setting/role')
-}
+import { Vue3Lottie } from 'vue3-lottie'
 </script>
 
 <style scoped></style>
