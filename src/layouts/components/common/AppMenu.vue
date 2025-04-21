@@ -1,6 +1,6 @@
 <template>
   <NMenu
-    v-model:value="value"
+    :value
     :mode
     :options="menus"
     :collapsed
@@ -50,7 +50,6 @@ function renderLabel(route: RouteRecordRaw) {
   if (route.meta?.href) {
     return (
       <NEllipsis>
-        {' '}
         <a href={route.meta.href} target="_blank">
           {route.meta?.title}
         </a>
@@ -80,6 +79,7 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
           return <SvgIcon icon="ic:baseline-menu"></SvgIcon>
         }
       },
+      meta: route.meta,
     }
 
     if (route.children && route.children.length > 0) {

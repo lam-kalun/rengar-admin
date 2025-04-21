@@ -121,6 +121,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/example/keep-alive/index.vue'),
         meta: {
           title: 'keep-alive',
+          keepAlive: true,
           order: 1,
         },
       },
