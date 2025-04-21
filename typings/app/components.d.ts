@@ -10,6 +10,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppLoading: typeof import('./../../src/components/AppLoading/index.vue')['default']
     AppProvider: typeof import('./../../src/components/AppProvider/index.vue')['default']
+    LineChart: typeof import('./../../src/components/LineChart.vue')['default']
     NAlert: typeof import('naive-ui')['NAlert']
     NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
     NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
