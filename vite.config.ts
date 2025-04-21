@@ -7,6 +7,7 @@ import { setupVitePlugins } from './build/plugins'
 export default defineConfig(({ mode }) => {
   const vitEnv = loadEnv(mode, process.cwd(), '') as unknown as ImportMetaEnv
   return {
+    base: '/rengar-admin/', // 设置基础路径
     server: {
       port: Number(vitEnv.VITE_APP_PORT),
     },

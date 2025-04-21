@@ -6,7 +6,7 @@ import { routes } from './routes'
 import type { App } from 'vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory('/rengar-admin/'), // 使用 Vite 的 base 配置
   routes: [
     {
       path: '/',
