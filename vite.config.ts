@@ -20,9 +20,12 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
-      outDir: 'dist', // 默认输出目录
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
+        input: {
+          main: 'index.html',
+          404: '404.html',
+        },
         output: {
           manualChunks: {
             vue: ['vue', 'vue-router', 'pinia'],
