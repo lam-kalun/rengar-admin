@@ -5,6 +5,10 @@ on:
     branches:
       - main # 监听 main 分支的提交
 
+permissions: # 设置权限
+  contents: write # 允许写入内容
+  pages: write # 允许写入 GitHub Pages
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
