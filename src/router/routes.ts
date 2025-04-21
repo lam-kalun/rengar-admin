@@ -68,6 +68,15 @@ export const routes: RouteRecordRaw[] = [
         },
       },
       {
+        name: 'docs-unocss',
+        path: 'unocss',
+        component: () => import('@/views/docs/unocss/index.vue'),
+        meta: {
+          title: 'unocss',
+          order: 9,
+        },
+      },
+      {
         name: 'docs-vite',
         path: 'vite',
         component: () => import('@/views/docs/vite/index.vue'),
