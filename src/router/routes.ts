@@ -27,7 +27,6 @@ export const routes: RouteRecordRaw[] = [
         meta: {
           title: 'es-toolkit',
           order: 7,
-          fixedInTab: true,
         },
       },
       {
