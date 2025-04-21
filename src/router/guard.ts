@@ -1,5 +1,6 @@
 import { useAuthStore, useMenuStore, useTabStore, useKeepAliveStore } from '@/stores'
 import { to as awaitTo } from 'await-to-js'
+import { useAuth } from '@/hooks/auth'
 import type { RouteLocationGeneric, Router } from 'vue-router'
 
 export function setupRouterGuard(router: Router) {
@@ -13,10 +14,7 @@ export function setupRouterGuard(router: Router) {
 
   function hasPerssion(to: RouteLocationGeneric) {
     const roles = to.meta.roles
-    if (Array.isArray(roles) && roles.length > 0 && !roles.some((role) => authStore.roleMap.has(role))) {
-      return false
-    }
-    return true
+    return useAuth(roles!)
   }
 
   router.beforeEach(async (to) => {
