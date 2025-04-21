@@ -71,7 +71,7 @@ export default defineConfigWithVueTs(
           order: ['template', 'script', 'style'],
         },
       ],
-
+      // 配置 .vue 文件中 <script> 标签的 lang 属性</script>
       'vue/block-lang': [
         'error',
         {
@@ -81,7 +81,8 @@ export default defineConfigWithVueTs(
         },
       ],
 
-      '@typescript-eslint/no-explicit-any': 'warn',
+      // any类型
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 )
