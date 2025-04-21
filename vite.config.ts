@@ -7,7 +7,7 @@ import { setupVitePlugins } from './build/plugins'
 export default defineConfig(({ mode }) => {
   const viteEnv = loadEnv(mode, process.cwd(), '') as unknown as ImportMetaEnv
   return {
-    base: viteEnv.VITE_BASE_URL, // 设置基础路径
+    base: '/rengar-admin/', // 确保 base 配置正确
     server: {
       port: Number(viteEnv.VITE_APP_PORT),
     },
@@ -20,6 +20,7 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
+      outDir: 'dist', // 默认输出目录
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
         output: {
