@@ -1,7 +1,7 @@
 import BaseHttpClient from '@rengar/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
-import { useRouterHook } from '@/hooks'
+import { useRouterHook } from '@/hooks/router'
 import { useAuthStore } from '@/stores'
 import router from '@/router'
 

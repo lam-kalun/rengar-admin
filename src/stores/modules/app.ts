@@ -1,9 +1,9 @@
 import { useMediaQuery } from '@vueuse/core'
 import { useMenuStore } from './menu'
 import { useOsTheme } from 'naive-ui'
-import { appConfig } from '@/config'
+import { appConfig } from '@/config/app'
 import { themeColor } from '@rengar/color'
-import { injectTailwindCssVarToGlobal } from '@/utils'
+import { injectTailwindCssVarToGlobal } from '@/utils/theme'
 
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { omit } from 'es-toolkit'

@@ -1,5 +1,9 @@
 import vueRouter from '@/router'
-import type { Option } from './type'
+interface Option {
+  params?: Recordable
+  query?: Recordable
+}
+
 export function useRouterHook(setup = true) {
   const router = setup ? useRouter() : vueRouter
   function routerPushByName(name: RouteRecordName, option?: Option) {

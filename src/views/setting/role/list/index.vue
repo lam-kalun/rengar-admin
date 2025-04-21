@@ -11,7 +11,7 @@ import { NButton, NSpace, NTag, type DataTableColumns } from 'naive-ui'
 import { rolePageListApi, roleDeleteApi } from '@/api/setting/role'
 import { to } from 'await-to-js'
 import AddOrEditModal from './components/AddOrEditModal.vue'
-import { useRouterHook } from '@/hooks'
+import { useRouterHook } from '@/hooks/router'
 
 const loading = ref(false)
 const tableData = ref<Api.Setting.Role[]>([])

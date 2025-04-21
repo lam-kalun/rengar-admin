@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useAppStore, useMenuStore } from '@/stores'
-import { numberToPx } from '@/utils'
+import { numberToPx } from '@/utils/tools'
 import AppLogo from '../common/AppLogo.vue'
 import AppMenu from '../common/AppMenu.vue'
 const appStore = useAppStore()

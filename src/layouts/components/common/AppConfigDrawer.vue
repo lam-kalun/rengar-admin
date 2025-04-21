@@ -118,7 +118,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores'
-import { injectTailwindCssVarToGlobal } from '@/utils'
+import { injectTailwindCssVarToGlobal } from '@/utils/theme'
 import { useClipboard } from '@vueuse/core'
 
 const show = defineModel<boolean>('show', {

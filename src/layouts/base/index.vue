@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores'
-import { numberToPx } from '@/utils'
+import { numberToPx } from '@/utils/tools'
 import AppFooter from '../components/AppFooter/index.vue'
 import AppTabs from '../components/AppTabs/index.vue'
 import AppHeader from '../components/AppHeader/index.vue'

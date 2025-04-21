@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { appConfig } from '@/config'
+import { appConfig } from '@/config/app'
 let primaryColor = ''
 const appStr = localStorage.getItem('app')
 if (appStr) {

@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores'
 import { to } from 'await-to-js'
-import { useRouterHook } from '@/hooks'
+import { useRouterHook } from '@/hooks/router'
 import PasswordModal from './PasswordModal.vue'
 
 const authStore = useAuthStore()

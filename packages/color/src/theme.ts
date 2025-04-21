@@ -1,4 +1,4 @@
-import { appConfig } from '../../../src/config'
+import { appConfig } from '../../../src/config/app'
 
 import { getColors } from 'theme-colors'
 
