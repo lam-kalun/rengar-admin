@@ -2,9 +2,19 @@
 const currentVersion = ref('')
 
 export function useUpdateChecker() {
+  const getBasePath = () => {
+    // 从当前页面URL推断基础路径
+    const path = window.location.pathname
+    const appPath = path.substring(0, path.lastIndexOf('/'))
+    return appPath.endsWith('/') ? appPath : appPath + '/'
+  }
+
+  const basePath = getBasePath()
+
+  console.log('基础路径:', basePath)
   const checkUpdate = async () => {
     try {
-      const response = await fetch('/version.json?t=' + Date.now())
+      const response = await fetch(`${basePath}version.json?t=${Date.now()}`)
       const data = await response.json()
 
       // 第一次获取时设置当前版本
@@ -37,7 +47,7 @@ export function useUpdateChecker() {
   onMounted(() => {
     checkUpdate()
     // 定时检查（例如每5分钟）
-    setInterval(checkUpdate, 30000)
+    setInterval(checkUpdate, 3000)
   })
 
   const refreshPage = () => {
