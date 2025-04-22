@@ -1,15 +1,16 @@
-// vite-plugin-timestamp-version.ts
-import { writeFileSync } from 'node:fs'
+// vite-plugin-git-version.ts
+import { writeFileSync } from 'fs'
+import { execSync } from 'child_process'
 import { PluginOption } from 'vite'
 
-export interface TimestampVersionPluginOptions {
-  fileName?: string // 输出文件名，默认 'version.json'
-  versionPrefix?: string // 版本号前缀，默认 'v'
-  includeBuildTime?: boolean // 是否包含构建时间，默认 true
-  useShortTimestamp?: boolean // 是否使用短时间戳(10位)，默认 false(13位)
+export interface GitVersionPluginOptions {
+  fileName?: string
+  versionPrefix?: string
+  includeBuildTime?: boolean
+  useShortTimestamp?: boolean
 }
 
-export function timestampVersionPlugin(options?: TimestampVersionPluginOptions): PluginOption {
+export default function gitVersionPlugin(options?: GitVersionPluginOptions): PluginOption {
   const {
     fileName = 'version.json',
     versionPrefix = 'v',
@@ -18,30 +19,42 @@ export function timestampVersionPlugin(options?: TimestampVersionPluginOptions):
   } = options || {}
 
   return {
-    name: 'vite-plugin-timestamp-version',
+    name: 'vite-plugin-git-version',
     apply: 'build',
     enforce: 'post',
-    closeBundle() {
+    async closeBundle() {
       try {
-        // 生成时间戳版本号
+        // 1. 生成版本信息
         const timestamp = Date.now()
         const version = `${versionPrefix}${useShortTimestamp ? Math.floor(timestamp / 1000) : timestamp}`
 
-        // 准备版本信息
         const versionInfo: Record<string, any> = { version }
         if (includeBuildTime) {
           versionInfo.buildTime = new Date().toISOString()
           versionInfo.buildTimestamp = timestamp
         }
 
-        // 写入文件
         const outputPath = `${process.cwd()}/public/${fileName}`
         writeFileSync(outputPath, JSON.stringify(versionInfo, null, 2))
-
         console.log(`Version file generated: ${outputPath}`)
-        console.log(`Generated version: ${version}`)
+
+        // 2. 执行 Git 操作
+        try {
+          // 检查是否在 Git 仓库中
+          execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
+
+          // 添加版本文件
+          execSync(`git add ${outputPath}`)
+
+          // 提交更改
+          execSync(`git commit -m "feat:version${version}"`)
+
+          console.log('Version file committed to Git successfully')
+        } catch (error) {
+          console.warn('Git operations skipped:', error)
+        }
       } catch (error) {
-        console.error('Failed to generate version file:', error)
+        console.error('Failed to generate and commit version file:', error)
       }
     },
   }
