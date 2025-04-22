@@ -47,7 +47,7 @@ export function timestampVersionPlugin(options?: GitVersionPluginOptions): Plugi
           execSync(`git add ${outputPath}`)
 
           // 提交更改
-          execSync(`git commit -m "feat:version${version}"`)
+          execSync(`git commit -m "feat: ${version}"`)
 
           console.log('Version file committed to Git successfully')
         } catch (error) {
