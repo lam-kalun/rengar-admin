@@ -10,7 +10,7 @@ export interface GitVersionPluginOptions {
   useShortTimestamp?: boolean
 }
 
-export default function gitVersionPlugin(options?: GitVersionPluginOptions): PluginOption {
+export function timestampVersionPlugin(options?: GitVersionPluginOptions): PluginOption {
   const {
     fileName = 'version.json',
     versionPrefix = 'v',
