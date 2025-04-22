@@ -1,6 +1,6 @@
 // 初始版本设为空，将在 mounted 时从 version.json 获取
 import { NButton, useNotification } from 'naive-ui'
-export function useUpdateChecker() {
+export function useUpdateChecker(time = 1000 * 60 * 5) {
   const notification = useNotification()
   let currentVersion = ''
   let timer: any = null
@@ -43,7 +43,7 @@ export function useUpdateChecker() {
   onMounted(() => {
     checkUpdate()
     // 定时检查（例如每5分钟）
-    timer = setInterval(checkUpdate, 3000)
+    timer = setInterval(checkUpdate, time)
   })
 
   const refreshPage = () => {

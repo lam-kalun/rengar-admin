@@ -1,6 +1,5 @@
 // vite-plugin-git-version.ts
 import { writeFileSync } from 'fs'
-import { execSync } from 'child_process'
 import { PluginOption } from 'vite'
 
 export interface GitVersionPluginOptions {
@@ -37,22 +36,6 @@ export function timestampVersionPlugin(options?: GitVersionPluginOptions): Plugi
         const outputPath = `${process.cwd()}/public/${fileName}`
         writeFileSync(outputPath, JSON.stringify(versionInfo, null, 2))
         console.log(`Version file generated: ${outputPath}`)
-
-        // 2. 执行 Git 操作
-        try {
-          // 检查是否在 Git 仓库中
-          execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
-
-          // 添加版本文件
-          execSync(`git add ${outputPath}`)
-
-          // 提交更改
-          execSync(`git commit -m "feat: ${version}"`)
-
-          console.log('Version file committed to Git successfully')
-        } catch (error) {
-          console.warn('Git operations skipped:', error)
-        }
       } catch (error) {
         console.error('Failed to generate and commit version file:', error)
       }
