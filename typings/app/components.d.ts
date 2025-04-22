@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppGlobalNaiveTool: typeof import('./../../src/components/AppGlobalNaiveTool/index.vue')['default']
     AppLoading: typeof import('./../../src/components/AppLoading/index.vue')['default']
     AppProvider: typeof import('./../../src/components/AppProvider/index.vue')['default']
     NAlert: typeof import('naive-ui')['NAlert']

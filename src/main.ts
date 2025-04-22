@@ -8,12 +8,12 @@ import { setupPinia } from './stores'
 import { setupRouter } from './router'
 
 import AppLoading from './components/AppLoading/index.vue'
-import App from './App.vue'
+import AppProvider from './components/AppProvider/index.vue'
 
 async function bootstrap() {
   const loadingApp = createApp(AppLoading)
   loadingApp.mount('#app-loading')
-  const app = createApp(App)
+  const app = createApp(AppProvider)
   setupPinia(app)
   await setupRouter(app)
   app.mount('#app')

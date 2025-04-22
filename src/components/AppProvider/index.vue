@@ -4,30 +4,32 @@
     :theme="appStore.theme === 'light' ? lightTheme : darkTheme"
   >
     <NMessageProvider>
-      <NDialogProvider>
-        <NNotificationProvider>
+      <NNotificationProvider>
+        <NDialogProvider>
           <NLoadingBarProvider>
-            <InjectNaiveProvider />
-            <slot></slot>
+            <GlobalNaiveTool> </GlobalNaiveTool>
+            <App></App>
           </NLoadingBarProvider>
-        </NNotificationProvider>
-      </NDialogProvider>
+        </NDialogProvider>
+      </NNotificationProvider>
     </NMessageProvider>
   </NConfigProvider>
 </template>
 
 <script setup lang="ts">
 import { darkTheme, lightTheme } from 'naive-ui'
-import { createTextVNode } from 'vue'
 import { useAppStore } from '@/stores'
+import { createTextVNode } from 'vue'
+import App from '@/App.vue'
 
 defineOptions({
   name: 'AppProvider',
 })
+
 const appStore = useAppStore()
 
-const InjectNaiveProvider = defineComponent({
-  name: 'InjectNaiveProvider',
+const GlobalNaiveTool = defineComponent({
+  name: 'GlobalNaiveTool',
   setup() {
     window.$loadingBar = useLoadingBar()
     window.$dialog = useDialog()
