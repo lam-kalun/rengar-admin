@@ -8,6 +8,8 @@
 import BasicLayout from '@/layouts/base/index.vue'
 import BlankLayout from '@/layouts/blank/index.vue'
 
+import { useUpdateChecker } from '@/hooks/update'
+
 defineOptions({
   name: 'App',
 })
@@ -18,6 +20,8 @@ const layoutComponent = computed(() => {
   if (!layout || layout === 'base') return BasicLayout
   return BlankLayout
 })
+
+useUpdateChecker()
 </script>
 
 <style scoped></style>

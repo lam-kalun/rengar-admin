@@ -16,7 +16,7 @@
         >整点动画看看把，比CSS动画有趣多了，你项目中不需要的话自行删除，然后记得卸载vue3-lottie</NText
       >
 
-      <NGrid :cols="3">
+      <NGrid cols="1 768:2 1024:3">
         <NGridItem>
           <Vue3Lottie
             animation-link="https://assets10.lottiefiles.com/packages/lf20_K0864uP6eC.json"

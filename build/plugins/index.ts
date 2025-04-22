@@ -8,6 +8,7 @@ import { setupUnocssPlugin } from './unocss'
 import { setupRouter } from './router'
 import { setupAutoImportPlugin } from './import'
 import { setupInject } from './inject'
+import { setupVersion } from './version'
 export function setupVitePlugins() {
   const plugins: PluginOption[] = [
     setupInject(),
@@ -17,6 +18,7 @@ export function setupVitePlugins() {
     setupRouter(),
     setupUnocssPlugin(),
     ...setupAutoImportPlugin(),
+    setupVersion(),
   ]
   return plugins
 }
