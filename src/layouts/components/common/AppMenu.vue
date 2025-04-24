@@ -14,7 +14,7 @@
 
 <script setup lang="tsx">
 import { useAppStore, useMenuStore } from '@/stores'
-import { NEllipsis, type MenuOption } from 'naive-ui'
+import { type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 const appStore = useAppStore()
@@ -49,19 +49,15 @@ const menus = computed(() => {
 function renderLabel(route: RouteRecordRaw) {
   if (route.meta?.href) {
     return (
-      <NEllipsis>
-        <a href={route.meta.href} target="_blank">
-          {route.meta?.title}
-        </a>
-      </NEllipsis>
+      <a href={route.meta.href} target="_blank">
+        {route.meta?.title}
+      </a>
     )
   }
   return !route.children ? (
-    <NEllipsis>
-      <RouterLink to={{ name: route.name }}>{route.meta?.title}</RouterLink>
-    </NEllipsis>
+    <RouterLink to={{ name: route.name }}>{route.meta?.title}</RouterLink>
   ) : (
-    <NEllipsis>{route.meta?.title}</NEllipsis>
+    <span>{route.meta?.title}</span>
   )
 }
 
