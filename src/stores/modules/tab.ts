@@ -13,6 +13,7 @@ export const useTabStore = defineStore(
     const activeRouteName = ref('')
     const router = useRouter()
     const { routerReplaceToHome } = useRouterHook()
+
     watch(
       () => router.currentRoute.value,
       (val) => {
@@ -31,7 +32,11 @@ export const useTabStore = defineStore(
         })
         activeRouteName.value = val.name as string
       },
+      {
+        immediate: true,
+      },
     )
+
     function addTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.name === tab.name)
       if (index !== -1) {

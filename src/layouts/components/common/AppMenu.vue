@@ -17,6 +17,7 @@ import { useAppStore, useMenuStore } from '@/stores'
 import { type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
+
 const appStore = useAppStore()
 const menuStore = useMenuStore()
 
@@ -87,9 +88,8 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
 }
 
 const value = ref<RouteRecordName>()
-const router = useRouter()
 const route = useRoute()
-
+const router = useRouter()
 watch(
   () => router.currentRoute.value,
   (val) => {
