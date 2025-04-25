@@ -2,6 +2,7 @@ import { traverseRoutes } from '@/router/utils'
 import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
 import { cloneDeep, uniqBy } from 'es-toolkit'
+import { useRouterHook } from '@/hooks/router'
 
 export const useTabStore = defineStore(
   'tab',
@@ -11,6 +12,7 @@ export const useTabStore = defineStore(
     const fixedTabList: App.Tab[] = []
     const activeRouteName = ref('')
     const router = useRouter()
+    const { routerReplaceToHome } = useRouterHook()
     watch(
       () => router.currentRoute.value,
       (val) => {
@@ -59,20 +61,25 @@ export const useTabStore = defineStore(
     }
     function closeLeftTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.name === tab.name)
+      const avtiveIndex = tabsList.value.findIndex((item) => item.name === activeRouteName.value)
       if (index === -1) return
       tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(index)], (item: App.Tab) => item.name)
-      if (activeRouteName.value === tab.name) return
-      router.replace({ name: tab.name })
+      if (index > avtiveIndex) {
+        router.replace({ name: tab.name })
+      }
     }
     function closeRightTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.name === tab.name)
+      const avtiveIndex = tabsList.value.findIndex((item) => item.name === activeRouteName.value)
       if (index === -1) return
       tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(0, index + 1)], (item: App.Tab) => item.name)
-      router.replace({ name: tab.name })
+      if (index < avtiveIndex) {
+        router.replace({ name: tab.name })
+      }
     }
     function closeAllTabsAction() {
       tabsList.value = cloneDeep(fixedTabList)
-      router.replace('/')
+      routerReplaceToHome()
     }
 
     function initTabs() {
@@ -110,7 +117,7 @@ export const useTabStore = defineStore(
   },
   {
     persist: {
-      storage: localStorage,
+      storage: sessionStorage,
       pick: ['tabsList'],
     },
   },
