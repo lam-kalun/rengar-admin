@@ -4,12 +4,14 @@ import { useAuthStore } from './auth'
 import { cloneDeep, uniqBy } from 'es-toolkit'
 import { useRouterHook } from '@/hooks/router'
 
+const saveStorage = sessionStorage
+
 export const useTabStore = defineStore(
   'tab',
   () => {
     const authStore = useAuthStore()
     const tabsList = ref<App.Tab[]>([])
-    const fixedTabList: App.Tab[] = []
+    let fixedTabList: App.Tab[] = []
     const activeRouteName = ref('')
     const router = useRouter()
     const { routerReplaceToHome } = useRouterHook()
@@ -88,6 +90,7 @@ export const useTabStore = defineStore(
     }
 
     function initTabs() {
+      if (tabsList.value.length) return
       const roleMap = authStore.roleMap
       const list: App.Tab[] = []
       traverseRoutes(routes, (route) => {
@@ -105,8 +108,8 @@ export const useTabStore = defineStore(
           fixedInTab: true,
         })
       })
-      tabsList.value = uniqBy([...list, ...tabsList.value], (item: App.Tab) => item.name)
-      fixedTabList.push(...list)
+      tabsList.value = cloneDeep(list)
+      fixedTabList = cloneDeep(list)
     }
 
     return {
@@ -122,7 +125,7 @@ export const useTabStore = defineStore(
   },
   {
     persist: {
-      storage: sessionStorage,
+      storage: saveStorage,
       pick: ['tabsList'],
     },
   },
