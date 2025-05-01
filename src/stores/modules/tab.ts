@@ -4,8 +4,6 @@ import { useAuthStore } from './auth'
 import { cloneDeep, uniqBy } from 'es-toolkit'
 import { useRouterHook } from '@/hooks/router'
 
-const saveStorage = sessionStorage
-
 export const useTabStore = defineStore(
   'tab',
   () => {
@@ -125,7 +123,7 @@ export const useTabStore = defineStore(
   },
   {
     persist: {
-      storage: saveStorage,
+      storage: sessionStorage,
       pick: ['tabsList'],
     },
   },
