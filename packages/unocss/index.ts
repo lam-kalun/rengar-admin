@@ -1,4 +1,4 @@
-import { themeColorCssVariables, unocssPrimaryColor } from '@rengar/color'
+import { themeColorCssVariables, unocssPrimaryColor } from '@rengar-admin/color'
 import type { Preset } from 'unocss'
 
 export function presetRengarAdmin(): Preset {

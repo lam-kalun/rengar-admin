@@ -1,5 +1,5 @@
 {
-  "name": "@rengar/vite-plugin-vue-routes",
+  "name": "@rengar-admin/vite-plugin-vue-routes",
   "version": "1.0.0",
   "description": "",
   "exports": {

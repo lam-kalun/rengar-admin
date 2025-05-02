@@ -1,5 +1,5 @@
 {
-  "name": "@rengar/vite-plugin-vue-inject-name",
+  "name": "@rengar-admin/vite-plugin-vue-inject-name",
   "version": "1.0.0",
   "description": "",
   "exports": {

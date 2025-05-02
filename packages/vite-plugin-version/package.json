@@ -1,5 +1,5 @@
 {
-  "name": "@rengar/vite-plugin-version",
+  "name": "@rengar-admin/vite-plugin-version",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

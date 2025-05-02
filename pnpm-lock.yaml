@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@rengar/axios':
+      '@rengar-admin/axios':
         specifier: workspace:^
         version: link:packages/axios
       '@unocss/reset':
@@ -51,10 +51,10 @@ importers:
       '@iconify/vue':
         specifier: ^4.3.0
         version: 4.3.0(vue@3.5.13(typescript@5.7.3))
-      '@rengar/color':
+      '@rengar-admin/color':
         specifier: workspace:^
         version: link:packages/color
-      '@rengar/unocss':
+      '@rengar-admin/unocss':
         specifier: workspace:^
         version: link:packages/unocss
       '@rollup/pluginutils':

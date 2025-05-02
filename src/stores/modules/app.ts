@@ -2,7 +2,7 @@ import { useMediaQuery } from '@vueuse/core'
 import { useMenuStore } from './menu'
 import { useOsTheme } from 'naive-ui'
 import { appConfig } from '@/config/app'
-import { themeColor } from '@rengar/color'
+import { themeColor } from '@rengar-admin/color'
 import { injectTailwindCssVarToGlobal } from '@/utils/theme'
 
 import type { GlobalThemeOverrides } from 'naive-ui'

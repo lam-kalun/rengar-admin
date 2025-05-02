@@ -1,4 +1,4 @@
-import BaseHttpClient from '@rengar/axios'
+import BaseHttpClient from '@rengar-admin/axios'
 import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { useRouterHook } from '@/hooks/router'

@@ -1,4 +1,4 @@
-import { generateTailwindColorByColor } from '@rengar/color'
+import { generateTailwindColorByColor } from '@rengar-admin/color'
 
 export function injectTailwindCssVarToGlobal(color: string, key = 'primary') {
   const colors = generateTailwindColorByColor(color)
