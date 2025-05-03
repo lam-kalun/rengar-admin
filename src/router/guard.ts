@@ -11,6 +11,8 @@ export function setupRouterGuard(router: Router) {
 
   // 判断路由是否需要权限
   function needPermission(to: RouteLocationGeneric) {
+    if (!to.meta.roles) return false
+    if (typeof to.meta.roles === 'string') return true
     return Array.isArray(to.meta.roles) && to.meta.roles.length > 0
   }
 

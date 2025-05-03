@@ -1,6 +1,6 @@
 // vite-plugin-git-version.ts
 import { writeFileSync } from 'fs'
-import { PluginOption } from 'vite'
+import type { PluginOption } from 'vite'
 
 export interface GitVersionPluginOptions {
   fileName?: string

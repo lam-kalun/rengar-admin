@@ -4,7 +4,7 @@ declare module 'vue-router' {
   interface RouteMeta {
     title: string
     layout?: Layout
-    roles?: string[]
+    roles?: string | string[]
     icon?: string
     localIcon?: string
     keepAlive?: boolean
