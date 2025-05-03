@@ -19,19 +19,19 @@ declare namespace App {
     layoutMode: LayoutMode
   }
 
+  interface BaseConfig {
+    layout: BaseLayoutConfig
+    theme: {
+      primaryColor: string
+    }
+  }
+
   interface Tab {
     title: string
     name: string
     icon?: string
     localIcon?: string
     fixedInTab?: boolean
-  }
-
-  interface BaseConfig {
-    layout: BaseLayoutConfig
-    theme: {
-      primaryColor: string
-    }
   }
 
   namespace Auth {
