@@ -1,6 +1,5 @@
 import BaseHttpClient from '@rengar-admin/axios'
 import type { AxiosRequestConfig } from 'axios'
-import axios from 'axios'
 import { useRouterHook } from '@/hooks/router'
 import { useAuthStore } from '@/stores'
 import router from '@/router'
@@ -10,15 +9,8 @@ function showErrorMessage(message: string) {
 }
 
 class HttpClient extends BaseHttpClient {
-  protected cancelTokenSource = axios.CancelToken.source()
-
   constructor(config: AxiosRequestConfig) {
-    super({
-      baseURL: config.baseURL,
-      timeout: config.timeout || 10000,
-      ...config,
-    })
-    this.instance.defaults.cancelToken = this.cancelTokenSource.token
+    super(config)
   }
 
   protected initializeRequestInterceptor(): number {
@@ -28,7 +20,6 @@ class HttpClient extends BaseHttpClient {
         if (authStore.user.token) {
           config.headers.Authorization = `Bearer ${authStore.user.token}`
         }
-        // 在这里可以添加请求拦截逻辑
         return config
       },
       (error) => {
@@ -39,16 +30,11 @@ class HttpClient extends BaseHttpClient {
 
   private handleUnauthorized(message: string = '未授权，请重新登录') {
     const { routerReplaceToLogin } = useRouterHook(false)
-    // 取消所有正在进行的请求
-    this.cancelTokenSource.cancel(message)
-    // 创建新的cancelTokenSource用于后续请求
-    this.cancelTokenSource = axios.CancelToken.source()
-    this.instance.defaults.cancelToken = this.cancelTokenSource.token
+    this.cancel()
     showErrorMessage(message)
     const authStore = useAuthStore()
     authStore.reset()
     routerReplaceToLogin(router.currentRoute.value.fullPath)
-
     return Promise.reject(new Error(message))
   }
 
@@ -72,30 +58,6 @@ class HttpClient extends BaseHttpClient {
         return Promise.reject(error)
       },
     )
-  }
-
-  public get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return this.instance.get<T>(url, config) as Promise<T>
-  }
-
-  public post<T>(url: string, data?: Recordable, config?: AxiosRequestConfig): Promise<T> {
-    return this.instance.post<T>(url, data, config) as Promise<T>
-  }
-
-  public request<T>(config: AxiosRequestConfig): Promise<T> {
-    return this.instance.request<T>(config) as Promise<T>
-  }
-
-  public upload<T>(url: string, file: File, config?: AxiosRequestConfig): Promise<T> {
-    const formData = new FormData()
-    formData.append('file', file)
-
-    return this.instance.post<T>(url, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      ...config,
-    }) as Promise<T>
   }
 }
 
