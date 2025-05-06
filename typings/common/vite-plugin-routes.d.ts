@@ -8,6 +8,7 @@ type RouteRecordName =
   | 'docs-naive-ui-components'
   | 'docs-pinia'
   | 'docs-pnpm'
+  | 'docs-rengar-admin'
   | 'docs-unocss'
   | 'docs-vite'
   | 'docs-vue'

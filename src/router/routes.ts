@@ -67,6 +67,14 @@ export const routes: RouteRecordRaw[] = [
         },
       },
       {
+        name: 'docs-rengar-admin',
+        path: 'rengar-admin',
+        component: () => import('@/views/docs/rengar-admin/index.vue'),
+        meta: {
+          title: '项目文档',
+        },
+      },
+      {
         name: 'docs-unocss',
         path: 'unocss',
         component: () => import('@/views/docs/unocss/index.vue'),
