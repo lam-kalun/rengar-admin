@@ -50,7 +50,7 @@ export function setupRouterGuard(router: Router) {
         authStore.reset() // 重置用户状态
         return '/login' // 跳转到登录页
       }
-      menuStore.gernerateMenus() // 生成菜单
+      menuStore.generateMenus() // 生成菜单
       tabStore.initTabs() // 初始化标签页
       keepAliveStore.initKeepAliveData() // 初始化缓存数据
     }

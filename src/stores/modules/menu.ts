@@ -24,7 +24,7 @@ export const useMenuStore = defineStore('menu', () => {
     return sortedMenus
   }
 
-  function gernerateMenus() {
+  function generateMenus() {
     const roleMap = authStore.roleMap
     const filterMenus = filterRoutes(routes, (route) => {
       if (route.meta?.hideInMenu) return false
@@ -55,7 +55,7 @@ export const useMenuStore = defineStore('menu', () => {
     menuRoutes,
     topActiveName,
     subMenuRoutes,
-    gernerateMenus,
+    generateMenus,
     topActiveNameChangeAction,
   }
 })

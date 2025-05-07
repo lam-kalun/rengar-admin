@@ -55,6 +55,7 @@ function renderLabel(route: RouteRecordRaw) {
       </a>
     )
   }
+
   return !route.children ? (
     <RouterLink to={{ name: route.name }}>{route.meta?.title}</RouterLink>
   ) : (
@@ -98,6 +99,7 @@ watch(
       return
     }
     const name = route.matched[0]?.name as RouteRecordName
+
     if (name === menuStore.topActiveName) return
     value.value = name
   },
