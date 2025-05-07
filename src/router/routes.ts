@@ -18,6 +18,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '文档',
       order: 3,
+      icon: 'ep:document-copy',
     },
     children: [
       {
@@ -44,7 +45,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/docs/naive-ui-components/index.vue'),
         meta: {
           title: 'naive-ui-components',
-          href: 'https://ashuicoder.github.io/naive-ui-components/',
+
           order: 6,
         },
       },
@@ -119,6 +120,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '示例',
       order: 2,
+      icon: 'iconamoon:cursor',
     },
     children: [
       {
