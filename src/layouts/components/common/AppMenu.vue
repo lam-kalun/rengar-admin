@@ -1,6 +1,6 @@
 <template>
   <NMenu
-    :value
+    v-model:value="value"
     :mode
     :options="menus"
     :collapsed
@@ -28,7 +28,7 @@ const childrenField = computed(() => {
 })
 
 const emit = defineEmits<{
-  change: []
+  change: [val: RouteRecordName]
 }>()
 
 const {
@@ -121,8 +121,8 @@ watch(
   },
 )
 
-function handleValueChange() {
-  emit('change')
+function handleValueChange(val: RouteRecordName) {
+  emit('change', val)
 }
 </script>
 

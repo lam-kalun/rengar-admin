@@ -45,7 +45,6 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/docs/naive-ui-components/index.vue'),
         meta: {
           title: 'naive-ui-components',
-
           order: 6,
         },
       },

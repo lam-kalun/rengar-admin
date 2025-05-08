@@ -6,7 +6,13 @@
     <div class="min-w-0 flex-1">
       <AppBreadcrumb v-if="showAppBreadcrumb" />
       <AppMenu v-if="showHeaderMenu" mode="horizontal" :data="menuStore.menuRoutes" />
-      <AppMenu v-if="showHeaderTopMenu" mode="horizontal" :data="menuStore.menuRoutes" :is-top-menu="true" />
+      <AppMenu
+        v-if="showHeaderTopMenu"
+        mode="horizontal"
+        :data="menuStore.menuRoutes"
+        :is-top-menu="true"
+        @change="handleTopMenuChange"
+      />
     </div>
     <ToolBtn />
     <UserCard />
@@ -27,6 +33,12 @@ const { showAppBreadcrumb, showHeaderLogo, showAsideControl, isMobile, showHeade
   storeToRefs(appStore)
 
 const menuStore = useMenuStore()
+
+function handleTopMenuChange(val: RouteRecordName) {
+  console.log(menuStore.topActiveName)
+  if (val === menuStore.topActiveName) return
+  menuStore.topActiveNameChangeAction(val)
+}
 </script>
 
 <style scoped></style>
