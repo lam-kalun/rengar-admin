@@ -8,7 +8,7 @@
     style="width: 80%"
   >
     <NDrawerContent title="系统菜单" :native-scrollbar="false" closable>
-      <AppMenu :data="menuStore.menuRoutes" @change="handleMenuChange" />
+      <AppMenu v-model:active="menuStore.activeMenu" :data="menuStore.menuRoutes" @change="handleMenuChange" />
     </NDrawerContent>
   </NDrawer>
 </template>

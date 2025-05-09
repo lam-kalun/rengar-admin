@@ -16,6 +16,7 @@
       }"
     >
       <AppMenu
+        v-model:active="menuStore.activeMenu"
         :data="showAsideMode ? menuStore.menuRoutes : menuStore.subMenuRoutes"
         :collapsed="config.asideCollapse"
       />

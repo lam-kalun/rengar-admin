@@ -5,13 +5,18 @@
     <AsideControl v-if="showAsideControl" />
     <div class="min-w-0 flex-1">
       <AppBreadcrumb v-if="showAppBreadcrumb" />
-      <AppMenu v-if="showHeaderMenu" mode="horizontal" :data="menuStore.menuRoutes" />
+      <AppMenu
+        v-if="showHeaderMenu"
+        mode="horizontal"
+        :data="menuStore.menuRoutes"
+        v-model:active="menuStore.activeMenu"
+      />
       <AppMenu
         v-if="showHeaderTopMenu"
         mode="horizontal"
         :data="menuStore.menuRoutes"
-        :is-top-menu="true"
-        @change="handleTopMenuChange"
+        children-field="list"
+        v-model:active="menuStore.topActiveName"
       />
     </div>
     <ToolBtn />
@@ -33,12 +38,6 @@ const { showAppBreadcrumb, showHeaderLogo, showAsideControl, isMobile, showHeade
   storeToRefs(appStore)
 
 const menuStore = useMenuStore()
-
-function handleTopMenuChange(val: RouteRecordName) {
-  console.log(menuStore.topActiveName)
-  if (val === menuStore.topActiveName) return
-  menuStore.topActiveNameChangeAction(val)
-}
 </script>
 
 <style scoped></style>

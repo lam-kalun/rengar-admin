@@ -6,6 +6,7 @@ import type { RouteRecordRaw } from 'vue-router'
 export const useMenuStore = defineStore('menu', () => {
   const authStore = useAuthStore()
   const menuRoutes = ref<RouteRecordRaw[]>([])
+  const activeMenu = ref<RouteRecordName>()
   function sortMenus(menus: RouteRecordRaw[]): RouteRecordRaw[] {
     // 对当前层级的菜单进行排序
     const sortedMenus = menus.sort((a, b) => {
@@ -51,10 +52,20 @@ export const useMenuStore = defineStore('menu', () => {
     return menu.children || []
   })
 
+  const router = useRouter()
+  watch(
+    () => router.currentRoute.value,
+    (val) => {
+      activeMenu.value = val.meta.activeMenu ?? val.name
+      topActiveName.value = val.matched[0]?.name as RouteRecordName
+    },
+  )
+
   return {
     menuRoutes,
     topActiveName,
     subMenuRoutes,
+    activeMenu,
     generateMenus,
     topActiveNameChangeAction,
   }

@@ -13,34 +13,25 @@
 </template>
 
 <script setup lang="tsx">
-import { useAppStore, useMenuStore } from '@/stores'
 import { type MenuOption } from 'naive-ui'
 import { RouterLink, type RouteRecordRaw } from 'vue-router'
 import SvgIcon from '@/components/SvgIcon/index.vue'
-
-const appStore = useAppStore()
-const menuStore = useMenuStore()
-
-const { showTopAsideMode } = storeToRefs(appStore)
-
-const childrenField = computed(() => {
-  return showTopAsideMode.value ? 'list' : 'children'
-})
 
 const emit = defineEmits<{
   change: [val: RouteRecordName]
 }>()
 
 const {
+  childrenField = 'children',
   mode = 'vertical',
   data,
-  isTopMenu,
   collapsed,
 } = defineProps<{
   mode?: 'horizontal' | 'vertical'
   data: RouteRecordRaw[]
   isTopMenu?: boolean
   collapsed?: boolean
+  childrenField?: string
 }>()
 
 const menus = computed(() => {
@@ -88,38 +79,7 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
   })
 }
 
-const value = ref<RouteRecordName>()
-const route = useRoute()
-const router = useRouter()
-watch(
-  () => router.currentRoute.value,
-  (val) => {
-    if (!showTopAsideMode.value || !isTopMenu) {
-      value.value = val.meta.activeMenu || val.name
-      return
-    }
-    const name = route.matched[0]?.name as RouteRecordName
-
-    if (name === menuStore.topActiveName) return
-    value.value = name
-  },
-  {
-    immediate: true,
-  },
-)
-
-watch(
-  value,
-  (val) => {
-    if (!isTopMenu || !showTopAsideMode) return
-    if (!data.some((item) => item.name === val)) return
-    if (val === menuStore.topActiveName) return
-    menuStore.topActiveNameChangeAction(val as RouteRecordName)
-  },
-  {
-    immediate: true,
-  },
-)
+const value = defineModel<RouteRecordName>('active')
 
 function handleValueChange(val: RouteRecordName) {
   emit('change', val)
