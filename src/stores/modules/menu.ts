@@ -40,11 +40,6 @@ export const useMenuStore = defineStore('menu', () => {
   }
 
   const topActiveName = ref<RouteRecordName>()
-
-  function topActiveNameChangeAction(name: RouteRecordName) {
-    topActiveName.value = name
-  }
-
   const subMenuRoutes = computed(() => {
     if (!topActiveName.value) return []
     const menu = menuRoutes.value.find((menu) => menu.name === topActiveName.value)
@@ -67,6 +62,5 @@ export const useMenuStore = defineStore('menu', () => {
     subMenuRoutes,
     activeMenu,
     generateMenus,
-    topActiveNameChangeAction,
   }
 })

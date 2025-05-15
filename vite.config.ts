@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
     base: viteEnv.VITE_BASE_URL, // 确保 base 配置正确
     server: {
       port: Number(viteEnv.VITE_APP_PORT),
+      host: true,
     },
 
     plugins: setupVitePlugins(),
