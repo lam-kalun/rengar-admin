@@ -34,6 +34,8 @@ const {
   childrenField?: string
 }>()
 
+const value = defineModel<RouteRecordName>('active')
+
 const menus = computed(() => {
   return generateMenus(data)
 })
@@ -78,8 +80,6 @@ function generateMenus(routes: RouteRecordRaw[]): MenuOption[] {
     return menuOption
   })
 }
-
-const value = defineModel<RouteRecordName>('active')
 
 function handleValueChange(val: RouteRecordName) {
   emit('change', val)

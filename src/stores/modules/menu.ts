@@ -48,6 +48,7 @@ export const useMenuStore = defineStore('menu', () => {
   })
 
   const router = useRouter()
+
   watch(
     () => router.currentRoute.value,
     (val) => {

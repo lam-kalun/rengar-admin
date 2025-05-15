@@ -1,9 +1,20 @@
 import { traverseRoutes } from '@/router/utils'
 import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
+import { useTabStore } from './tab'
 export const useKeepAliveStore = defineStore('keepAlive', () => {
   const authStore = useAuthStore()
-  const keepAliveList = ref<RouteRecordName[]>([])
+  const globalKeepAliveList = ref<RouteRecordName[]>([])
+
+  const tabStore = useTabStore()
+
+  const keepAliveList = computed(() => {
+    return globalKeepAliveList.value.filter((item) => {
+      return tabStore.tabsList.some((tab) => {
+        return tab.name === item
+      })
+    })
+  })
   function initKeepAliveData() {
     const roleMap = authStore.roleMap
     const list: RouteRecordName[] = []
@@ -15,7 +26,7 @@ export const useKeepAliveStore = defineStore('keepAlive', () => {
       if (!route.meta?.keepAlive) return
       list.push(route.name as RouteRecordName)
     })
-    keepAliveList.value = list
+    globalKeepAliveList.value = list
   }
 
   return {
