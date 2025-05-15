@@ -1,6 +1,6 @@
 .theme {
   background-color: var(--n-color);
-  color: var(--n-text);
+  color: var(--n-text-color);
   transition:
     color 0.3s var(--n-bezier),
     background-color 0.3s var(--n-bezier),
