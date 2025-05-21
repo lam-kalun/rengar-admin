@@ -111,16 +111,7 @@
 
 <script setup lang="tsx">
 import { menuTreeApi, menuEditApi, menuDeleteApi, buttonListApi, buttonDeleteApi } from '@/api/setting/menu'
-import {
-  NButton,
-  NSpace,
-  type TreeOption,
-  NText,
-  type FormRules,
-  type FormInst,
-  type DataTableColumns,
-  NTag,
-} from 'naive-ui'
+import { type TreeOption, type FormRules, type FormInst, type DataTableColumns } from 'naive-ui'
 import { withModifiers } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import { to } from 'await-to-js'
@@ -146,17 +137,17 @@ getMenuTree()
 
 function renderSuffix(info: { option: TreeOption; checked: boolean; selected: boolean }) {
   return (
-    <NSpace align="center">
-      <NText class="text-sm" type="primary">
+    <n-space align="center">
+      <n-text class="text-sm" type="primary">
         {info.option.code}
-      </NText>
+      </n-text>
       <div
         class="i-tabler:copy text-base text-primary"
         onClick={withModifiers(() => {
           handleCopy(info.option.code as string)
         }, ['stop'])}
       ></div>
-    </NSpace>
+    </n-space>
   )
 }
 
@@ -249,17 +240,17 @@ const columns: DataTableColumns<Api.Setting.Button> = [
     key: 'code',
     render(row) {
       return (
-        <NSpace align="center">
-          <NText class="text-sm" type="info">
+        <n-space align="center">
+          <n-text class="text-sm" type="info">
             {row.code}
-          </NText>
+          </n-text>
           <div
             class="i-tabler:copy cursor-pointer text-base text-primary"
             onClick={withModifiers(() => {
               handleCopy(row.code)
             }, ['stop'])}
           ></div>
-        </NSpace>
+        </n-space>
       )
     },
   },
@@ -271,7 +262,7 @@ const columns: DataTableColumns<Api.Setting.Button> = [
     title: '状态',
     key: 'status',
     render(row) {
-      return <NTag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</NTag>
+      return <n-tag type={row.status === 1 ? 'success' : 'error'}>{row.status === 1 ? '启用' : '禁用'}</n-tag>
     },
   },
   {
@@ -280,14 +271,14 @@ const columns: DataTableColumns<Api.Setting.Button> = [
     width: 120,
     render(row) {
       return (
-        <NSpace>
-          <NButton type="info" size="small" text onClick={() => handleButtonEdit(row)}>
+        <n-space>
+          <n-button type="info" size="small" text onClick={() => handleButtonEdit(row)}>
             编辑
-          </NButton>
-          <NButton type="error" size="small" text onClick={() => handleButtonDelete(row)}>
+          </n-button>
+          <n-button type="error" size="small" text onClick={() => handleButtonDelete(row)}>
             删除
-          </NButton>
-        </NSpace>
+          </n-button>
+        </n-space>
       )
     },
   },
