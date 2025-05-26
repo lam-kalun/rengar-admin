@@ -1,7 +1,7 @@
 import { traverseRoutes } from '@/router/utils'
 import { routes } from '@/router/routes'
 import { useAuthStore } from './auth'
-import { cloneDeep, uniqBy } from 'es-toolkit'
+import { cloneDeep } from 'es-toolkit'
 import { useRouterHook } from '@/hooks/router'
 
 export const useTabStore = defineStore(
@@ -61,34 +61,33 @@ export const useTabStore = defineStore(
     }
 
     function closeOtherTabsAction(tab: App.Tab) {
-      tabsList.value = uniqBy([...fixedTabList, tab], (item: App.Tab) => item.name)
+      tabsList.value = tabsList.value.filter((item) => item.fixedInTab || item.name === tab.name)
       router.replace({ name: tab.name })
     }
     function closeLeftTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.name === tab.name)
-      const avtiveIndex = tabsList.value.findIndex((item) => item.name === activeRouteName.value)
+      const activeIndex = tabsList.value.findIndex((item) => item.name === activeRouteName.value)
       if (index === -1) return
-      tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(index)], (item: App.Tab) => item.name)
-      if (index > avtiveIndex) {
+      tabsList.value = tabsList.value.filter((item, i) => item.fixedInTab || i >= index)
+      if (index > activeIndex) {
         router.replace({ name: tab.name })
       }
     }
     function closeRightTabsAction(tab: App.Tab) {
       const index = tabsList.value.findIndex((item) => item.name === tab.name)
-      const avtiveIndex = tabsList.value.findIndex((item) => item.name === activeRouteName.value)
+      const activeIndex = tabsList.value.findIndex((item) => item.name === activeRouteName.value)
       if (index === -1) return
-      tabsList.value = uniqBy([...fixedTabList, ...tabsList.value.slice(0, index + 1)], (item: App.Tab) => item.name)
-      if (index < avtiveIndex) {
+      tabsList.value = tabsList.value.filter((item, i) => item.fixedInTab || i <= index)
+      if (index < activeIndex) {
         router.replace({ name: tab.name })
       }
     }
     function closeAllTabsAction() {
-      tabsList.value = cloneDeep(fixedTabList)
+      tabsList.value = fixedTabList
       routerReplaceToHome()
     }
 
     function initTabs() {
-      if (tabsList.value.length) return
       const roleMap = authStore.roleMap
       const list: App.Tab[] = []
       traverseRoutes(routes, (route) => {
@@ -106,8 +105,9 @@ export const useTabStore = defineStore(
           fixedInTab: true,
         })
       })
-      tabsList.value = cloneDeep(list)
       fixedTabList = cloneDeep(list)
+      if (tabsList.value.length) return
+      tabsList.value = cloneDeep(list)
     }
 
     return {
