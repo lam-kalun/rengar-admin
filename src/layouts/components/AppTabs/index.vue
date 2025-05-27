@@ -2,38 +2,53 @@
   <div class="h-full flex items-center gap-3">
     <div class="min-w-0 flex-1">
       <NScrollbar x-scrollable>
-        <nav class="h-full flex px-4 pb-0 pt-2 text-sm">
-          <NDropdown
-            v-for="(item, index) in tabsList"
-            :key="item.name"
-            trigger="manual"
-            :options="renderOptions(item, index)"
-            :show="dropdownVisible[item.name]"
-            :on-clickoutside="handleCloseDropdown"
-            @select="(key) => handleSelect(key, item)"
+        <VueDraggable v-model="tabsList" target=".sort-target" handle=".handle">
+          <TransitionGroup
+            type="transition"
+            tag="div"
+            name="fade"
+            class="sort-target h-full flex select-none gap-4 px-4 pt-2 text-sm"
           >
             <div
-              :ref="(el) => setItemRef(el as HTMLElement, item.name)"
-              class="tab-item flex items-center gap-2"
+              v-for="(item, index) in tabsList"
+              :key="item.name"
+              class="tab-item px-3 py-1.5"
               :class="[
-                item.name === activeRouteName
-                  ? 'text-primary dark:text-white bg-primary-100 dark:bg-primary-700'
-                  : 'hover:bg-zinc-100 dark:hover:bg-zinc-700',
+                item.name === activeRouteName ? 'text-primary dark:text-white bg-primary-100 dark:bg-primary-700' : '',
               ]"
+              :ref="(el) => setItemRef(el as HTMLElement, item.name)"
               @click="handleJump(item.name)"
               @contextmenu.prevent="handleRightClick(item.name)"
             >
-              <SvgIcon v-if="item.icon || item.localIcon" :icon="item.icon" :local-icon="item.localIcon" />
-              <SvgIcon v-else icon="ic:baseline-menu" />
-              <div class="w-max-[60px] overflow-hidden whitespace-nowrap">{{ item.title }}</div>
-              <div
-                v-if="!item.fixedInTab"
-                class="i-material-symbols:close-rounded hover:i-material-symbols:cancel-rounded cursor-pointer text-lg"
-                @click.stop="tabStore.removeTabsAction(item)"
-              ></div>
+              <NDropdown
+                trigger="manual"
+                :options="renderOptions(item, index)"
+                :show="dropdownVisible[item.name]"
+                :on-clickoutside="handleCloseDropdown"
+                @select="(key) => handleSelect(key, item)"
+              >
+                <div
+                  class="flex items-center gap-2 rounded-lg px-3 py-1"
+                  :class="[item.name === activeRouteName ? '' : 'hover:bg-zinc-100 dark:hover:bg-zinc-700']"
+                >
+                  <SvgIcon
+                    class="handle cursor-move"
+                    v-if="item.icon || item.localIcon"
+                    :icon="item.icon"
+                    :local-icon="item.localIcon"
+                  />
+                  <SvgIcon class="handle cursor-move" v-else icon="ic:baseline-menu" />
+                  <div class="w-max-[60px] overflow-hidden whitespace-nowrap">{{ item.title }}</div>
+                  <div
+                    v-if="!item.fixedInTab"
+                    class="i-material-symbols:close-rounded hover:i-material-symbols:cancel-rounded cursor-pointer text-lg"
+                    @click.stop="tabStore.removeTabsAction(item)"
+                  ></div>
+                </div>
+              </NDropdown>
             </div>
-          </NDropdown>
-        </nav>
+          </TransitionGroup>
+        </VueDraggable>
       </NScrollbar>
     </div>
 
@@ -69,6 +84,7 @@
 import { useTabStore, useAppStore } from '@/stores'
 import { useWindowSize, useDebounceFn, useFullscreen } from '@vueuse/core'
 import { ref, reactive, watch, nextTick } from 'vue'
+import { VueDraggable } from 'vue-draggable-plus'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 
 import type { DropdownOption } from 'naive-ui'
@@ -185,8 +201,8 @@ const { isFullscreen, toggle } = useFullscreen(layoutContentRef)
 </script>
 <style scoped>
 .tab-item {
-  padding: 8px 24px;
-  margin: 0 -12px;
+  margin: 0 -16px;
+  overflow: hidden;
   cursor: pointer;
   -webkit-mask-image:
     url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M100 100C44.772 100 0 55.228 0 0v100h100z' fill='%23F8EAE7'/%3E%3C/svg%3E"),
@@ -204,5 +220,21 @@ const { isFullscreen, toggle } = useFullscreen(layoutContentRef)
 }
 .tab-item.active {
   background: var(--color-primary-100);
+}
+
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleX(0.1);
+}
+
+.fade-leave-active {
+  position: absolute;
 }
 </style>
