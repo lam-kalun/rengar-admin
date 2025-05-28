@@ -1,6 +1,6 @@
 // vite-plugin-git-version.ts
 import { writeFileSync } from 'fs'
-import type { PluginOption } from 'vite'
+import type { PluginOption, ResolvedConfig } from 'vite'
 
 export interface GitVersionPluginOptions {
   fileName?: string
@@ -17,10 +17,16 @@ export function timestampVersionPlugin(options?: GitVersionPluginOptions): Plugi
     useShortTimestamp = false,
   } = options || {}
 
+  let viteConfig: ResolvedConfig | null = null
+
   return {
     name: 'vite-plugin-git-version',
     apply: 'build',
     enforce: 'post',
+
+    configResolved(resolvedConfig) {
+      viteConfig = resolvedConfig
+    },
     async closeBundle() {
       try {
         // 1. 生成版本信息
@@ -33,7 +39,7 @@ export function timestampVersionPlugin(options?: GitVersionPluginOptions): Plugi
           versionInfo.buildTimestamp = timestamp
         }
 
-        const outputPath = `${process.cwd()}/public/${fileName}`
+        const outputPath = `${process.cwd()}/${viteConfig?.build.outDir}/${fileName}`
         writeFileSync(outputPath, JSON.stringify(versionInfo, null, 2))
         console.log(`Version file generated: ${outputPath}`)
       } catch (error) {
