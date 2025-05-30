@@ -19,6 +19,7 @@ type RouteRecordName =
   | 'home'
   | 'login'
   | 'setting'
+  | 'setting-log'
   | 'setting-menu'
   | 'setting-role'
   | 'setting-role-config'

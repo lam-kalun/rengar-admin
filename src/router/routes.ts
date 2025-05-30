@@ -175,6 +175,15 @@ export const routes: RouteRecordRaw[] = [
     },
     children: [
       {
+        name: 'setting-log',
+        path: 'log',
+        component: () => import('@/views/setting/log/index.vue'),
+        meta: {
+          title: '日志管理',
+          order: 4,
+        },
+      },
+      {
         name: 'setting-menu',
         path: 'menu',
         component: () => import('@/views/setting/menu/index.vue'),
@@ -192,6 +201,7 @@ export const routes: RouteRecordRaw[] = [
           title: '角色管理',
           roles: ['menu003'],
           order: 2,
+          keepAlive: true,
         },
         children: [
           {
@@ -214,6 +224,7 @@ export const routes: RouteRecordRaw[] = [
               roles: ['menu005'],
               hideInMenu: true,
               activeMenu: 'setting-role',
+              keepAlive: true,
             },
           },
         ],

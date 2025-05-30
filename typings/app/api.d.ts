@@ -85,5 +85,8 @@ declare namespace Api {
       newPassword: string
       confirmPassword: string
     }
+    interface LogInfo {
+      tabList: App.Tab[]
+    }
   }
 }
