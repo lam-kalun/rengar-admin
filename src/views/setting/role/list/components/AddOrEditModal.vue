@@ -56,7 +56,7 @@ const rules: FormRules = {
 
 function handleOpen() {
   if (record) {
-    formData.value = record
+    formData.value = reactive({ ...record })
   }
 }
 

@@ -81,7 +81,7 @@ async function getRoleList() {
 function handleOpen() {
   getRoleList()
   if (record) {
-    formData.value = record
+    formData.value = reactive({ ...record })
   }
 }
 
