@@ -27,18 +27,12 @@ jobs:
         run: |
           pnpm install
           pnpm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: build
-    
-  # main-deploy:
-  #   name: 部署工作
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Deploy
-  #       uses: JamesIves/github-pages-deploy-action@v4
-  #       with:
-  #         branch: gh-pages
-  #         folder: build
