@@ -6,7 +6,9 @@ on:
 
 # 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   main-build:
@@ -31,8 +33,15 @@ jobs:
           pnpm install
           pnpm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: dist
+  main-deploy:
+    name: 部署工作
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: main-build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
