@@ -1,0 +1,1 @@
+import{d as o}from"./main-sIgzr7l1.js";import{k as s,e as n,W as r,a2 as c,j as i,a5 as _,N as p,Y as m}from"./vue-DuawIF-O.js";import{J as f}from"./naive-ui-CQ2AL4ly.js";const k=s({name:"setting-log",__name:"index",setup(l){const t=o(),e=n({tabList:t.tabsList});return(u,d)=>{const a=f;return m(),r(a,{title:"本地日志"},{default:c(()=>[i(_(p(e)),1)]),_:1})}}});export{k as default};
